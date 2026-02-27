@@ -1,0 +1,15 @@
+# Never commit local state or provider binaries
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfstate.*.backup
+.terraform.lock.hcl
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# tfvars may contain sensitive values — commit only the .example versions
+# (Our tfvars only contain project IDs + region so they are safe to commit,
+#  but if you ever add secrets here, add a *.tfvars.secret pattern)

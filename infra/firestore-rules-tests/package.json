@@ -1,0 +1,13 @@
+{
+    "name": "firestore-rules-tests",
+    "version": "1.0.0",
+    "description": "Tests for Firestore rules",
+    "scripts": {
+        "test": "mocha test/*.test.js"
+    },
+    "dependencies": {
+        "@firebase/rules-unit-testing": "^3.0.4",
+        "firebase": "^10.12.0",
+        "mocha": "^10.4.0"
+    }
+}

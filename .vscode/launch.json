@@ -1,0 +1,27 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "neon_voyager (macOS)",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "macos"
+        },
+        {
+            "name": "neon_voyager (Chrome)",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "chrome"
+        },
+        {
+            "name": "neon_voyager (iOS)",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "neon_voyager (Android)",
+            "request": "launch",
+            "type": "dart"
+        }
+    ]
+}

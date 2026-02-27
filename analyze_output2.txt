@@ -1,0 +1,142 @@
+Analyzing imdb...                                               
+
+  error • Undefined name 'authStateProvider' • lib/config/providers/watchlist_providers.dart:12:26 • undefined_identifier
+   info • Statements in an if should be enclosed in a block • lib/data/models/media.dart:239:11 • curly_braces_in_flow_control_structures
+   info • Statements in an if should be enclosed in a block • lib/data/models/media.dart:241:11 • curly_braces_in_flow_control_structures
+   info • Statements in an if should be enclosed in a block • lib/data/models/media.dart:243:11 • curly_braces_in_flow_control_structures
+   info • The imported package 'http' isn't a dependency of the importing package • lib/data/services/gemini_service.dart:1:8 • depend_on_referenced_packages
+   info • The imported package 'http' isn't a dependency of the importing package • lib/data/services/omdb_service.dart:2:8 • depend_on_referenced_packages
+   info • Unnecessary use of multiple underscores • lib/ui/screens/detail_screen.dart:390:37 • unnecessary_underscores
+   info • Don't invoke 'print' in production code • lib/ui/screens/search_screen.dart:55:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/ui/screens/search_screen.dart:58:11 • avoid_print
+   info • Don't invoke 'print' in production code • lib/ui/screens/search_screen.dart:63:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/ui/screens/search_screen.dart:81:9 • avoid_print
+   info • Don't invoke 'print' in production code • lib/ui/screens/search_screen.dart:84:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/ui/screens/search_screen.dart:85:7 • avoid_print
+   info • Unnecessary use of multiple underscores • lib/ui/screens/watchlist_screen.dart:155:43 • unnecessary_underscores
+   info • Unnecessary use of multiple underscores • lib/ui/widgets/curated_collections_section.dart:52:35 • unnecessary_underscores
+   info • Unnecessary use of multiple underscores • lib/ui/widgets/hero_carousel.dart:294:51 • unnecessary_underscores
+   info • Unnecessary use of multiple underscores • lib/ui/widgets/rt_scores_badge.dart:79:18 • unnecessary_underscores
+   info • Statements in an if should be enclosed in a block • lib/ui/widgets/tonights_pick_sheet.dart:126:7 • curly_braces_in_flow_control_structures
+   info • Statements in an if should be enclosed in a block • lib/ui/widgets/tonights_pick_sheet.dart:128:7 • curly_braces_in_flow_control_structures
+   info • Statements in an if should be enclosed in a block • lib/ui/widgets/tonights_pick_sheet.dart:133:9 • curly_braces_in_flow_control_structures
+   info • Statements in an if should be enclosed in a block • lib/ui/widgets/tonights_pick_sheet.dart:135:9 • curly_braces_in_flow_control_structures
+   info • The import of 'dart:ui' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/foundation.dart' • lib/utils/crashlytics_service.dart:1:8 • unnecessary_import
+  error • 1 positional argument expected by 'DismissedRepository.new', but 0 found • test/data/repositories/dismissed_repository_test.dart:13:32 • not_enough_positional_arguments
+  error • The getter 'length' isn't defined for the type 'Future<Set<String>>' • test/data/repositories/dismissed_repository_test.dart:53:20 • undefined_getter
+  error • The getter 'length' isn't defined for the type 'Future<Set<String>>' • test/data/repositories/dismissed_repository_test.dart:62:20 • undefined_getter
+  error • The getter 'length' isn't defined for the type 'Future<Set<String>>' • test/data/repositories/dismissed_repository_test.dart:86:39 • undefined_getter
+  error • 1 positional argument expected by 'UserPreferencesRepository.new', but 0 found • test/data/repositories/user_preferences_repository_test.dart:15:38 • not_enough_positional_arguments
+  error • 1 positional argument expected by 'UserPreferencesRepository.new', but 0 found • test/data/repositories/user_preferences_repository_test.dart:30:54 • not_enough_positional_arguments
+  error • The getter 'countryCode' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:39:22 • undefined_getter
+  error • The getter 'countryName' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:40:22 • undefined_getter
+  error • The getter 'countryCode' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:58:26 • undefined_getter
+  error • The getter 'countryName' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:59:26 • undefined_getter
+  error • The getter 'subscribedServiceIds' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:60:26 • undefined_getter
+  error • The getter 'minimumRating' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:61:26 • undefined_getter
+  error • The getter 'maxAgeRating' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:62:26 • undefined_getter
+  error • The getter 'favoriteGenreIds' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:63:26 • undefined_getter
+  error • The getter 'countryCode' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:85:22 • undefined_getter
+  error • The getter 'countryName' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:86:22 • undefined_getter
+  error • The getter 'countryCode' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:103:24 • undefined_getter
+  error • The getter 'subscribedServiceIds' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:106:19 • undefined_getter
+  error • The getter 'minimumRating' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:109:24 • undefined_getter
+  error • The getter 'subscribedServiceIds' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:121:22 • undefined_getter
+  error • The getter 'subscribedServiceIds' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:133:31 • undefined_getter
+  error • The getter 'subscribedServiceIds' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:153:22 • undefined_getter
+  error • The getter 'subscribedServiceIds' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:167:22 • undefined_getter
+  error • The getter 'minimumRating' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:178:22 • undefined_getter
+  error • The getter 'maxAgeRating' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:189:22 • undefined_getter
+  error • The getter 'maxAgeRating' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:204:22 • undefined_getter
+  error • The getter 'maxAgeRating' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:220:22 • undefined_getter
+  error • The getter 'favoriteGenreIds' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:231:22 • undefined_getter
+  error • The getter 'favoriteGenreIds' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:243:31 • undefined_getter
+  error • The getter 'favoriteGenreIds' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:262:22 • undefined_getter
+  error • The getter 'countryCode' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:279:22 • undefined_getter
+  error • The getter 'countryName' isn't defined for the type 'Future<UserPreferences>' • test/data/repositories/user_preferences_repository_test.dart:280:22 • undefined_getter
+  error • 1 positional argument expected by 'WatchHistoryRepository.new', but 0 found • test/data/repositories/watch_history_repository_test.dart:15:35 • not_enough_positional_arguments
+  error • 1 positional argument expected by 'WatchHistoryRepository.new', but 0 found • test/data/repositories/watch_history_repository_test.dart:66:51 • not_enough_positional_arguments
+  error • The getter 'totalCount' isn't defined for the type 'WatchHistoryRepository' • test/data/repositories/watch_history_repository_test.dart:67:33 • undefined_getter
+warning • The '!' will have no effect because the receiver can't be null • test/data/repositories/watch_history_repository_test.dart:78:25 • unnecessary_non_null_assertion
+  error • The getter 'mediaId' isn't defined for the type 'Future<WatchHistoryEntry?>' • test/data/repositories/watch_history_repository_test.dart:78:27 • undefined_getter
+  error • The getter 'title' isn't defined for the type 'Future<WatchHistoryEntry?>' • test/data/repositories/watch_history_repository_test.dart:79:26 • undefined_getter
+  error • The getter 'userRating' isn't defined for the type 'Future<WatchHistoryEntry?>' • test/data/repositories/watch_history_repository_test.dart:80:26 • undefined_getter
+  error • The getter 'genreIds' isn't defined for the type 'Future<WatchHistoryEntry?>' • test/data/repositories/watch_history_repository_test.dart:81:26 • undefined_getter
+warning • The '!' will have no effect because the receiver can't be null • test/data/repositories/watch_history_repository_test.dart:111:25 • unnecessary_non_null_assertion
+  error • The getter 'title' isn't defined for the type 'Future<WatchHistoryEntry?>' • test/data/repositories/watch_history_repository_test.dart:111:27 • undefined_getter
+warning • The '!' will have no effect because the receiver can't be null • test/data/repositories/watch_history_repository_test.dart:131:25 • unnecessary_non_null_assertion
+  error • The getter 'userRating' isn't defined for the type 'Future<WatchHistoryEntry?>' • test/data/repositories/watch_history_repository_test.dart:131:27 • undefined_getter
+  error • The getter 'totalCount' isn't defined for the type 'WatchHistoryRepository' • test/data/repositories/watch_history_repository_test.dart:148:21 • undefined_getter
+  error • The getter 'length' isn't defined for the type 'Future<List<WatchHistoryEntry>>' • test/data/repositories/watch_history_repository_test.dart:181:24 • undefined_getter
+  error • The operator '[]' isn't defined for the type 'Future<List<WatchHistoryEntry>>' • test/data/repositories/watch_history_repository_test.dart:182:23 • undefined_operator
+  error • The operator '[]' isn't defined for the type 'Future<List<WatchHistoryEntry>>' • test/data/repositories/watch_history_repository_test.dart:183:23 • undefined_operator
+  error • The operator '[]' isn't defined for the type 'Future<List<WatchHistoryEntry>>' • test/data/repositories/watch_history_repository_test.dart:184:23 • undefined_operator
+  error • The method 'getRecentlyWatched' isn't defined for the type 'WatchHistoryRepository' • test/data/repositories/watch_history_repository_test.dart:194:29 • undefined_method
+  error • The method 'getRecentlyWatched' isn't defined for the type 'WatchHistoryRepository' • test/data/repositories/watch_history_repository_test.dart:203:29 • undefined_method
+  error • The method 'getEntriesByType' isn't defined for the type 'WatchHistoryRepository' • test/data/repositories/watch_history_repository_test.dart:214:29 • undefined_method
+  error • The method 'getEntriesByType' isn't defined for the type 'WatchHistoryRepository' • test/data/repositories/watch_history_repository_test.dart:223:30 • undefined_method
+  error • The method 'getRatedEntries' isn't defined for the type 'WatchHistoryRepository' • test/data/repositories/watch_history_repository_test.dart:234:28 • undefined_method
+  error • The method 'getHighlyRated' isn't defined for the type 'WatchHistoryRepository' • test/data/repositories/watch_history_repository_test.dart:246:29 • undefined_method
+  error • The method 'getHighlyRated' isn't defined for the type 'WatchHistoryRepository' • test/data/repositories/watch_history_repository_test.dart:255:29 • undefined_method
+  error • The method 'getGenreFrequency' isn't defined for the type 'WatchHistoryRepository' • test/data/repositories/watch_history_repository_test.dart:273:27 • undefined_method
+  error • The getter 'totalCount' isn't defined for the type 'WatchHistoryRepository' • test/data/repositories/watch_history_repository_test.dart:283:21 • undefined_getter
+  error • The getter 'totalCount' isn't defined for the type 'WatchHistoryRepository' • test/data/repositories/watch_history_repository_test.dart:289:21 • undefined_getter
+  error • The method 'getCountByType' isn't defined for the type 'WatchHistoryRepository' • test/data/repositories/watch_history_repository_test.dart:299:21 • undefined_method
+  error • The method 'getCountByType' isn't defined for the type 'WatchHistoryRepository' • test/data/repositories/watch_history_repository_test.dart:300:21 • undefined_method
+  error • The getter 'totalCount' isn't defined for the type 'WatchHistoryRepository' • test/data/repositories/watch_history_repository_test.dart:308:21 • undefined_getter
+  error • The getter 'totalCount' isn't defined for the type 'WatchHistoryRepository' • test/data/repositories/watch_history_repository_test.dart:312:21 • undefined_getter
+  error • 1 positional argument expected by 'WatchlistRepository.new', but 0 found • test/data/repositories/watchlist_repository_test.dart:15:32 • not_enough_positional_arguments
+  error • 1 positional argument expected by 'WatchlistRepository.new', but 0 found • test/data/repositories/watchlist_repository_test.dart:58:48 • not_enough_positional_arguments
+  error • The getter 'totalCount' isn't defined for the type 'WatchlistRepository' • test/data/repositories/watchlist_repository_test.dart:59:33 • undefined_getter
+warning • The '!' will have no effect because the receiver can't be null • test/data/repositories/watchlist_repository_test.dart:70:25 • unnecessary_non_null_assertion
+  error • The getter 'mediaId' isn't defined for the type 'Future<WatchlistEntry?>' • test/data/repositories/watchlist_repository_test.dart:70:27 • undefined_getter
+  error • The getter 'title' isn't defined for the type 'Future<WatchlistEntry?>' • test/data/repositories/watchlist_repository_test.dart:71:26 • undefined_getter
+  error • The getter 'voteAverage' isn't defined for the type 'Future<WatchlistEntry?>' • test/data/repositories/watchlist_repository_test.dart:72:26 • undefined_getter
+  error • The getter 'genreIds' isn't defined for the type 'Future<WatchlistEntry?>' • test/data/repositories/watchlist_repository_test.dart:73:26 • undefined_getter
+warning • The '!' will have no effect because the receiver can't be null • test/data/repositories/watchlist_repository_test.dart:104:25 • unnecessary_non_null_assertion
+  error • The getter 'title' isn't defined for the type 'Future<WatchlistEntry?>' • test/data/repositories/watchlist_repository_test.dart:104:27 • undefined_getter
+warning • The '!' will have no effect because the receiver can't be null • test/data/repositories/watchlist_repository_test.dart:120:25 • unnecessary_non_null_assertion
+  error • The getter 'priority' isn't defined for the type 'Future<WatchlistEntry?>' • test/data/repositories/watchlist_repository_test.dart:120:27 • undefined_getter
+  error • The getter 'notes' isn't defined for the type 'Future<WatchlistEntry?>' • test/data/repositories/watchlist_repository_test.dart:121:26 • undefined_getter
+  error • The getter 'totalCount' isn't defined for the type 'WatchlistRepository' • test/data/repositories/watchlist_repository_test.dart:138:21 • undefined_getter
+  error • The getter 'length' isn't defined for the type 'Future<List<WatchlistEntry>>' • test/data/repositories/watchlist_repository_test.dart:171:24 • undefined_getter
+  error • The operator '[]' isn't defined for the type 'Future<List<WatchlistEntry>>' • test/data/repositories/watchlist_repository_test.dart:172:23 • undefined_operator
+  error • The operator '[]' isn't defined for the type 'Future<List<WatchlistEntry>>' • test/data/repositories/watchlist_repository_test.dart:173:23 • undefined_operator
+  error • The operator '[]' isn't defined for the type 'Future<List<WatchlistEntry>>' • test/data/repositories/watchlist_repository_test.dart:174:23 • undefined_operator
+  error • The getter 'totalCount' isn't defined for the type 'WatchlistRepository' • test/data/repositories/watchlist_repository_test.dart:180:21 • undefined_getter
+  error • The getter 'totalCount' isn't defined for the type 'WatchlistRepository' • test/data/repositories/watchlist_repository_test.dart:186:21 • undefined_getter
+  error • The getter 'totalCount' isn't defined for the type 'WatchlistRepository' • test/data/repositories/watchlist_repository_test.dart:194:21 • undefined_getter
+  error • The getter 'totalCount' isn't defined for the type 'WatchlistRepository' • test/data/repositories/watchlist_repository_test.dart:198:21 • undefined_getter
+warning • Unused import: 'package:google_sign_in/google_sign_in.dart' • test/data/services/auth_service_test.dart:5:8 • unused_import
+  error • 1 positional argument expected by 'WatchHistoryRepository.new', but 0 found • test/data/services/taste_profile_service_test.dart:45:35 • not_enough_positional_arguments
+  error • The argument type 'Future<String>' can't be assigned to the parameter type 'String'.  • test/data/services/taste_profile_service_test.dart:106:33 • argument_type_not_assignable
+  error • The argument type 'Future<String>' can't be assigned to the parameter type 'String'.  • test/data/services/taste_profile_service_test.dart:118:33 • argument_type_not_assignable
+  error • The argument type 'Future<String>' can't be assigned to the parameter type 'String'.  • test/data/services/taste_profile_service_test.dart:132:33 • argument_type_not_assignable
+  error • The getter 'totalCount' isn't defined for the type 'WatchHistoryRepository' • test/data/services/taste_profile_service_test.dart:148:21 • undefined_getter
+  error • The argument type 'Future<String>' can't be assigned to the parameter type 'String'.  • test/data/services/taste_profile_service_test.dart:151:39 • argument_type_not_assignable
+  error • The getter 'imported' isn't defined for the type 'Future<({int imported, int skipped})>' • test/data/services/taste_profile_service_test.dart:152:23 • undefined_getter
+  error • The getter 'skipped' isn't defined for the type 'Future<({int imported, int skipped})>' • test/data/services/taste_profile_service_test.dart:153:23 • undefined_getter
+  error • The getter 'totalCount' isn't defined for the type 'WatchHistoryRepository' • test/data/services/taste_profile_service_test.dart:154:21 • undefined_getter
+  error • The argument type 'Future<String>' can't be assigned to the parameter type 'String'.  • test/data/services/taste_profile_service_test.dart:162:39 • argument_type_not_assignable
+  error • The getter 'imported' isn't defined for the type 'Future<({int imported, int skipped})>' • test/data/services/taste_profile_service_test.dart:163:23 • undefined_getter
+  error • The getter 'skipped' isn't defined for the type 'Future<({int imported, int skipped})>' • test/data/services/taste_profile_service_test.dart:164:23 • undefined_getter
+  error • The argument type 'Future<String>' can't be assigned to the parameter type 'String'.  • test/data/services/taste_profile_service_test.dart:177:39 • argument_type_not_assignable
+  error • The getter 'imported' isn't defined for the type 'Future<({int imported, int skipped})>' • test/data/services/taste_profile_service_test.dart:178:23 • undefined_getter
+  error • The getter 'skipped' isn't defined for the type 'Future<({int imported, int skipped})>' • test/data/services/taste_profile_service_test.dart:179:23 • undefined_getter
+  error • The argument type 'Future<String>' can't be assigned to the parameter type 'String'.  • test/data/services/taste_profile_service_test.dart:188:41 • argument_type_not_assignable
+  error • The argument type 'List<dynamic>' can't be assigned to the parameter type 'Future<List<WatchHistoryEntry>>'.  • test/domain/recommendation_engine_test.dart:65:65 • argument_type_not_assignable
+  error • The argument type 'List<dynamic>' can't be assigned to the parameter type 'Future<List<WatchHistoryEntry>>'.  • test/domain/recommendation_engine_test.dart:75:65 • argument_type_not_assignable
+  error • The argument type 'List<WatchHistoryEntry>' can't be assigned to the parameter type 'Future<List<WatchHistoryEntry>>'.  • test/domain/recommendation_engine_test.dart:94:65 • argument_type_not_assignable
+  error • The argument type 'List<WatchHistoryEntry>' can't be assigned to the parameter type 'Future<List<WatchHistoryEntry>>'.  • test/domain/recommendation_engine_test.dart:130:65 • argument_type_not_assignable
+  error • The argument type 'List<dynamic>' can't be assigned to the parameter type 'Future<List<WatchHistoryEntry>>'.  • test/domain/recommendation_engine_test.dart:154:65 • argument_type_not_assignable
+  error • The argument type 'List<dynamic>' can't be assigned to the parameter type 'Future<List<WatchHistoryEntry>>'.  • test/domain/recommendation_engine_test.dart:177:65 • argument_type_not_assignable
+  error • The method 'getRecentlyWatched' isn't defined for the type 'MockWatchHistoryRepository' • test/domain/recommendation_engine_test.dart:191:34 • undefined_method
+  error • The method 'getRecentlyWatched' isn't defined for the type 'MockWatchHistoryRepository' • test/domain/recommendation_engine_test.dart:209:34 • undefined_method
+  error • The method 'getRecentlyWatched' isn't defined for the type 'MockWatchHistoryRepository' • test/domain/recommendation_engine_test.dart:232:34 • undefined_method
+  error • The argument type 'List<dynamic>' can't be assigned to the parameter type 'Future<List<WatchHistoryEntry>>'.  • test/domain/recommendation_engine_test.dart:243:65 • argument_type_not_assignable
+   info • 'hasFlag' is deprecated and shouldn't be used. Use flagsCollection instead. This feature was deprecated after v3.32.0-0.0.pre • test/ui/widgets/media_card_accessibility_test.dart:66:19 • deprecated_member_use
+   info • 'hasFlag' is deprecated and shouldn't be used. Use flagsCollection instead. This feature was deprecated after v3.32.0-0.0.pre • test/ui/widgets/media_card_accessibility_test.dart:127:24 • deprecated_member_use
+  error • Missing concrete implementation of 'getter class UserPreferencesRepository.userId' • test/ui/widgets/streaming_filter_bar_test.dart:184:7 • non_abstract_class_inherits_abstract_member
+  error • Class '_FakePrefsRepo' can't define field 'hasPreferences' and have method 'UserPreferencesRepository.hasPreferences' with the same name • test/ui/widgets/streaming_filter_bar_test.dart:193:12 • conflicting_field_and_method
+  error • '_FakePrefsRepo.getPreferences' ('UserPreferences Function()') isn't a valid override of 'UserPreferencesRepository.getPreferences' ('Future<UserPreferences> Function()') • test/ui/widgets/streaming_filter_bar_test.dart:196:19 • invalid_override
+

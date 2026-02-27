@@ -1,0 +1,485 @@
+{
+    "@@locale": "en",
+    "apiKeyMissingTitle": "API Key Missing",
+    "apiKeyMissingBody": "Please add your TMDB API key to the .env file:\n\nTMDB_API_KEY=your_key",
+    "apiKeyMissingFooter": "You can get a free API key at\nthemoviedb.org",
+    
+    "navHome": "Home",
+    "navSearch": "Search",
+    "navAi": "AI",
+    "navMyList": "My List",
+    "navMore": "More",
+    
+    "noInternetConnection": "No internet connection",
+    
+    "tabWatchlist": "Watchlist",
+    "tabHistory": "History",
+
+    "sectionTrending": "🔥 Trending Now",
+    "sectionUpcoming": "🆕 Coming Soon",
+    "sectionPopularMovies": "🎬 Popular Movies",
+    "sectionPopularTv": "📺 Popular TV",
+    "sectionTopRated": "⭐ Top Rated",
+    "sectionDiscover": "🎯 Discover",
+    "sectionContinueWatching": "▶️ Continue Watching",
+    "sectionWeeklyRecap": "📅 Weekly Recap",
+    "sectionMoodDiscovery": "🎭 Mood Discovery",
+
+    "actionAddToWatchlist": "Add to Watchlist",
+    "actionAddedToWatchlist": "{title} added to watchlist",
+    "@actionAddedToWatchlist": {
+        "placeholders": {
+            "title": {
+                "type": "String"
+            }
+        }
+    },
+    "actionMarkSeen": "Mark as Seen",
+    "actionFilter": "Filter",
+    "actionSettings": "Settings",
+
+    "errorLoadingTitle": "Could not load {title}",
+    "@errorLoadingTitle": {
+        "placeholders": {
+            "title": {
+                "type": "String"
+            }
+        }
+    },
+    "errorLoadingUpcoming": "Could not load upcoming items",
+
+    "recapTitle": "Weekly Recap",
+    "recapDays": "{count} days",
+    "@recapDays": {
+        "placeholders": {
+            "count": {
+                 "type": "int"
+            }
+        }
+    },
+    "recapWatched": "Watched",
+    "recapHours": "Hours",
+    "recapRating": "Ø Rating",
+    "recapTopGenre": "Top Genre",
+
+    "continueWatchingTitle": "▶️ Continue Watching",
+    "continueSeason": "Season {number}",
+    "@continueSeason": {
+        "placeholders": {
+            "number": {
+                "type": "int"
+            }
+        }
+    },
+    "continueEpisode": "Episode {number}",
+    "@continueEpisode": {
+         "placeholders": {
+            "number": {
+                "type": "int"
+            }
+        }
+    },
+    "continueSeasonEpisode": "S{season} E{episode}",
+    "@continueSeasonEpisode": {
+        "placeholders": {
+            "season": {
+                "type": "int"
+            },
+            "episode": {
+                "type": "int"
+            }
+        }
+    },
+    "continueInProgress": "In Progress",
+
+    "moodTitle": "🎭 What are you in the mood for?",
+    "moodNoResults": "No results for {mood}",
+    "@moodNoResults": {
+        "placeholders": {
+            "mood": {
+                "type": "String"
+            }
+        }
+    },
+
+    "upcomingToday": "Today!",
+    "upcomingTomorrow": "Tomorrow",
+    "upcomingInDays": "In {days} d",
+    "@upcomingInDays": {
+        "placeholders": {
+            "days": {
+                "type": "int"
+            }
+        }
+    },
+    
+    "mediaWatched": "Watched",
+    "filterStreaming": "Streaming Services",
+
+    "detailRatingUnknown": "Rating ?",
+    "detailAge": "AGE {age}",
+    "@detailAge": {
+        "placeholders": {
+            "age": {
+                "type": "int"
+            }
+        }
+    },
+    "detailWatchlistRemoved": "{title} removed from watchlist",
+    "@detailWatchlistRemoved": {
+        "placeholders": {
+            "title": {
+                "type": "String"
+            }
+        }
+    },
+    "detailWatchlistAdded": "{title} added to watchlist",
+    "@detailWatchlistAdded": {
+        "placeholders": {
+            "title": {
+                "type": "String"
+            }
+        }
+    },
+    "detailChangeRating": "Change Rating",
+    "detailMarkWatched": "Mark as Watched",
+    "detailRemoveHistoryTitle": "Remove from History?",
+    "detailRemoveHistoryContent": "Remove {title} from your watch history?",
+    "@detailRemoveHistoryContent": {
+        "placeholders": {
+            "title": {
+                "type": "String"
+            }
+        }
+    },
+    "detailCancel": "Cancel",
+    "detailRemove": "Remove",
+    "detailHistoryRemoved": "{title} removed from watch history",
+    "@detailHistoryRemoved": {
+        "placeholders": {
+            "title": {
+                "type": "String"
+            }
+        }
+    },
+    "detailMyRating": "My Rating",
+    "detailRateNow": "Rate Now",
+    "detailPlot": "Plot",
+    "detailGenres": "Genres",
+    "detailSimilarMovies": "Similar Movies",
+    "detailSimilarShows": "Similar Shows",
+    "detailSimilarContent": "Similar Content",
+    "detailRated": "{title} rated: {rating} ⭐",
+    "@detailRated": {
+        "placeholders": {
+            "title": {
+                "type": "String"
+            },
+            "rating": {
+                "type": "String"
+            }
+        }
+    },
+    "detailWatched": "{title} marked as watched: {rating} ⭐",
+    "@detailWatched": {
+        "placeholders": {
+            "title": {
+                "type": "String"
+            },
+            "rating": {
+                "type": "String"
+            }
+        }
+    },
+
+    "searchListening": "Listening...",
+    "searchHint": "Search movies and shows...",
+    "searchEmptyTitle": "Search for movies and shows",
+    "searchEmptySubtitle": "Type at least 2 characters",
+    "searchNoResultsTitle": "No results for \"{query}\"",
+    "@searchNoResultsTitle": {
+        "placeholders": {
+            "query": {
+                "type": "String"
+            }
+        }
+    },
+    "searchNoResultsSubtitle": "Try another search term",
+    "searchErrorTitle": "Search Error",
+    "searchRetry": "Retry",
+
+    "streamingAvailable": "Available on",
+    "streamingNotAvailable": "Not available in {country}",
+    "@streamingNotAvailable": {
+        "placeholders": {
+            "country": {
+                "type": "String"
+            }
+        }
+    },
+    "streamingError": "Error loading streaming data",
+    "streamingYourServices": "Your Services",
+    "streamingRentYours": "Rent (Your Services)",
+    "streamingBuyYours": "Buy (Your Services)",
+    "streamingMoreOptions": "More Options",
+    "streamingStreaming": "Streaming",
+    "streamingRent": "Rent",
+    "streamingBuy": "Buy",
+    "streamingShowLess": "Show less",
+    "streamingShowMore": "Show more",
+    "streamingPoweredBy": "Powered by JustWatch",
+    "streamingNotOnYours": "Not available on your services",
+    "streamingNoData": "No streaming data available",
+    "streamingOthers": "{count} others",
+    "@streamingOthers": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "streamingDisclaimer": "Streaming data provided by TMDB and may not be up to date.",
+    "streamingSubscription": "✓ Your Sub",
+
+    "settingsTitle": "Settings",
+    "settingsStreamingTitle": "My Streaming Services",
+    "settingsStreamingSubtitle": "Tap to toggle",
+    "settingsCountry": "Country",
+    "settingsReset": "Reset",
+    "settingsResetTitle": "Reset Settings",
+    "settingsResetSubtitle": "Reset all settings to default",
+    "settingsResetConfirm": "Reset?",
+    "settingsResetMessage": "All settings will be reset to default values.",
+    "settingsApi": "API Configuration",
+    "settingsApiInfo": "Movie data provided by TMDB.",
+    "settingsAbout": "About",
+    "settingsVersion": "Version 1.0.0",
+    "settingsDescription": "Smart recommendations based on your taste.",
+    "settingsRemoved": "{service} removed",
+    "@settingsRemoved": {
+        "placeholders": {
+            "service": {
+                "type": "String"
+            }
+        }
+    },
+    "settingsAdded": "{service} added",
+    "@settingsAdded": {
+        "placeholders": {
+            "service": {
+                "type": "String"
+            }
+        }
+    },
+    "settingsSelectCountry": "Select Country",
+    "settingsChangeCountry": "Tap to change",
+    "settingsCountryChanged": "Country changed to {country}",
+    "@settingsCountryChanged": {
+        "placeholders": {
+            "country": {
+                "type": "String"
+            }
+        }
+    },
+    "errorRetry": "Retry",
+    "errorGeneric": "Error: {error}",
+    "@errorGeneric": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+
+    "myListTitle": "My List",
+    "statMovies": "Movies",
+    "statSeries": "Series",
+    "statAvgRating": "Ø Rating",
+    "statRated": "Rated",
+    "sortDate": "Date",
+    "sortMyRating": "My Rating",
+    "sortImdbRating": "IMDB Rating",
+    "sortTitle": "Title",
+    "filterAll": "All",
+    "filterMovies": "Movies",
+    "filterSeries": "Series",
+    "filterRated": "Rated",
+    "emptyHistory": "Nothing watched yet",
+    "emptyHistorySubtitle": "Mark movies and shows as watched to see them here",
+    "emptyFilter": "No results for these filters",
+    "emptyFilterSubtitle": "Change filters to see more",
+    "deleteEntry": "Delete Entry?",
+    "deleteEntryMessage": "Remove {title} from your list?",
+    "@deleteEntryMessage": {
+        "placeholders": {
+            "title": {
+                "type": "String"
+            }
+        }
+    },
+    "deleteButton": "Delete",
+    "entryRemoved": "{title} removed",
+    "@entryRemoved": {
+        "placeholders": {
+            "title": {
+                "type": "String"
+            }
+        }
+    },
+    "entryRated": "{title} rated: {rating} ⭐",
+    "@entryRated": {
+        "placeholders": {
+            "title": {
+                "type": "String"
+            },
+            "rating": {
+                "type": "String"
+            }
+        }
+    },
+    "watchlistError": "Error loading watchlist",
+    "watchlistEmpty": "Watchlist empty",
+    "watchlistEmptySubtitle": "Tap the bookmark icon to save movies and shows here.",
+    "watchlistAddedAgo": "Added {ago}",
+    "@watchlistAddedAgo": {
+        "placeholders": {
+            "ago": {
+                "type": "String"
+            }
+        }
+    },
+
+    "timeAgoYears": "{count, plural, =1{1 year ago} other{{count} years ago}}",
+    "@timeAgoYears": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "timeAgoMonths": "{count, plural, =1{1 month ago} other{{count} months ago}}",
+    "@timeAgoMonths": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "timeAgoDays": "{count, plural, =1{1 day ago} other{{count} days ago}}",
+    "@timeAgoDays": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "timeAgoHours": "{count, plural, =1{1 hour ago} other{{count} hours ago}}",
+    "@timeAgoHours": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "timeAgoJustNow": "just now",
+
+    "mediaTypeMovie": "Movie",
+    "mediaTypeTv": "TV Series",
+
+    "priorityHigh": "High",
+    "priorityNormal": "Normal",
+    "priorityLow": "Low",
+
+    "semanticPosterOf": "Poster of {title}",
+    "@semanticPosterOf": {
+        "placeholders": {
+            "title": { "type": "String" }
+        }
+    },
+    "semanticBackdropOf": "Backdrop image of {title}",
+    "@semanticBackdropOf": {
+        "placeholders": {
+            "title": { "type": "String" }
+        }
+    },
+    "semanticMediaCard": "{title}, {type}, rated {rating}",
+    "@semanticMediaCard": {
+        "placeholders": {
+            "title": { "type": "String" },
+            "type": { "type": "String" },
+            "rating": { "type": "String" }
+        }
+    },
+    "semanticNavSelected": "{label}, selected",
+    "@semanticNavSelected": {
+        "placeholders": {
+            "label": { "type": "String" }
+        }
+    },
+    "semanticVoiceSearch": "Voice search",
+    "semanticVoiceSearchActive": "Voice search, listening",
+    "semanticFilterButton": "Filter results",
+    "semanticProviderLogo": "{provider} logo",
+    "@semanticProviderLogo": {
+        "placeholders": {
+            "provider": { "type": "String" }
+        }
+    },
+    "semanticRatingBadge": "Rating {rating} out of 10",
+    "@semanticRatingBadge": {
+        "placeholders": {
+            "rating": { "type": "String" }
+        }
+    },
+    "semanticWatchlistAdd": "Add {title} to watchlist",
+    "@semanticWatchlistAdd": {
+        "placeholders": {
+            "title": { "type": "String" }
+        }
+    },
+    "semanticWatchlistRemove": "Remove {title} from watchlist",
+    "@semanticWatchlistRemove": {
+        "placeholders": {
+            "title": { "type": "String" }
+        }
+    },
+    "semanticMarkWatched": "Mark {title} as watched",
+    "@semanticMarkWatched": {
+        "placeholders": {
+            "title": { "type": "String" }
+        }
+    },
+    "semanticChangeRating": "Change rating for {title}",
+    "@semanticChangeRating": {
+        "placeholders": {
+            "title": { "type": "String" }
+        }
+    },
+    "semanticDeleteFromHistory": "Delete {title} from history",
+    "@semanticDeleteFromHistory": {
+        "placeholders": {
+            "title": { "type": "String" }
+        }
+    },
+    "semanticTrendingCard": "Trending: {title}",
+    "@semanticTrendingCard": {
+        "placeholders": {
+            "title": { "type": "String" }
+        }
+    },
+    "semanticPageDot": "Page {number} of {total}",
+    "@semanticPageDot": {
+        "placeholders": {
+            "number": { "type": "int" },
+            "total": { "type": "int" }
+        }
+    },
+    "semanticBackButton": "Go back",
+    "semanticRateNow": "{title}",
+    "@semanticRateNow": {
+        "placeholders": {
+            "title": { "type": "String" }
+        }
+    },
+    "detailEmptyState": "Select a movie or series to view details"
+}

@@ -1,0 +1,22 @@
+flavors:
+  dev:
+    app:
+      name: "Neon Dev"
+    android:
+      applicationId: "com.neonvoyager.app.dev"
+    ios:
+      bundleId: "com.neonvoyager.app.dev"
+  staging:
+    app:
+      name: "Neon Stg"
+    android:
+      applicationId: "com.neonvoyager.app.staging"
+    ios:
+      bundleId: "com.neonvoyager.app.staging"
+  prod:
+    app:
+      name: "Neon Voyager"
+    android:
+      applicationId: "com.neonvoyager.app"
+    ios:
+      bundleId: "com.neonvoyager.app"

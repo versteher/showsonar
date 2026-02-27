@@ -1,0 +1,290 @@
+{
+    "@@locale": "de",
+    "apiKeyMissingTitle": "API-Schlüssel fehlt",
+    "apiKeyMissingBody": "Bitte füge deinen TMDB API-Schlüssel in die .env-Datei ein:\n\nTMDB_API_KEY=dein_schlüssel",
+    "apiKeyMissingFooter": "Einen API-Schlüssel erhältst du kostenlos auf\nthemoviedb.org",
+    
+    "navHome": "Home",
+    "navSearch": "Suche",
+    "navAi": "AI",
+    "navMyList": "Meine Liste",
+    "navMore": "Mehr",
+    
+    "noInternetConnection": "Keine Internetverbindung",
+    
+    "tabWatchlist": "Merkliste",
+    "tabHistory": "Verlauf",
+
+    "sectionTrending": "🔥 Gerade im Trend",
+    "sectionUpcoming": "🆕 Bald verfügbar",
+    "sectionPopularMovies": "🎬 Beliebte Filme",
+    "sectionPopularTv": "📺 Beliebte Serien",
+    "sectionTopRated": "⭐ Top bewertet",
+    "sectionDiscover": "🎯 Entdecken",
+    "sectionContinueWatching": "▶️ Weiterschauen",
+    "sectionWeeklyRecap": "📅 Wochenrückblick",
+    "sectionMoodDiscovery": "🎭 Stimmungslage",
+
+    "actionAddToWatchlist": "Zur Merkliste hinzufügen",
+    "actionAddedToWatchlist": "{title} zur Merkliste hinzugefügt",
+    "actionMarkSeen": "Als gesehen markieren",
+    "actionFilter": "Filtern",
+    "actionSettings": "Einstellungen",
+
+    "errorLoadingTitle": "{title} konnte nicht geladen werden",
+    "errorLoadingUpcoming": "Bald verfügbar konnte nicht geladen werden",
+
+    "recapTitle": "Dein Wochenrückblick",
+    "recapDays": "{count} Tage",
+    "recapWatched": "Geschaut",
+    "recapHours": "Stunden",
+    "recapRating": "Ø Bewertung",
+    "recapTopGenre": "Top Genre",
+
+    "continueWatchingTitle": "▶️ Weiterschauen",
+    "continueSeason": "Staffel {number}",
+    "continueEpisode": "Folge {number}",
+    "continueSeasonEpisode": "S{season} E{episode}",
+    "continueInProgress": "In Bearbeitung",
+
+    "moodTitle": "🎭 Wonach ist dir?",
+    "moodNoResults": "Keine Ergebnisse für {mood}",
+
+    "upcomingToday": "Heute!",
+    "upcomingTomorrow": "Morgen",
+    "upcomingInDays": "In {days} T.",
+    "mediaWatched": "Gesehen",
+    "filterStreaming": "Streaming-Dienste",
+
+    "detailRatingUnknown": "Bewertung ?",
+    "detailAge": "AB {age}",
+    "detailWatchlistRemoved": "{title} von Merkliste entfernt",
+    "detailWatchlistAdded": "{title} zur Merkliste hinzugefügt",
+    "detailChangeRating": "Bewertung ändern",
+    "detailMarkWatched": "Als gesehen markieren",
+    "detailRemoveHistoryTitle": "Aus Liste entfernen?",
+    "detailRemoveHistoryContent": "{title} aus deiner Watch History entfernen?",
+    "detailCancel": "Abbrechen",
+    "detailRemove": "Entfernen",
+    "detailHistoryRemoved": "{title} aus Watch History entfernt",
+    "detailMyRating": "Meine Bewertung",
+    "detailRateNow": "Jetzt bewerten",
+    "detailPlot": "Handlung",
+    "detailGenres": "Genres",
+    "detailSimilarMovies": "Ähnliche Filme",
+    "detailSimilarShows": "Ähnliche Serien",
+    "detailSimilarContent": "Ähnliche Inhalte",
+    "detailRated": "{title} aktualisiert: {rating} ⭐",
+    "detailWatched": "{title} als gesehen markiert: {rating} ⭐",
+
+    "searchListening": "Ich höre zu...",
+    "searchHint": "Filme und Serien suchen...",
+    "searchEmptyTitle": "Suche nach Filmen und Serien",
+    "searchEmptySubtitle": "Mindestens 2 Buchstaben eingeben",
+    "searchNoResultsTitle": "Keine Ergebnisse für \"{query}\"",
+    "searchNoResultsSubtitle": "Versuche einen anderen Suchbegriff",
+    "searchErrorTitle": "Fehler bei der Suche",
+    "searchRetry": "Erneut versuchen",
+
+    "streamingAvailable": "Verfügbar auf",
+    "streamingNotAvailable": "Nicht verfügbar in {country}",
+    "streamingError": "Fehler beim Laden der Streaming-Daten",
+    "streamingYourServices": "Deine Dienste",
+    "streamingRentYours": "Leihen (Deine Dienste)",
+    "streamingBuyYours": "Kaufen (Deine Dienste)",
+    "streamingMoreOptions": "Weitere Optionen",
+    "streamingStreaming": "Streaming",
+    "streamingRent": "Leihen",
+    "streamingBuy": "Kaufen",
+    "streamingShowLess": "Weitere Optionen ausblenden",
+    "streamingShowMore": "Weitere Optionen anzeigen",
+    "streamingPoweredBy": "Powered by JustWatch",
+    "streamingNotOnYours": "Nicht auf deinen Diensten verfügbar",
+    "streamingNoData": "Keine Streaming-Daten verfügbar",
+    "streamingOthers": "{count} Andere",
+    "streamingDisclaimer": "Die Streaming-Daten werden von TMDB bereitgestellt und sind möglicherweise nicht aktuell.",
+    "streamingSubscription": "✓ Dein Abo",
+
+    "settingsTitle": "Einstellungen",
+    "settingsStreamingTitle": "Meine Streaming-Dienste",
+    "settingsStreamingSubtitle": "Tippe zum Aktivieren/Deaktivieren",
+    "settingsCountry": "Land",
+    "settingsReset": "Zurücksetzen",
+    "settingsResetTitle": "Einstellungen zurücksetzen",
+    "settingsResetSubtitle": "Alle Einstellungen auf Standard zurücksetzen",
+    "settingsResetConfirm": "Zurücksetzen?",
+    "settingsResetMessage": "Alle Einstellungen werden auf die Standardwerte zurückgesetzt.",
+    "settingsApi": "API-Konfiguration",
+    "settingsApiInfo": "Filmdaten werden von The Movie Database (TMDB) bereitgestellt.",
+    "settingsAbout": "Über",
+    "settingsVersion": "Version 1.0.0",
+    "settingsDescription": "Intelligente Film- und Serienempfehlungen basierend auf deinem Geschmack.",
+    "settingsRemoved": "{service} entfernt",
+    "settingsAdded": "{service} hinzugefügt",
+    "settingsSelectCountry": "Land auswählen",
+    "settingsChangeCountry": "Tippen zum Ändern",
+    "settingsCountryChanged": "Land geändert zu {country}",
+    "errorRetry": "Erneut versuchen",
+    "errorGeneric": "Fehler: {error}",
+
+    "myListTitle": "Meine Liste",
+    "statMovies": "Filme",
+    "statSeries": "Serien",
+    "statAvgRating": "Ø Bewertung",
+    "statRated": "Bewertet",
+    "sortDate": "Datum",
+    "sortMyRating": "Meine Bewertung",
+    "sortImdbRating": "IMDB Bewertung",
+    "sortTitle": "Titel",
+    "filterAll": "Alle",
+    "filterMovies": "Filme",
+    "filterSeries": "Serien",
+    "filterRated": "Bewertet",
+    "emptyHistory": "Noch nichts gesehen",
+    "emptyHistorySubtitle": "Markiere Filme und Serien als gesehen,\num sie hier zu sehen",
+    "emptyFilter": "Keine Einträge mit diesen Filtern",
+    "emptyFilterSubtitle": "Ändere die Filter, um mehr zu sehen",
+    "deleteEntry": "Eintrag löschen?",
+    "deleteEntryMessage": "{title} aus deiner Liste entfernen?",
+    "deleteButton": "Löschen",
+    "entryRemoved": "{title} entfernt",
+    "entryRated": "{title} bewertet: {rating} ⭐",
+    "watchlistError": "Fehler beim Laden",
+    "watchlistEmpty": "Noch nichts gemerkt",
+    "watchlistEmptySubtitle": "Tippe auf das Lesezeichen-Symbol bei einem Film oder Serie, um ihn hier zu speichern.",
+    "watchlistAddedAgo": "Gemerkt {ago}",
+
+    "timeAgoYears": "{count, plural, =1{vor 1 Jahr} other{vor {count} Jahren}}",
+    "@timeAgoYears": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "timeAgoMonths": "{count, plural, =1{vor 1 Monat} other{vor {count} Monaten}}",
+    "@timeAgoMonths": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "timeAgoDays": "{count, plural, =1{vor 1 Tag} other{vor {count} Tagen}}",
+    "@timeAgoDays": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "timeAgoHours": "{count, plural, =1{vor 1 Stunde} other{vor {count} Stunden}}",
+    "@timeAgoHours": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "timeAgoJustNow": "gerade eben",
+
+    "mediaTypeMovie": "Film",
+    "mediaTypeTv": "Serie",
+
+    "priorityHigh": "Hoch",
+    "priorityNormal": "Normal",
+    "priorityLow": "Niedrig",
+
+    "semanticPosterOf": "Filmplakat von {title}",
+    "@semanticPosterOf": {
+        "placeholders": {
+            "title": { "type": "String" }
+        }
+    },
+    "semanticBackdropOf": "Hintergrundbild von {title}",
+    "@semanticBackdropOf": {
+        "placeholders": {
+            "title": { "type": "String" }
+        }
+    },
+    "semanticMediaCard": "{title}, {type}, Bewertung {rating}",
+    "@semanticMediaCard": {
+        "placeholders": {
+            "title": { "type": "String" },
+            "type": { "type": "String" },
+            "rating": { "type": "String" }
+        }
+    },
+    "semanticNavSelected": "{label}, ausgewählt",
+    "@semanticNavSelected": {
+        "placeholders": {
+            "label": { "type": "String" }
+        }
+    },
+    "semanticVoiceSearch": "Sprachsuche",
+    "semanticVoiceSearchActive": "Sprachsuche, aktiv",
+    "semanticFilterButton": "Ergebnisse filtern",
+    "semanticProviderLogo": "{provider} Logo",
+    "@semanticProviderLogo": {
+        "placeholders": {
+            "provider": { "type": "String" }
+        }
+    },
+    "semanticRatingBadge": "Bewertung {rating} von 10",
+    "@semanticRatingBadge": {
+        "placeholders": {
+            "rating": { "type": "String" }
+        }
+    },
+    "semanticWatchlistAdd": "{title} zur Merkliste hinzufügen",
+    "@semanticWatchlistAdd": {
+        "placeholders": {
+            "title": { "type": "String" }
+        }
+    },
+    "semanticWatchlistRemove": "{title} von Merkliste entfernen",
+    "@semanticWatchlistRemove": {
+        "placeholders": {
+            "title": { "type": "String" }
+        }
+    },
+    "semanticMarkWatched": "{title} als gesehen markieren",
+    "@semanticMarkWatched": {
+        "placeholders": {
+            "title": { "type": "String" }
+        }
+    },
+    "semanticChangeRating": "Bewertung für {title} ändern",
+    "@semanticChangeRating": {
+        "placeholders": {
+            "title": { "type": "String" }
+        }
+    },
+    "semanticDeleteFromHistory": "{title} aus Verlauf löschen",
+    "@semanticDeleteFromHistory": {
+        "placeholders": {
+            "title": { "type": "String" }
+        }
+    },
+    "semanticTrendingCard": "Trending: {title}",
+    "@semanticTrendingCard": {
+        "placeholders": {
+            "title": { "type": "String" }
+        }
+    },
+    "semanticPageDot": "Seite {number} von {total}",
+    "@semanticPageDot": {
+        "placeholders": {
+            "number": { "type": "int" },
+            "total": { "type": "int" }
+        }
+    },
+    "semanticBackButton": "Zurück",
+    "semanticRateNow": "{title} bewerten",
+    "@semanticRateNow": {
+        "placeholders": {
+            "title": { "type": "String" }
+        }
+    },
+    "detailEmptyState": "Wähle einen Film oder eine Serie aus"
+}

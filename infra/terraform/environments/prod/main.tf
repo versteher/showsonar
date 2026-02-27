@@ -1,0 +1,29 @@
+# Production environment
+
+terraform {
+  # backend "gcs" {
+  #   bucket = "neonvoyager-terraform-state"
+  #   prefix = "environments/prod"
+  # }
+}
+
+module "apis" {
+  source      = "../../"
+  project_id  = var.project_id
+  region      = var.region
+  environment = "prod"
+}
+
+module "secrets" {
+  source       = "../../modules/secrets"
+  project_id   = var.project_id
+  region       = var.region
+  apis_enabled = module.apis
+}
+
+module "ci_cd" {
+  source       = "../../modules/ci-cd"
+  project_id   = var.project_id
+  region       = var.region
+  apis_enabled = module.apis
+}

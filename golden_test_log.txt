@@ -1,0 +1,46 @@
+00:00 +0: loading /Users/Shared/augmented-ai-apps/imdb/test/ui/screens/goldens/home_screen_golden_test.dart                                                                                            00:01 +0: loading /Users/Shared/augmented-ai-apps/imdb/test/ui/screens/goldens/home_screen_golden_test.dart                                                                                            00:01 +0: loading /Users/Shared/augmented-ai-apps/imdb/test/ui/screens/goldens/home_screen_golden_test.dart                                                                                            
+Warning: A tag was used that wasn't specified in dart_test.yaml.
+  golden was used in the test "HomeScreen - Light and Dark Themes"
+
+00:01 +0: (setUpAll)                                                                                                                                                                                   00:01 +0: HomeScreen - Light and Dark Themes                                                                                                                                                           00:02 +0: HomeScreen - Light and Dark Themes                                                                                                                                                           00:02 +0: HomeScreen - Light and Dark Themes                                                                                                                                                           
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following assertion was thrown while running async test code:
+Golden "goldens/home_screen.png": Pixel test failed, 6.08%, 92438px diff detected.
+Failure feedback can be found at
+/Users/Shared/augmented-ai-apps/imdb/test/ui/screens/goldens/failures
+
+When the exception was thrown, this was the stack:
+#0      LocalFileComparator.compare (package:flutter_test/src/_goldens_io.dart:108:5)
+<asynchronous suspension>
+#1      MatchesGoldenFile.matchAsync.<anonymous closure> (package:flutter_test/src/_matchers_io.dart:124:32)
+<asynchronous suspension>
+<asynchronous suspension>
+#3      _expect.<anonymous closure> (package:matcher/src/expect/expect.dart:123:26)
+<asynchronous suspension>
+<asynchronous suspension>
+#5      expectLater.<anonymous closure> (package:flutter_test/src/widget_tester.dart:508:19)
+<asynchronous suspension>
+#6      compareWithGolden (package:golden_toolkit/src/testing_tools.dart:296:3)
+<asynchronous suspension>
+#7      main.<anonymous closure> (file:///Users/Shared/augmented-ai-apps/imdb/test/ui/screens/goldens/home_screen_golden_test.dart:164:5)
+<asynchronous suspension>
+#8      testGoldens.<anonymous closure>.body (package:golden_toolkit/src/testing_tools.dart:167:11)
+<asynchronous suspension>
+#9      testGoldens.<anonymous closure> (package:golden_toolkit/src/testing_tools.dart:177:9)
+<asynchronous suspension>
+#10     testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#11     TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1059:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 3 frames from dart:async and package:stack_trace)
+
+The exception was caught asynchronously.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:02 +0 -1: HomeScreen - Light and Dark Themes [E]                                                                                                                                                    
+  Test failed. See exception logs above.
+  The test description was: HomeScreen - Light and Dark Themes
+  
+
+To run this test again: /Users/jan.brink/develop/flutter/bin/cache/dart-sdk/bin/dart test /Users/Shared/augmented-ai-apps/imdb/test/ui/screens/goldens/home_screen_golden_test.dart -p vm --plain-name 'HomeScreen - Light and Dark Themes'
+00:02 +0 -1: (tearDownAll)                                                                                                                                                                             00:02 +0 -1: Some tests failed.                                                                                                                                                                        
