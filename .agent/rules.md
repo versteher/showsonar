@@ -35,11 +35,11 @@ AI Agents MUST adhere to these rules when writing or modifying code.
 ## 1. Architecture
 
 - **Layer-First only:** `lib/config/`, `lib/data/`, `lib/domain/`, `lib/l10n/`, `lib/ui/`, `lib/utils/`. Never Feature-First.
-- **State:** Riverpod. Use `AsyncNotifier` for async/pagination. Export via `lib/config/providers.dart`.
+- **State:** Riverpod. Use `@riverpod` annotation + `AsyncNotifier` for async/pagination. Export via `lib/config/providers.dart`. Run `make gen` after every provider file change.
 - **Navigation:** `go_router`. Always `context.go()` / `context.push()`. Never raw `Navigator`.
 - **File size:** Max 300 lines. Split large screens into composable widget files.
 - **Models:** `freezed` + `json_serializable`. Never write `copyWith`/`==`/JSON manually. Run `make gen`.
-- **Database:** Firestore for cloud data. `Hive` only for local flags (theme, onboarding).
+- **Database:** Firestore for cloud data. `shared_preferences` for local flags (theme, onboarding state).
 - **Secrets:** Zero secrets on device. All API keys via GCP Secret Manager → Cloud Run proxy.
 - **Services vs Repos:** Pure HTTP → `lib/data/services/`. Business/Firestore/cache logic → `lib/data/repositories/`.
 - **API calls:** Never call external APIs directly from the client. Always route through the `api-proxy`.
@@ -62,7 +62,7 @@ Every feature, bugfix, or modification MUST include tests. CI enforces 70% cover
 
 ## 3. UI & UX
 
-- **Theme:** Light / Dark / System. Persist preference in `Hive`.
+- **Theme:** Light / Dark / System. Persist preference in `shared_preferences`.
 - **i18n:** No hardcoded strings. Use `intl` + `.arb` files.
 - **Accessibility:** `Semantics` on all interactive widgets. `ExcludeSemantics` for decorative items. WCAG AA contrast.
 - **Animations:** `Hero` transitions, skeleton shimmer loaders, platform-adaptive page transitions via `go_router`.

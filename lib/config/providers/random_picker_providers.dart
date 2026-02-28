@@ -1,7 +1,10 @@
 import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../data/models/media.dart';
 import '../providers.dart';
+
+part 'random_picker_providers.g.dart';
 
 // ============================================================================
 // Random Picker Provider
@@ -17,7 +20,8 @@ final randomPickerFilterProvider = StateProvider<RandomPickerFilter>(
 final randomPickerMinRatingProvider = StateProvider<double>((ref) => 6.0);
 
 /// Fetches a random title matching the filters
-final randomPickerResultProvider = FutureProvider<Media?>((ref) async {
+@riverpod
+Future<Media?> randomPickerResult(Ref ref) async {
   final tmdb = ref.watch(tmdbRepositoryProvider);
   final prefs = await ref.watch(userPreferencesProvider.future);
   final filter = ref.watch(randomPickerFilterProvider);
@@ -58,4 +62,4 @@ final randomPickerResultProvider = FutureProvider<Media?>((ref) async {
   if (pool.isEmpty) return null;
   pool.shuffle(random);
   return pool.first;
-});
+}

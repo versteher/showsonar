@@ -31,7 +31,7 @@ class DetailActionRow extends ConsumerWidget {
     final isWatched = watchEntry != null;
     final isOnWatchlist =
         ref
-            .watch(isOnWatchlistProvider((id: media.id, type: media.type)))
+            .watch(isOnWatchlistProvider(id: media.id, type: media.type))
             .valueOrNull ??
         false;
 
@@ -51,7 +51,7 @@ class DetailActionRow extends ConsumerWidget {
                   await repo.addMedia(media);
                 }
                 ref.invalidate(
-                  isOnWatchlistProvider((id: media.id, type: media.type)),
+                  isOnWatchlistProvider(id: media.id, type: media.type),
                 );
                 ref.invalidate(watchlistEntriesProvider);
                 if (context.mounted) {

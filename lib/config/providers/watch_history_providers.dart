@@ -1,58 +1,62 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../data/models/media.dart';
 import '../../data/models/watch_history_entry.dart';
 import '../../data/models/genre.dart';
 import '../providers.dart';
+
+part 'watch_history_providers.g.dart';
 
 // ============================================================================
 // Watch History Providers
 // ============================================================================
 
 /// Provider for all watch history entries (reactive)
-final watchHistoryEntriesProvider = FutureProvider<List<WatchHistoryEntry>>((
-  ref,
-) async {
+@riverpod
+Future<List<WatchHistoryEntry>> watchHistoryEntries(Ref ref) async {
   final repo = ref.watch(watchHistoryRepositoryProvider);
   await repo.init();
   return repo.getAllEntries();
-});
+}
 
 /// Provider for a set of watched media IDs (for fast lookup)
 /// Returns a Set of "type_id" strings, e.g. {"movie_123", "tv_456"}
-final watchedMediaIdsProvider = FutureProvider<Set<String>>((ref) async {
+@riverpod
+Future<Set<String>> watchedMediaIds(Ref ref) async {
   final entries = await ref.watch(watchHistoryEntriesProvider.future);
   return entries.map((e) => e.uniqueKey).toSet();
-});
+}
 
 /// Provider to check if a specific media is watched
-final isWatchedProvider =
-    FutureProvider.family<bool, ({int id, MediaType type})>((
-      ref,
-      params,
-    ) async {
-      final repo = ref.watch(watchHistoryRepositoryProvider);
-      await repo.init();
-      return repo.hasWatched(params.id, params.type);
-    });
+@riverpod
+Future<bool> isWatched(
+  Ref ref, {
+  required int id,
+  required MediaType type,
+}) async {
+  final repo = ref.watch(watchHistoryRepositoryProvider);
+  await repo.init();
+  return repo.hasWatched(id, type);
+}
 
 /// Provider to get a specific watch history entry
-final watchHistoryEntryProvider =
-    FutureProvider.family<WatchHistoryEntry?, ({int id, MediaType type})>((
-      ref,
-      params,
-    ) async {
-      final repo = ref.watch(watchHistoryRepositoryProvider);
-      await repo.init();
-      return repo.getEntry(params.id, params.type);
-    });
+@riverpod
+Future<WatchHistoryEntry?> watchHistoryEntry(
+  Ref ref, {
+  required int id,
+  required MediaType type,
+}) async {
+  final repo = ref.watch(watchHistoryRepositoryProvider);
+  await repo.init();
+  return repo.getEntry(id, type);
+}
 
 /// Provider for watch history statistics
-final watchHistoryStatsProvider = FutureProvider<WatchHistoryStats>((
-  ref,
-) async {
+@riverpod
+Future<WatchHistoryStats> watchHistoryStats(Ref ref) async {
   final entries = await ref.watch(watchHistoryEntriesProvider.future);
   return WatchHistoryStats.fromEntries(entries);
-});
+}
 
 /// Statistics computed from watch history
 class WatchHistoryStats {
@@ -186,21 +190,21 @@ class WeeklyRecap {
   }
 }
 
-final weeklyRecapProvider = FutureProvider<WeeklyRecap>((ref) async {
+@riverpod
+Future<WeeklyRecap> weeklyRecap(Ref ref) async {
   final entries = await ref.watch(watchHistoryEntriesProvider.future);
   return WeeklyRecap.fromEntries(entries);
-});
+}
 
 // ============================================================================
 // Continue Watching Provider
 // ============================================================================
 
 /// In-progress TV series (completed == false)
-final continueWatchingProvider = FutureProvider<List<WatchHistoryEntry>>((
-  ref,
-) async {
+@riverpod
+Future<List<WatchHistoryEntry>> continueWatching(Ref ref) async {
   final entries = await ref.watch(watchHistoryEntriesProvider.future);
   return entries
       .where((e) => e.mediaType == MediaType.tv && !e.completed)
       .toList();
-});
+}

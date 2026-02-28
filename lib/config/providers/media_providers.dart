@@ -1,12 +1,16 @@
 import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../data/models/media.dart';
 import '../../utils/media_filter.dart';
 import '../providers.dart';
 
+part 'media_providers.g.dart';
+
 /// Provider for trending content - filtered by user's streaming services
 /// Uses discover sorted by popularity since /trending doesn't support provider filter
-final trendingProvider = FutureProvider<List<Media>>((ref) async {
+@riverpod
+Future<List<Media>> trending(Ref ref) async {
   final tmdb = ref.watch(tmdbRepositoryProvider);
   final prefs = await ref.watch(userPreferencesProvider.future);
   final providerIds = prefs.tmdbProviderIds;
@@ -81,10 +85,11 @@ final trendingProvider = FutureProvider<List<Media>>((ref) async {
   }
 
   return topItems;
-});
+}
 
 /// Provider for popular movies - filtered by user's streaming services
-final popularMoviesProvider = FutureProvider<List<Media>>((ref) async {
+@riverpod
+Future<List<Media>> popularMovies(Ref ref) async {
   final tmdb = ref.watch(tmdbRepositoryProvider);
   final prefs = await ref.watch(userPreferencesProvider.future);
   final providerIds = prefs.tmdbProviderIds;
@@ -100,10 +105,11 @@ final popularMoviesProvider = FutureProvider<List<Media>>((ref) async {
   );
 
   return MediaFilter.applyPreferences(results, prefs);
-});
+}
 
 /// Provider for popular TV series - filtered by user's streaming services
-final popularTvSeriesProvider = FutureProvider<List<Media>>((ref) async {
+@riverpod
+Future<List<Media>> popularTvSeries(Ref ref) async {
   final tmdb = ref.watch(tmdbRepositoryProvider);
   final prefs = await ref.watch(userPreferencesProvider.future);
   final providerIds = prefs.tmdbProviderIds;
@@ -119,10 +125,11 @@ final popularTvSeriesProvider = FutureProvider<List<Media>>((ref) async {
   );
 
   return MediaFilter.applyPreferences(results, prefs);
-});
+}
 
 /// Provider for top rated movies - filtered by user's streaming services
-final topRatedMoviesProvider = FutureProvider<List<Media>>((ref) async {
+@riverpod
+Future<List<Media>> topRatedMovies(Ref ref) async {
   final tmdb = ref.watch(tmdbRepositoryProvider);
   final prefs = await ref.watch(userPreferencesProvider.future);
   final providerIds = prefs.tmdbProviderIds;
@@ -138,10 +145,11 @@ final topRatedMoviesProvider = FutureProvider<List<Media>>((ref) async {
   );
 
   return MediaFilter.applyPreferences(results, prefs);
-});
+}
 
 /// Provider for top rated TV series - filtered by user's streaming services
-final topRatedTvSeriesProvider = FutureProvider<List<Media>>((ref) async {
+@riverpod
+Future<List<Media>> topRatedTvSeries(Ref ref) async {
   final tmdb = ref.watch(tmdbRepositoryProvider);
   final prefs = await ref.watch(userPreferencesProvider.future);
   final providerIds = prefs.tmdbProviderIds;
@@ -157,10 +165,11 @@ final topRatedTvSeriesProvider = FutureProvider<List<Media>>((ref) async {
   );
 
   return MediaFilter.applyPreferences(results, prefs);
-});
+}
 
 /// Provider for upcoming movies - filtered by user's streaming services
-final upcomingMoviesProvider = FutureProvider<List<Media>>((ref) async {
+@riverpod
+Future<List<Media>> upcomingMovies(Ref ref) async {
   final tmdb = ref.watch(tmdbRepositoryProvider);
   final prefs = await ref.watch(userPreferencesProvider.future);
   final providerIds = prefs.tmdbProviderIds;
@@ -175,10 +184,11 @@ final upcomingMoviesProvider = FutureProvider<List<Media>>((ref) async {
   );
 
   return MediaFilter.applyPreferences(results, prefs);
-});
+}
 
 /// Provider for upcoming TV series - filtered by user's streaming services
-final upcomingTvProvider = FutureProvider<List<Media>>((ref) async {
+@riverpod
+Future<List<Media>> upcomingTv(Ref ref) async {
   final tmdb = ref.watch(tmdbRepositoryProvider);
   final prefs = await ref.watch(userPreferencesProvider.future);
   final providerIds = prefs.tmdbProviderIds;
@@ -193,36 +203,35 @@ final upcomingTvProvider = FutureProvider<List<Media>>((ref) async {
   );
 
   return MediaFilter.applyPreferences(results, prefs);
-});
+}
 
 /// Combined upcoming content (movies + TV)
-final upcomingProvider = FutureProvider<List<Media>>((ref) async {
+@riverpod
+Future<List<Media>> upcoming(Ref ref) async {
   final movies = await ref.watch(upcomingMoviesProvider.future);
   final tvShows = await ref.watch(upcomingTvProvider.future);
 
-  final combined = [...movies, ...tvShows];
+  final combined = <Media>[...movies, ...tvShows];
   combined.sort((a, b) {
     final aDate = a.releaseDate ?? DateTime(2099);
     final bDate = b.releaseDate ?? DateTime(2099);
     return aDate.compareTo(bDate);
   });
   return combined.take(20).toList();
-});
+}
 
 /// Provider for trailer URL
-final trailerUrlProvider =
-    FutureProvider.family<String?, ({int id, MediaType type})>((
-      ref,
-      params,
-    ) async {
-      final tmdb = ref.watch(tmdbRepositoryProvider);
-      return tmdb.getTrailerUrl(params.id, params.type);
-    });
+@riverpod
+Future<String?> trailerUrl(Ref ref, {required int id, required MediaType type}) async {
+  final tmdb = ref.watch(tmdbRepositoryProvider);
+  return tmdb.getTrailerUrl(id, type);
+}
 
 /// Provider for search results
 final searchQueryProvider = StateProvider<String>((ref) => '');
 
-final searchResultsProvider = FutureProvider<List<Media>>((ref) async {
+@riverpod
+Future<List<Media>> searchResults(Ref ref) async {
   final query = ref.watch(searchQueryProvider);
   if (query.isEmpty || query.length < 2) return [];
 
@@ -234,4 +243,4 @@ final searchResultsProvider = FutureProvider<List<Media>>((ref) async {
     includeAdult: prefs.includeAdult,
     maxAgeRating: prefs.maxAgeRating,
   );
-});
+}

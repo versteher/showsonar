@@ -90,7 +90,7 @@ void main() {
       );
 
       final available = await container.read(
-        mediaAvailabilityProvider((id: 1, type: MediaType.movie)).future,
+        mediaAvailabilityProvider(id: 1, type: MediaType.movie).future,
       );
       expect(available, isNotEmpty);
       expect(available.first.provider.id, 'netflix');

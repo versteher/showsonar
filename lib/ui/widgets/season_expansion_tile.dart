@@ -28,7 +28,7 @@ class SeasonExpansionTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final seasonAsync = ref.watch(
-      tvSeasonProvider((tvId: tvId, seasonNumber: seasonNumber)),
+      tvSeasonProvider(tvId: tvId, seasonNumber: seasonNumber),
     );
 
     return Padding(

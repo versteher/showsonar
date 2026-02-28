@@ -13,11 +13,10 @@ For ongoing daily development, use the condensed `.agent/rules.md` instead.
 
 - **Framework:** Flutter (iOS, Android, macOS, Web).
 - **Directory Structure:** Layer-First — `lib/config/`, `lib/data/`, `lib/domain/`, `lib/l10n/`, `lib/ui/`, `lib/utils/`.
-- **State Management:** Riverpod (`flutter_riverpod`, `riverpod_annotation`). `AsyncNotifier` for async/pagination. Central barrel: `lib/config/providers.dart`.
+- **State Management:** Riverpod (`flutter_riverpod`, `riverpod_annotation`, `riverpod_generator`). Use `@riverpod` annotation for all new providers. `AsyncNotifier` for async state and pagination. Central barrel: `lib/config/providers.dart`. Run `make gen` after every provider file change.
 - **Navigation:** `go_router`. `context.go()` / `context.push()`. Never raw `Navigator`.
 - **Models:** `freezed` + `json_serializable`. Run `make gen` for all code generation.
-- **Database:** Firestore (with native offline persistence). `Hive` only for local flags.
-  - **macOS Hive lock files:** Lock files live in `~/Library/Containers/com.showsonar.app/Data/Documents/`. Stale locks crash with `FileSystemException: lock failed (errno = 35)`. `make run-macos` clears them automatically.
+- **Database:** Firestore (with native offline persistence) for cloud data. `shared_preferences` for local flags (theme mode, onboarding state).
 - **Secrets:** Zero on device. GCP Secret Manager → Cloud Run proxy only.
 - **Services vs Repos:** HTTP logic → `lib/data/services/`. Business + Firestore → `lib/data/repositories/`.
 - **File size:** Max 300 lines per file.
@@ -70,7 +69,7 @@ Every feature and bugfix MUST include tests. CI enforces 70% coverage minimum.
 
 ## 6. UI & UX Standards
 
-- **Theme:** Light / Dark / System. Persist in `Hive`.
+- **Theme:** Light / Dark / System. Persist in `shared_preferences`.
 - **i18n:** `intl` + `.arb` files. No hardcoded strings.
 - **Accessibility:** `Semantics` on interactive widgets. WCAG AA contrast. Dynamic text scaling.
 - **Animations:** `Hero`, skeleton shimmer, platform-adaptive transitions, `lottie`/`rive` for state animations, `fl_chart` for data viz.
@@ -80,7 +79,24 @@ Every feature and bugfix MUST include tests. CI enforces 70% coverage minimum.
 
 ---
 
-## 7. AI Agent Workflow
+## 7. Template Variables (customize per project)
+
+When forking this template, change only these values:
+
+| Variable | Where | Example |
+|----------|-------|---------|
+| App name | `pubspec.yaml` name, `.agent/rules.md` header | `stream_scout` |
+| GCP project ID | `infra/terraform/environments/*/terraform.tfvars` | `showsonar-dev` |
+| Cloud Run region | `infra/terraform/modules/cloud_run/main.tf` | `europe-west1` |
+| Firebase project | `firebase.json`, flavor config files | `showsonar-dev` |
+| API proxy routes | `infra/cloud-run/api-proxy/main.py` | `/tmdb/*`, `/gemini/*` |
+| Terraform state bucket | `infra/terraform/versions.tf` backend block | `gs://showsonar-terraform-state` |
+
+Everything else (layer structure, test setup, provider patterns, CI/CD pipeline) is project-agnostic and ready to reuse.
+
+---
+
+## 8. AI Agent Workflow
 
 1. Analyze architectural consistency before changing code.
 2. Use `freezed` for models, never bypass the proxy, never hardcode secrets.

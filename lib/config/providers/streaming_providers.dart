@@ -1,7 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../data/models/media.dart';
 import '../../data/models/streaming_provider.dart';
 import '../providers.dart';
+
+part 'streaming_providers.g.dart';
 
 // ============================================================================
 // Streaming Availability & Counts Providers
@@ -9,7 +12,8 @@ import '../providers.dart';
 
 /// Provider for the number of matching titles per streaming provider.
 /// Uses keepAlive to avoid refetching on every widget rebuild.
-final providerCountsProvider = FutureProvider<Map<String, int>>((ref) async {
+@riverpod
+Future<Map<String, int>> providerCounts(Ref ref) async {
   ref.keepAlive();
 
   final tmdb = ref.watch(tmdbRepositoryProvider);
@@ -49,40 +53,41 @@ final providerCountsProvider = FutureProvider<Map<String, int>>((ref) async {
   );
 
   return counts;
-});
+}
 
 /// Provider for streaming availability of a specific media item.
 /// Uses keepAlive so logo data is cached and doesn't flicker when cards
 /// scroll in and out of view.
-final mediaAvailabilityProvider =
-    FutureProvider.family<
-      List<({StreamingProvider provider, String logoUrl})>,
-      ({int id, MediaType type})
-    >((ref, params) async {
-      ref.keepAlive();
-      final tmdb = ref.watch(tmdbRepositoryProvider);
-      final prefs = await ref.watch(userPreferencesProvider.future);
+@riverpod
+Future<List<({StreamingProvider provider, String logoUrl})>> mediaAvailability(
+  Ref ref, {
+  required int id,
+  required MediaType type,
+}) async {
+  ref.keepAlive();
+  final tmdb = ref.watch(tmdbRepositoryProvider);
+  final prefs = await ref.watch(userPreferencesProvider.future);
 
-      try {
-        final results = await tmdb.getWatchProviders(
-          params.id,
-          params.type,
-          region: prefs.countryCode,
-        );
+  try {
+    final results = await tmdb.getWatchProviders(
+      id,
+      type,
+      region: prefs.countryCode,
+    );
 
-        // Deduplicate by internal provider ID — TMDB can return the same
-        // provider multiple times in the flatrate list (e.g. via different
-        // sub-IDs), which would otherwise show the logo twice.
-        final available = <({StreamingProvider provider, String logoUrl})>[];
-        final seenIds = <String>{};
-        for (final p in results.flatrate) {
-          final internal = StreamingProvider.fromTmdbId(p.providerId);
-          if (internal != null && seenIds.add(internal.id)) {
-            available.add((provider: internal, logoUrl: internal.logoPath));
-          }
-        }
-        return available;
-      } catch (e) {
-        return [];
+    // Deduplicate by internal provider ID — TMDB can return the same
+    // provider multiple times in the flatrate list (e.g. via different
+    // sub-IDs), which would otherwise show the logo twice.
+    final available = <({StreamingProvider provider, String logoUrl})>[];
+    final seenIds = <String>{};
+    for (final p in results.flatrate) {
+      final internal = StreamingProvider.fromTmdbId(p.providerId);
+      if (internal != null && seenIds.add(internal.id)) {
+        available.add((provider: internal, logoUrl: internal.logoPath));
       }
-    });
+    }
+    return available;
+  } catch (e) {
+    return [];
+  }
+}

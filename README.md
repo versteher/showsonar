@@ -254,7 +254,7 @@ open coverage/html/index.html
 | `make run-device DEVICE=<id>` | Run on a specific device ID |
 | `make test` | Run all Flutter tests |
 | `make lint` | Run `flutter analyze` |
-| `make gen` | Run `build_runner build` (code generation) |
+| `make gen` | Run `build_runner build` (code generation — **required after any provider or model change**) |
 | `make watch` | Run `build_runner watch` (continuous gen) |
 | `make clean` | `flutter clean` + `flutter pub get` |
 
@@ -288,7 +288,7 @@ Local dev: proxy runs at localhost:8080 with APP_CHECK_ENABLED=false
 | Secrets | GCP Secret Manager | Zero keys on device or in git |
 | API security | App Check + Cloud Run proxy | Free, no per-user key management |
 | Database | Firestore | Built-in offline sync, 50K reads/day free |
-| State management | Riverpod | Already in use, best Flutter choice |
+| State management | Riverpod + `@riverpod` generator | `AsyncNotifier`, code-gen, zero boilerplate |
 | Navigation | `go_router` (P1-8) | Deep links, typed routes |
 | CI/CD | Cloud Build | Already in GCP, 120 free build-min/day |
 | Region | europe-west1 (Frankfurt) | Lower cost, EU data residency (GDPR) |

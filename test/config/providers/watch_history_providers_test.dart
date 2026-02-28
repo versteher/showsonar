@@ -61,7 +61,7 @@ void main() {
       ).thenAnswer((_) async => true);
 
       final isWatched = await container.read(
-        isWatchedProvider((id: 1, type: MediaType.movie)).future,
+        isWatchedProvider(id: 1, type: MediaType.movie).future,
       );
       expect(isWatched, isTrue);
     });

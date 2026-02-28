@@ -40,13 +40,13 @@ class DetailScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final detailsAsync = ref.watch(
-      mediaDetailsProvider((id: mediaId, type: mediaType)),
+      mediaDetailsProvider(id: mediaId, type: mediaType),
     );
     final similarAsync = ref.watch(
-      similarContentProvider((id: mediaId, type: mediaType)),
+      similarContentProvider(id: mediaId, type: mediaType),
     );
     final watchEntryAsync = ref.watch(
-      watchHistoryEntryProvider((id: mediaId, type: mediaType)),
+      watchHistoryEntryProvider(id: mediaId, type: mediaType),
     );
 
     return Scaffold(
@@ -477,7 +477,7 @@ class DetailScreen extends ConsumerWidget {
       }
 
       ref.invalidate(
-        watchHistoryEntryProvider((id: media.id, type: media.type)),
+        watchHistoryEntryProvider(id: media.id, type: media.type),
       );
     }
   }
@@ -537,7 +537,7 @@ class DetailScreen extends ConsumerWidget {
       await repo.init();
       await repo.removeFromHistory(media.id, media.type);
       ref.invalidate(
-        watchHistoryEntryProvider((id: media.id, type: media.type)),
+        watchHistoryEntryProvider(id: media.id, type: media.type),
       );
       ref.invalidate(watchHistoryEntriesProvider);
       if (context.mounted) {

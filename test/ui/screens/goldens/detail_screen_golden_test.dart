@@ -59,22 +59,22 @@ void main() {
     ];
 
     final overrides = [
-      mediaDetailsProvider((
+      mediaDetailsProvider(
         id: 123,
         type: MediaType.movie,
-      )).overrideWith((ref) => Future.value(mockMedia)),
-      similarContentProvider((
+      ).overrideWith((ref) => Future.value(mockMedia)),
+      similarContentProvider(
         id: 123,
         type: MediaType.movie,
-      )).overrideWith((ref) => Future.value(mockSimilar)),
-      watchHistoryEntryProvider((
+      ).overrideWith((ref) => Future.value(mockSimilar)),
+      watchHistoryEntryProvider(
         id: 123,
         type: MediaType.movie,
-      )).overrideWith((ref) => Future.value(null)),
-      isOnWatchlistProvider((
+      ).overrideWith((ref) => Future.value(null)),
+      isOnWatchlistProvider(
         id: 123,
         type: MediaType.movie,
-      )).overrideWith((ref) => Future.value(false)),
+      ).overrideWith((ref) => Future.value(false)),
       userPreferencesProvider.overrideWith(
         (ref) => Future.value(
           const UserPreferences(
@@ -84,17 +84,17 @@ void main() {
           ),
         ),
       ),
-      mediaAvailabilityProvider((id: 123, type: MediaType.movie)).overrideWith(
+      mediaAvailabilityProvider(id: 123, type: MediaType.movie).overrideWith(
         (ref) =>
             Future<List<({StreamingProvider provider, String logoUrl})>>.value(
               [],
             ),
       ),
       watchlistRepositoryProvider.overrideWithValue(mockWatchlistRepo),
-      trailerUrlProvider((
+      trailerUrlProvider(
         id: 123,
         type: MediaType.movie,
-      )).overrideWith((ref) => Future.value(null)),
+      ).overrideWith((ref) => Future.value(null)),
       omdbRatingsProvider((
         imdbId: null,
         title: 'Golden Movie',

@@ -18,7 +18,7 @@ class TrailerButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final trailerAsync = ref.watch(
-      trailerUrlProvider((id: mediaId, type: mediaType)),
+      trailerUrlProvider(id: mediaId, type: mediaType),
     );
 
     return trailerAsync.when(

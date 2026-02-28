@@ -43,8 +43,8 @@ void main() {
     // Provide a mocked network image so we don't try to load from TMDB during golden generation
     final widget = ProviderScope(
       overrides: [
-        mediaAvailabilityProvider.overrideWith(
-          (ref, _) =>
+        mediaAvailabilityProvider(id: 1, type: MediaType.movie).overrideWith(
+          (ref) =>
               Future<
                 List<({StreamingProvider provider, String logoUrl})>
               >.value([]),

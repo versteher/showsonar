@@ -302,6 +302,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       ref: ref,
                       context: context,
                       provider: seasonalPaginationProvider,
+                      onLoadMore: () => ref.read(seasonalPaginationProvider.notifier).loadMore(),
+                      onRetry: () => ref.read(seasonalPaginationProvider.notifier).refresh(),
                       title: ref.watch(seasonalTitleProvider),
                       heroTagPrefix: 'seasonal',
                     ),
@@ -310,6 +312,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       ref: ref,
                       context: context,
                       provider: trendingPaginationProvider('all_day'),
+                      onLoadMore: () => ref.read(trendingPaginationProvider('all_day').notifier).loadMore(),
+                      onRetry: () => ref.read(trendingPaginationProvider('all_day').notifier).refresh(),
                       title: AppLocalizations.of(context)!.sectionTrending,
                       skipFirst: true,
                       heroTagPrefix: 'trending',
@@ -321,6 +325,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       ref: ref,
                       context: context,
                       provider: popularMoviesPaginationProvider,
+                      onLoadMore: () => ref.read(popularMoviesPaginationProvider.notifier).loadMore(),
+                      onRetry: () => ref.read(popularMoviesPaginationProvider.notifier).refresh(),
                       title: AppLocalizations.of(context)!.sectionPopularMovies,
                       heroTagPrefix: 'popular_movies',
                     ),
@@ -329,6 +335,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       ref: ref,
                       context: context,
                       provider: popularTvPaginationProvider,
+                      onLoadMore: () => ref.read(popularTvPaginationProvider.notifier).loadMore(),
+                      onRetry: () => ref.read(popularTvPaginationProvider.notifier).refresh(),
                       title: AppLocalizations.of(context)!.sectionPopularTv,
                       heroTagPrefix: 'popular_tv',
                     ),
@@ -337,6 +345,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       ref: ref,
                       context: context,
                       provider: topRatedMoviesPaginationProvider,
+                      onLoadMore: () => ref.read(topRatedMoviesPaginationProvider.notifier).loadMore(),
+                      onRetry: () => ref.read(topRatedMoviesPaginationProvider.notifier).refresh(),
                       title: AppLocalizations.of(context)!.sectionTopRated,
                       heroTagPrefix: 'top_rated_movies',
                     ),
@@ -345,6 +355,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       ref: ref,
                       context: context,
                       provider: hiddenGemsPaginationProvider,
+                      onLoadMore: () => ref.read(hiddenGemsPaginationProvider.notifier).loadMore(),
+                      onRetry: () => ref.read(hiddenGemsPaginationProvider.notifier).refresh(),
                       title: '💎 Hidden Gems',
                       heroTagPrefix: 'hidden_gems',
                     ),
@@ -388,11 +400,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget _buildSection({
     required WidgetRef ref,
     required BuildContext context,
-    required StateNotifierProvider<
-      PaginationNotifier,
-      AsyncValue<PaginationState<Media>>
-    >
-    provider,
+    required ProviderListenable<AsyncValue<PaginationState<Media>>> provider,
+    required VoidCallback onLoadMore,
+    required VoidCallback onRetry,
     required String title,
     bool skipFirst = false,
     String? heroTagPrefix,
@@ -412,7 +422,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         watchedIds: watchedIds,
         hideWatched: hideWatched,
         heroTagPrefix: heroTagPrefix,
-        onLoadMore: () => ref.read(provider.notifier).loadMore(),
+        onLoadMore: onLoadMore,
         isLoadingMore: state.isLoadingMore,
       ),
       loading: () =>
@@ -420,7 +430,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       error: (error, stackTrace) => ErrorRetryWidget(
         compact: true,
         message: '$title konnte nicht geladen werden',
-        onRetry: () => ref.read(provider.notifier).refresh(),
+        onRetry: onRetry,
       ),
     );
   }

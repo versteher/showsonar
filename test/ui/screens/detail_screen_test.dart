@@ -65,10 +65,10 @@ void main() {
         pumpAppScreen(
           child: const DetailScreen(mediaId: 123, mediaType: MediaType.movie),
           overrides: [
-            mediaDetailsProvider((
+            mediaDetailsProvider(
               id: 123,
               type: MediaType.movie,
-            )).overrideWith((ref) => completer.future),
+            ).overrideWith((ref) => completer.future),
           ],
         ),
       );
@@ -91,22 +91,22 @@ void main() {
         pumpAppScreen(
           child: const DetailScreen(mediaId: 123, mediaType: MediaType.movie),
           overrides: [
-            mediaDetailsProvider((
+            mediaDetailsProvider(
               id: 123,
               type: MediaType.movie,
-            )).overrideWith((ref) => Future.value(mockMedia)),
-            similarContentProvider((
+            ).overrideWith((ref) => Future.value(mockMedia)),
+            similarContentProvider(
               id: 123,
               type: MediaType.movie,
-            )).overrideWith((ref) => Future.value(mockSimilar)),
-            watchHistoryEntryProvider((
+            ).overrideWith((ref) => Future.value(mockSimilar)),
+            watchHistoryEntryProvider(
               id: 123,
               type: MediaType.movie,
-            )).overrideWith((ref) => Future.value(null)),
-            isOnWatchlistProvider((
+            ).overrideWith((ref) => Future.value(null)),
+            isOnWatchlistProvider(
               id: 123,
               type: MediaType.movie,
-            )).overrideWith((ref) => Future.value(false)),
+            ).overrideWith((ref) => Future.value(false)),
             userPreferencesProvider.overrideWith(
               (ref) => Future.value(
                 const UserPreferences(
@@ -116,10 +116,10 @@ void main() {
                 ),
               ),
             ),
-            mediaAvailabilityProvider((
+            mediaAvailabilityProvider(
               id: 123,
               type: MediaType.movie,
-            )).overrideWith((ref) => Future.value([])),
+            ).overrideWith((ref) => Future.value([])),
             watchlistRepositoryProvider.overrideWithValue(mockWatchlistRepo),
           ],
         ),
@@ -152,22 +152,22 @@ void main() {
         pumpAppScreen(
           child: const DetailScreen(mediaId: 123, mediaType: MediaType.movie),
           overrides: [
-            mediaDetailsProvider((
+            mediaDetailsProvider(
               id: 123,
               type: MediaType.movie,
-            )).overrideWith((ref) => Future.value(mockMedia)),
-            similarContentProvider((
+            ).overrideWith((ref) => Future.value(mockMedia)),
+            similarContentProvider(
               id: 123,
               type: MediaType.movie,
-            )).overrideWith((ref) => Future.value([])),
-            watchHistoryEntryProvider((
+            ).overrideWith((ref) => Future.value([])),
+            watchHistoryEntryProvider(
               id: 123,
               type: MediaType.movie,
-            )).overrideWith((ref) => Future.value(mockEntry)),
-            isOnWatchlistProvider((
+            ).overrideWith((ref) => Future.value(mockEntry)),
+            isOnWatchlistProvider(
               id: 123,
               type: MediaType.movie,
-            )).overrideWith((ref) => Future.value(false)),
+            ).overrideWith((ref) => Future.value(false)),
             userPreferencesProvider.overrideWith(
               (ref) => Future.value(
                 const UserPreferences(
@@ -177,10 +177,10 @@ void main() {
                 ),
               ),
             ),
-            mediaAvailabilityProvider((
+            mediaAvailabilityProvider(
               id: 123,
               type: MediaType.movie,
-            )).overrideWith((ref) => Future.value([])),
+            ).overrideWith((ref) => Future.value([])),
           ],
         ),
       );

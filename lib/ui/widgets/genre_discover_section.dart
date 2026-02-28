@@ -34,7 +34,7 @@ class GenreDiscoverSection extends ConsumerWidget {
     final hideWatched = ref.watch(hideWatchedProvider);
 
     final dataAsync = ref.watch(
-      genreDiscoverProvider((genreId: selectedGenre, sortBy: sortBy)),
+      genreDiscoverProvider(genreId: selectedGenre, sortBy: sortBy),
     );
 
     return Column(
@@ -181,7 +181,7 @@ class GenreDiscoverSection extends ConsumerWidget {
             compact: true,
             message: 'Genre konnte nicht geladen werden',
             onRetry: () => ref.invalidate(
-              genreDiscoverProvider((genreId: selectedGenre, sortBy: sortBy)),
+              genreDiscoverProvider(genreId: selectedGenre, sortBy: sortBy),
             ),
           ),
         ),

@@ -32,10 +32,14 @@ void main() {
     bool isWatched = false,
     bool enableHero = false,
   }) {
+    final m = media ?? testMedia;
     return ProviderScope(
       overrides: [
-        // Return empty availability list for any media item
-        mediaAvailabilityProvider.overrideWith((ref, params) async => []),
+        // Return empty availability list for the specific media item
+        mediaAvailabilityProvider(
+          id: m.id,
+          type: m.type,
+        ).overrideWith((ref) async => []),
         // Return default DE preferences
         userPreferencesProvider.overrideWith(
           (ref) async => UserPreferences.defaultDE(),
@@ -47,7 +51,7 @@ void main() {
         locale: const Locale('de'),
         home: Scaffold(
           body: MediaCard(
-            media: media ?? testMedia,
+            media: m,
             onTap: onTap,
             onLongPress: onLongPress,
             showTitle: showTitle,

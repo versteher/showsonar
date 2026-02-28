@@ -53,14 +53,6 @@ void main() {
   final allItems = [movie1, movie2, movie3, tvShow1];
   final watchedIds = {'movie_2', 'tv_10'};
 
-  /// Riverpod overrides for MediaCard (ConsumerWidget) used inside MediaSection.
-  final providerOverrides = <Override>[
-    mediaAvailabilityProvider.overrideWith((ref, params) async => []),
-    userPreferencesProvider.overrideWith(
-      (ref) async => UserPreferences.defaultDE(),
-    ),
-  ];
-
   // Helper to wrap MediaSection in ProviderScope + MaterialApp
   Widget buildWidget({
     required List<Media> items,
@@ -69,7 +61,16 @@ void main() {
     String title = 'Test Section',
   }) {
     return ProviderScope(
-      overrides: providerOverrides,
+      overrides: [
+        for (final item in items)
+          mediaAvailabilityProvider(
+            id: item.id,
+            type: item.type,
+          ).overrideWith((ref) async => []),
+        userPreferencesProvider.overrideWith(
+          (ref) async => UserPreferences.defaultDE(),
+        ),
+      ],
       child: MaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
@@ -177,7 +178,11 @@ void main() {
     testWidgets('shows loading shimmer when isLoading', (tester) async {
       await tester.pumpWidget(
         ProviderScope(
-          overrides: providerOverrides,
+          overrides: [
+            userPreferencesProvider.overrideWith(
+              (ref) async => UserPreferences.defaultDE(),
+            ),
+          ],
           child: MaterialApp(
             home: Scaffold(
               body: SingleChildScrollView(

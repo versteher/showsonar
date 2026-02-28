@@ -1,8 +1,11 @@
 import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../data/models/media.dart';
 import '../../utils/media_filter.dart';
 import '../providers.dart';
+
+part 'mood_providers.g.dart';
 
 // ============================================================================
 // Mood-Based Discovery Providers
@@ -28,7 +31,8 @@ enum DiscoveryMood {
 final selectedMoodProvider = StateProvider<DiscoveryMood?>((ref) => null);
 
 /// Provider that fetches content matching the selected mood
-final moodDiscoverProvider = FutureProvider<List<Media>>((ref) async {
+@riverpod
+Future<List<Media>> moodDiscover(Ref ref) async {
   final mood = ref.watch(selectedMoodProvider);
   if (mood == null) return [];
 
@@ -60,4 +64,4 @@ final moodDiscoverProvider = FutureProvider<List<Media>>((ref) async {
   final filtered = MediaFilter.applyPreferences(combined, prefs);
   filtered.sort((a, b) => (b.voteAverage).compareTo(a.voteAverage));
   return filtered.take(20).toList();
-});
+}

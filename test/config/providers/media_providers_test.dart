@@ -86,7 +86,7 @@ void main() {
       ).thenAnswer((_) async => testMovie);
 
       final result = await container.read(
-        mediaDetailsProvider((id: 1, type: MediaType.movie)).future,
+        mediaDetailsProvider(id: 1, type: MediaType.movie).future,
       );
       expect(result, testMovie);
     });
@@ -97,7 +97,7 @@ void main() {
       ).thenAnswer((_) async => [testMovie]);
 
       final result = await container.read(
-        similarContentProvider((id: 1, type: MediaType.movie)).future,
+        similarContentProvider(id: 1, type: MediaType.movie).future,
       );
       expect(result, [testMovie]);
     });
@@ -108,7 +108,7 @@ void main() {
       ).thenAnswer((_) async => 'https://youtube.com/watch?v=123');
 
       final url = await container.read(
-        trailerUrlProvider((id: 1, type: MediaType.movie)).future,
+        trailerUrlProvider(id: 1, type: MediaType.movie).future,
       );
       expect(url, 'https://youtube.com/watch?v=123');
     });

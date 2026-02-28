@@ -1,8 +1,11 @@
 import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../data/models/media.dart';
 import '../../utils/media_filter.dart';
 import '../providers.dart';
+
+part 'seasonal_providers.g.dart';
 
 // ============================================================================
 // Seasonal/Contextual Recommendations Provider
@@ -106,7 +109,8 @@ final seasonalTitleProvider = Provider<String>((ref) {
 });
 
 /// Seasonal content provider
-final seasonalProvider = FutureProvider<List<Media>>((ref) async {
+@riverpod
+Future<List<Media>> seasonal(Ref ref) async {
   final tmdb = ref.watch(tmdbRepositoryProvider);
   final prefs = await ref.watch(userPreferencesProvider.future);
   final providerIds = prefs.tmdbProviderIds;
@@ -139,12 +143,9 @@ final seasonalProvider = FutureProvider<List<Media>>((ref) async {
   final quality = filtered.where((m) => m.voteCount >= 500).toList();
   quality.sort((a, b) => b.voteAverage.compareTo(a.voteAverage));
   return quality.take(20).toList();
-});
+}
 
 class SeasonalPaginationNotifier extends PaginationNotifier {
-  final Ref ref;
-  SeasonalPaginationNotifier(this.ref);
-
   @override
   Future<List<Media>> fetchPage(int page) async {
     final tmdb = ref.read(tmdbRepositoryProvider);
@@ -187,7 +188,6 @@ class SeasonalPaginationNotifier extends PaginationNotifier {
 }
 
 final seasonalPaginationProvider =
-    StateNotifierProvider<
-      SeasonalPaginationNotifier,
-      AsyncValue<PaginationState<Media>>
-    >((ref) => SeasonalPaginationNotifier(ref));
+    AsyncNotifierProvider<SeasonalPaginationNotifier, PaginationState<Media>>(
+      SeasonalPaginationNotifier.new,
+    );

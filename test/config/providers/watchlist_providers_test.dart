@@ -62,7 +62,7 @@ void main() {
       );
 
       final isListed = await localContainer.read(
-        isOnWatchlistProvider((id: 1, type: MediaType.movie)).future,
+        isOnWatchlistProvider(id: 1, type: MediaType.movie).future,
       );
       expect(isListed, isTrue);
     });

@@ -30,9 +30,13 @@ void main() {
     String locale = 'en',
     bool withOnTap = true,
   }) {
+    final m = media ?? testMedia;
     return ProviderScope(
       overrides: [
-        mediaAvailabilityProvider.overrideWith((ref, params) async => []),
+        mediaAvailabilityProvider(
+          id: m.id,
+          type: m.type,
+        ).overrideWith((ref) async => []),
         userPreferencesProvider.overrideWith(
           (ref) async => UserPreferences.defaultDE(),
         ),
@@ -43,7 +47,7 @@ void main() {
         locale: Locale(locale),
         home: Scaffold(
           body: MediaCard(
-            media: media ?? testMedia,
+            media: m,
             onTap: withOnTap ? (onTap ?? () {}) : null,
             isWatched: isWatched,
             showRating: showRating,
