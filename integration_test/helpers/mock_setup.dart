@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:stream_scout/config/providers.dart';
 import 'package:stream_scout/data/models/media.dart';
+import 'package:stream_scout/data/models/watch_history_entry.dart';
+import 'package:stream_scout/data/models/watchlist_entry.dart';
 import 'package:stream_scout/data/models/user_preferences.dart';
 import 'package:stream_scout/data/repositories/dismissed_repository.dart';
 import 'package:stream_scout/data/repositories/local_preferences_repository.dart';
@@ -50,9 +52,15 @@ class FakeMedia extends Fake implements Media {}
 
 class FakeUserPreferences extends Fake implements UserPreferences {}
 
+class FakeWatchHistoryEntry extends Fake implements WatchHistoryEntry {}
+
+class FakeWatchlistEntry extends Fake implements WatchlistEntry {}
+
 List<Override> getIntegrationTestOverrides() {
   registerFallbackValue(FakeMedia());
   registerFallbackValue(FakeUserPreferences());
+  registerFallbackValue(FakeWatchHistoryEntry());
+  registerFallbackValue(FakeWatchlistEntry());
   registerFallbackValue(ThemeMode.system);
   registerFallbackValue(MediaType.movie);
 
@@ -159,19 +167,46 @@ List<Override> getIntegrationTestOverrides() {
   when(
     () => watchHistoryRepository.getAllEntries(),
   ).thenAnswer((_) async => []);
+  final mockEntry = WatchHistoryEntry(
+    mediaId: mockMedia.id,
+    mediaType: mockMedia.type,
+    title: mockMedia.title,
+    posterPath: mockMedia.posterPath,
+    watchedAt: DateTime.now(),
+  );
+
   when(
     () => watchHistoryRepository.markAsWatched(
       any(),
       rating: any(named: 'rating'),
     ),
-  ).thenAnswer((_) async => throw UnimplementedError());
+  ).thenAnswer((_) async => mockEntry);
+
+  when(
+    () => watchHistoryRepository.updateEntry(any()),
+  ).thenAnswer((_) async {});
+
+  when(
+    () => watchHistoryRepository.addToHistory(any()),
+  ).thenAnswer((_) async {});
 
   // Watchlist
   when(() => watchlistRepository.init()).thenAnswer((_) async {});
   when(() => watchlistRepository.getAllEntries()).thenAnswer((_) async => []);
+  final mockWatchlistEntry = WatchlistEntry(
+    mediaId: mockMedia.id,
+    mediaType: mockMedia.type,
+    title: mockMedia.title,
+    posterPath: mockMedia.posterPath,
+    addedAt: DateTime.now(),
+  );
+
   when(
     () => watchlistRepository.addMedia(any()),
-  ).thenAnswer((_) async => throw UnimplementedError());
+  ).thenAnswer((_) async => mockWatchlistEntry);
+  when(
+    () => watchlistRepository.removeFromWatchlist(any(), any()),
+  ).thenAnswer((_) async {});
 
   // Dismissed
   when(() => dismissedRepository.init()).thenAnswer((_) async {});
