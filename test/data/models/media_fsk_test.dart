@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:neon_voyager/data/models/media.dart';
+import 'package:stream_scout/data/models/media.dart';
 
 void main() {
   group('Media FSK Parsing', () {

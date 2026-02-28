@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:neon_voyager/data/repositories/tmdb_repository.dart';
-import 'package:neon_voyager/data/services/tmdb_api_client.dart';
+import 'package:stream_scout/data/repositories/tmdb_repository.dart';
+import 'package:stream_scout/data/services/tmdb_api_client.dart';
 
 // Manual MockDio that captures requests
 class MockDio implements Dio {

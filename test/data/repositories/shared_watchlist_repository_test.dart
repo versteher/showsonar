@@ -1,6 +1,6 @@
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:neon_voyager/data/repositories/shared_watchlist_repository.dart';
+import 'package:stream_scout/data/repositories/shared_watchlist_repository.dart';
 
 void main() {
   group('SharedWatchlistRepository', () {

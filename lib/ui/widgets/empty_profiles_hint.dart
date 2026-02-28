@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:neon_voyager/ui/theme/app_theme.dart';
+import 'package:stream_scout/ui/theme/app_theme.dart';
 
 /// Empty-state widget shown when no family profiles have been created yet.
 class EmptyProfilesHint extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:neon_voyager/utils/app_haptics.dart';
+import 'package:stream_scout/utils/app_haptics.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -7,7 +7,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:lottie/lottie.dart';
 
-import 'package:neon_voyager/l10n/app_localizations.dart';
+import 'package:stream_scout/l10n/app_localizations.dart';
 
 import '../../config/providers.dart';
 import '../../data/models/media.dart';

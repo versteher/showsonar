@@ -6,8 +6,8 @@ resource "google_artifact_registry_repository" "docker" {
 
   project       = var.project_id
   location      = var.region
-  repository_id = "neonvoyager"
-  description   = "Docker images for Neon Voyager API proxy and Cloud Run services"
+  repository_id = "streamscout"
+  description   = "Docker images for StreamScout API proxy and Cloud Run services"
   format        = "DOCKER"
 
   docker_config {
@@ -47,7 +47,7 @@ data "google_project" "project" {
 resource "google_cloudbuild_trigger" "main_pipeline" {
   provider = google-beta
   project  = var.project_id
-  name     = "neonvoyager-main-ci-cd"
+  name     = "streamscout-main-ci-cd"
 
   github {
     owner = var.github_owner

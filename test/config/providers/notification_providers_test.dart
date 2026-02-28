@@ -3,8 +3,8 @@ import 'package:mocktail/mocktail.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:neon_voyager/config/providers.dart';
-import 'package:neon_voyager/config/providers/notification_providers.dart';
+import 'package:stream_scout/config/providers.dart';
+import 'package:stream_scout/config/providers/notification_providers.dart';
 
 import '../../utils/test_provider_container.dart';
 

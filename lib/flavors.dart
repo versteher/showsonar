@@ -8,11 +8,11 @@ class F {
   static String get title {
     switch (appFlavor) {
       case Flavor.dev:
-        return 'Neon Dev';
+        return 'StreamScout Dev';
       case Flavor.staging:
-        return 'Neon Stg';
+        return 'StreamScout Stg';
       case Flavor.prod:
-        return 'Neon Voyager';
+        return 'StreamScout';
     }
   }
 }

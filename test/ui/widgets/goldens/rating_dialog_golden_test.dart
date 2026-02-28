@@ -3,8 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
-import 'package:neon_voyager/ui/widgets/rating_dialog.dart';
-import 'package:neon_voyager/ui/theme/app_theme.dart';
+import 'package:stream_scout/ui/widgets/rating_dialog.dart';
+import 'package:stream_scout/ui/theme/app_theme.dart';
 
 void main() {
   setUpAll(() async {

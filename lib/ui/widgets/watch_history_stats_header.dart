@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:neon_voyager/l10n/app_localizations.dart';
+import 'package:stream_scout/l10n/app_localizations.dart';
 import '../../data/models/media.dart';
 import '../../data/models/watch_history_entry.dart';
 import '../theme/app_theme.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:neon_voyager/utils/ai_title_parser.dart';
+import 'package:stream_scout/utils/ai_title_parser.dart';
 
 void main() {
   group('AiTitleParser.extractTitles', () {

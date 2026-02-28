@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:neon_voyager/config/api_config.dart';
+import 'package:stream_scout/config/api_config.dart';
 
 void main() {
   group('ApiConfig', () {

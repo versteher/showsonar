@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:neon_voyager/config/providers.dart';
-import 'package:neon_voyager/ui/theme/app_theme.dart';
-import 'package:neon_voyager/ui/widgets/episode_tracking_progress_header.dart';
-import 'package:neon_voyager/ui/widgets/season_expansion_tile.dart';
+import 'package:stream_scout/config/providers.dart';
+import 'package:stream_scout/ui/theme/app_theme.dart';
+import 'package:stream_scout/ui/widgets/episode_tracking_progress_header.dart';
+import 'package:stream_scout/ui/widgets/season_expansion_tile.dart';
 
 /// Full-screen episode tracking UI for a TV series.
 /// Shows season-by-season progress with per-episode checkboxes,

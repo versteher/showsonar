@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:neon_voyager/ui/theme/app_theme.dart';
+import 'package:stream_scout/ui/theme/app_theme.dart';
 
 /// A single profile row showing avatar, name, active badge, and actions.
 class ProfileTile extends StatelessWidget {

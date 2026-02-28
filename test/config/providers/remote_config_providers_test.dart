@@ -2,8 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:neon_voyager/config/providers/remote_config_providers.dart';
-import 'package:neon_voyager/utils/remote_config_service.dart';
+import 'package:stream_scout/config/providers/remote_config_providers.dart';
+import 'package:stream_scout/utils/remote_config_service.dart';
 
 class MockRemoteConfigService extends Mock implements RemoteConfigService {}
 

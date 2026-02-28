@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:neon_voyager/config/providers.dart';
-import 'package:neon_voyager/ui/theme/app_theme.dart';
+import 'package:stream_scout/config/providers.dart';
+import 'package:stream_scout/ui/theme/app_theme.dart';
 
 /// Card showing sign-in status and sign-in/sign-out action.
 class SettingsAccountCard extends ConsumerWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:neon_voyager/data/services/omdb_service.dart';
+import 'package:stream_scout/data/services/omdb_service.dart';
 
 /// Tests for OmdbRatings model — parsing and computed properties.
 /// HTTP-level integration tests are not included since they require

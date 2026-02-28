@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:neon_voyager/data/repositories/tmdb_repository.dart';
-import 'package:neon_voyager/data/services/tmdb_api_client.dart';
-import 'package:neon_voyager/data/models/media.dart';
+import 'package:stream_scout/data/repositories/tmdb_repository.dart';
+import 'package:stream_scout/data/services/tmdb_api_client.dart';
+import 'package:stream_scout/data/models/media.dart';
 
 class MockTmdbApiClient extends Mock implements TmdbApiClient {}
 

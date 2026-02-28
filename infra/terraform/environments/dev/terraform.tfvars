@@ -1,3 +1,3 @@
-project_id  = "neonvoyager-dev"
+project_id  = "streamscout-dev"
 region      = "europe-west1"
 environment = "dev"

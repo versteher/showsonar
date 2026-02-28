@@ -4,9 +4,9 @@ import 'package:mocktail/mocktail.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:neon_voyager/ui/screens/main_navigation_screen.dart';
-import 'package:neon_voyager/utils/analytics_service.dart';
-import 'package:neon_voyager/config/providers.dart';
+import 'package:stream_scout/ui/screens/main_navigation_screen.dart';
+import 'package:stream_scout/utils/analytics_service.dart';
+import 'package:stream_scout/config/providers.dart';
 
 import '../../utils/test_app_wrapper.dart';
 

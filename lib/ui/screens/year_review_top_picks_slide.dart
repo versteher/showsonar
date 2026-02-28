@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:neon_voyager/config/api_config.dart';
+import 'package:stream_scout/config/api_config.dart';
 
 import '../../config/providers/year_in_review_provider.dart';
 import '../theme/app_theme.dart';

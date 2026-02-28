@@ -2,10 +2,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:neon_voyager/config/providers.dart';
-import 'package:neon_voyager/data/models/media.dart';
-import 'package:neon_voyager/data/models/user_preferences.dart';
-import 'package:neon_voyager/config/providers/seasonal_providers.dart';
+import 'package:stream_scout/config/providers.dart';
+import 'package:stream_scout/data/models/media.dart';
+import 'package:stream_scout/data/models/user_preferences.dart';
+import 'package:stream_scout/config/providers/seasonal_providers.dart';
 
 import '../../utils/test_provider_container.dart';
 

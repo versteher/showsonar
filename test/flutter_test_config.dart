@@ -4,7 +4,7 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import 'package:neon_voyager/ui/theme/app_theme.dart';
+import 'package:stream_scout/ui/theme/app_theme.dart';
 
 Future<void> testExecutable(FutureOr<void> Function() testMain) async {
   // Load fonts so golden tests don't render Ahem squares

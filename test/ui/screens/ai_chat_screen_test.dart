@@ -2,10 +2,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import 'package:neon_voyager/ui/screens/ai_chat_screen.dart';
-import 'package:neon_voyager/config/providers.dart';
-import 'package:neon_voyager/data/services/gemini_service.dart';
-import 'package:neon_voyager/data/repositories/tmdb_repository.dart';
+import 'package:stream_scout/ui/screens/ai_chat_screen.dart';
+import 'package:stream_scout/config/providers.dart';
+import 'package:stream_scout/data/services/gemini_service.dart';
+import 'package:stream_scout/data/repositories/tmdb_repository.dart';
 
 import '../../utils/test_app_wrapper.dart';
 

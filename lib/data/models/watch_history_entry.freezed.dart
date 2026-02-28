@@ -21,7 +21,8 @@ WatchHistoryEntry _$WatchHistoryEntryFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$WatchHistoryEntry {
-  int get mediaId => throw _privateConstructorUsedError;
+  int get mediaId =>
+      throw _privateConstructorUsedError; // ignore: invalid_annotation_target
   @JsonKey(unknownEnumValue: MediaType.movie)
   MediaType get mediaType => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
@@ -326,6 +327,7 @@ class _$WatchHistoryEntryImpl extends _WatchHistoryEntry {
 
   @override
   final int mediaId;
+  // ignore: invalid_annotation_target
   @override
   @JsonKey(unknownEnumValue: MediaType.movie)
   final MediaType mediaType;
@@ -469,7 +471,7 @@ abstract class _WatchHistoryEntry extends WatchHistoryEntry {
       _$WatchHistoryEntryImpl.fromJson;
 
   @override
-  int get mediaId;
+  int get mediaId; // ignore: invalid_annotation_target
   @override
   @JsonKey(unknownEnumValue: MediaType.movie)
   MediaType get mediaType;

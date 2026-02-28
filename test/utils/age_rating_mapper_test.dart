@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:neon_voyager/utils/age_rating_mapper.dart';
+import 'package:stream_scout/utils/age_rating_mapper.dart';
 
 void main() {
   group('AgeRatingMapper', () {

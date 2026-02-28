@@ -1,4 +1,4 @@
-name: neon_voyager
+name: stream_scout
 description: "Intelligent movie & series recommendation app based on watch history, ratings, and streaming availability."
 publish_to: 'none'
 

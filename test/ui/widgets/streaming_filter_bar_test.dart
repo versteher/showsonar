@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:neon_voyager/data/models/streaming_provider.dart';
-import 'package:neon_voyager/data/models/user_preferences.dart';
-import 'package:neon_voyager/data/repositories/user_preferences_repository.dart';
-import 'package:neon_voyager/config/providers.dart';
-import 'package:neon_voyager/ui/widgets/streaming_filter_bar.dart';
-import 'package:neon_voyager/l10n/app_localizations.dart';
+import 'package:stream_scout/data/models/streaming_provider.dart';
+import 'package:stream_scout/data/models/user_preferences.dart';
+import 'package:stream_scout/data/repositories/user_preferences_repository.dart';
+import 'package:stream_scout/config/providers.dart';
+import 'package:stream_scout/ui/widgets/streaming_filter_bar.dart';
+import 'package:stream_scout/l10n/app_localizations.dart';
 
 void main() {
   // Disable flutter_animate delays to avoid FakeAsync timer issues.

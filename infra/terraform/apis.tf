@@ -1,4 +1,4 @@
-# Enable all required GCP APIs for Neon Voyager
+# Enable all required GCP APIs for StreamScout
 # These must be enabled before any other modules can run.
 
 locals {

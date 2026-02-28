@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:neon_voyager/config/providers/profile_providers.dart';
-import 'package:neon_voyager/ui/theme/app_theme.dart';
+import 'package:stream_scout/config/providers/profile_providers.dart';
+import 'package:stream_scout/ui/theme/app_theme.dart';
 
 /// Compact tile showing the active profile — tappable to go to profiles screen.
 class ProfileSwitcherTile extends ConsumerWidget {

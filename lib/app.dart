@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:neon_voyager/l10n/app_localizations.dart';
+import 'package:stream_scout/l10n/app_localizations.dart';
 
 import 'flavors.dart';
 import 'config/router.dart';

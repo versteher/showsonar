@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/// Premium dark theme design system for NeonVoyager
+/// Premium dark theme design system for StreamScout
 class AppTheme {
   AppTheme._();
 

@@ -12,7 +12,7 @@
 // would be needed, which is beyond the scope of unit tests.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:neon_voyager/data/services/gemini_service.dart';
+import 'package:stream_scout/data/services/gemini_service.dart';
 
 void main() {
   group('GeminiService', () {

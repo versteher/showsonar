@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
-import 'package:neon_voyager/data/models/media.dart';
-import 'package:neon_voyager/data/models/watchlist_entry.dart';
-import 'package:neon_voyager/data/repositories/watchlist_repository.dart';
+import 'package:stream_scout/data/models/media.dart';
+import 'package:stream_scout/data/models/watchlist_entry.dart';
+import 'package:stream_scout/data/repositories/watchlist_repository.dart';
 
 void main() {
   late FakeFirebaseFirestore fakeFirestore;

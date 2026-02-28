@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:neon_voyager/ui/screens/settings_screen.dart';
-import 'package:neon_voyager/config/providers.dart';
-import 'package:neon_voyager/data/models/user_preferences.dart';
-import 'package:neon_voyager/data/repositories/user_preferences_repository.dart';
-import 'package:neon_voyager/data/repositories/local_preferences_repository.dart';
-import 'package:neon_voyager/l10n/app_localizations.dart';
+import 'package:stream_scout/ui/screens/settings_screen.dart';
+import 'package:stream_scout/config/providers.dart';
+import 'package:stream_scout/data/models/user_preferences.dart';
+import 'package:stream_scout/data/repositories/user_preferences_repository.dart';
+import 'package:stream_scout/data/repositories/local_preferences_repository.dart';
+import 'package:stream_scout/l10n/app_localizations.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 

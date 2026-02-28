@@ -56,7 +56,7 @@ class AiChatAppBar extends StatelessWidget {
                       colors: [Color(0xFF7C4DFF), Color(0xFFE040FB)],
                     ).createShader(bounds),
                     child: Text(
-                      'NeonVoyager AI',
+                      'StreamScout AI',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,

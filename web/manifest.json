@@ -1,6 +1,6 @@
 {
-    "name": "neon_voyager",
-    "short_name": "neon_voyager",
+    "name": "stream_scout",
+    "short_name": "stream_scout",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

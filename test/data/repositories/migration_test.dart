@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
-import 'package:neon_voyager/data/repositories/user_preferences_repository.dart';
-import 'package:neon_voyager/data/repositories/watchlist_repository.dart';
+import 'package:stream_scout/data/repositories/user_preferences_repository.dart';
+import 'package:stream_scout/data/repositories/watchlist_repository.dart';
 
 void main() {
   late FakeFirebaseFirestore fakeFirestore;

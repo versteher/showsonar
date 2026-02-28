@@ -1,4 +1,4 @@
-package com.neonvoyager.app
+package com.streamscout.app
 
 import android.appwidget.AppWidgetManager
 import android.content.Context

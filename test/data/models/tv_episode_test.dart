@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:neon_voyager/data/models/tv_episode.dart';
+import 'package:stream_scout/data/models/tv_episode.dart';
 
 void main() {
   group('TvEpisode', () {

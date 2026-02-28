@@ -8,18 +8,18 @@ android.apply {
     productFlavors {
         create("dev") {
             dimension = "flavor-type"
-            applicationId = "com.neonvoyager.app.dev"
-            resValue(type = "string", name = "app_name", value = "Neon Dev")
+            applicationId = "com.streamscout.app.dev"
+            resValue(type = "string", name = "app_name", value = "StreamScout Dev")
         }
         create("staging") {
             dimension = "flavor-type"
-            applicationId = "com.neonvoyager.app.staging"
-            resValue(type = "string", name = "app_name", value = "Neon Stg")
+            applicationId = "com.streamscout.app.staging"
+            resValue(type = "string", name = "app_name", value = "StreamScout Stg")
         }
         create("prod") {
             dimension = "flavor-type"
-            applicationId = "com.neonvoyager.app"
-            resValue(type = "string", name = "app_name", value = "Neon Voyager")
+            applicationId = "com.streamscout.app"
+            resValue(type = "string", name = "app_name", value = "StreamScout")
         }
     }
 }

@@ -2,5 +2,5 @@
 #include "Generated.xcconfig"
 
 ASSET_PREFIX=prod
-BUNDLE_NAME=Neon Voyager
-BUNDLE_DISPLAY_NAME=Neon Voyager
+BUNDLE_NAME=StreamScout
+BUNDLE_DISPLAY_NAME=StreamScout

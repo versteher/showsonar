@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:neon_voyager/data/models/media.dart';
-import 'package:neon_voyager/data/models/user_preferences.dart';
-import 'package:neon_voyager/config/providers.dart';
-import 'package:neon_voyager/ui/widgets/media_card.dart';
-import 'package:neon_voyager/l10n/app_localizations.dart';
+import 'package:stream_scout/data/models/media.dart';
+import 'package:stream_scout/data/models/user_preferences.dart';
+import 'package:stream_scout/config/providers.dart';
+import 'package:stream_scout/ui/widgets/media_card.dart';
+import 'package:stream_scout/l10n/app_localizations.dart';
 
 void main() {
   final testMedia = Media(

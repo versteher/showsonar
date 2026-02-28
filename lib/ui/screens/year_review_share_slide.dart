@@ -23,7 +23,7 @@ class Slide5Share extends StatelessWidget {
         '⭐ Average rating: ${data.averageUserRating.toStringAsFixed(1)}/10',
       if (data.topRated.isNotEmpty) '🏆 Favourite: ${data.topRated.first.title}',
       '',
-      '#NeonVoyager #MovieYear$year',
+      '#StreamScout #MovieYear$year',
     ];
     return lines.join('\n');
   }

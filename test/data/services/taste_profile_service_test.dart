@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
-import 'package:neon_voyager/data/models/media.dart';
-import 'package:neon_voyager/data/models/watch_history_entry.dart';
-import 'package:neon_voyager/data/repositories/watch_history_repository.dart';
-import 'package:neon_voyager/data/services/taste_profile_service.dart';
+import 'package:stream_scout/data/models/media.dart';
+import 'package:stream_scout/data/models/watch_history_entry.dart';
+import 'package:stream_scout/data/repositories/watch_history_repository.dart';
+import 'package:stream_scout/data/services/taste_profile_service.dart';
 
 void main() {
   late Directory tempDir;

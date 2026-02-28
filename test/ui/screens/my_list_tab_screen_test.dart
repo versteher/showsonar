@@ -3,8 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:neon_voyager/ui/screens/my_list_tab_screen.dart';
-import 'package:neon_voyager/config/providers.dart';
+import 'package:stream_scout/ui/screens/my_list_tab_screen.dart';
+import 'package:stream_scout/config/providers.dart';
 
 import '../../utils/test_app_wrapper.dart';
 

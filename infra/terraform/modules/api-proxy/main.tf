@@ -1,8 +1,8 @@
 # API Proxy module — Cloud Run service + service account + App Check
 
 locals {
-  service_name = "neonvoyager-api-proxy-${var.environment}"
-  image_url    = "${var.region}-docker.pkg.dev/${var.project_id}/neonvoyager/api-proxy:${var.image_tag}"
+  service_name = "streamscout-api-proxy-${var.environment}"
+  image_url    = "${var.region}-docker.pkg.dev/${var.project_id}/streamscout/api-proxy:${var.image_tag}"
 }
 
 # ── Service account ──────────────────────────────────────────────────────────
@@ -10,7 +10,7 @@ locals {
 resource "google_service_account" "api_proxy" {
   project      = var.project_id
   account_id   = "nv-api-proxy-${var.environment}"
-  display_name = "Neon Voyager API Proxy (${var.environment})"
+  display_name = "StreamScout API Proxy (${var.environment})"
 }
 
 # Allow the SA to access secrets

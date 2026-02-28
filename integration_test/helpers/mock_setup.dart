@@ -2,18 +2,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:neon_voyager/config/providers.dart';
-import 'package:neon_voyager/data/models/media.dart';
-import 'package:neon_voyager/data/models/user_preferences.dart';
-import 'package:neon_voyager/data/repositories/dismissed_repository.dart';
-import 'package:neon_voyager/data/repositories/local_preferences_repository.dart';
-import 'package:neon_voyager/data/repositories/tmdb_repository.dart';
-import 'package:neon_voyager/data/repositories/user_preferences_repository.dart';
-import 'package:neon_voyager/data/repositories/watch_history_repository.dart';
-import 'package:neon_voyager/data/repositories/watchlist_repository.dart';
-import 'package:neon_voyager/utils/analytics_service.dart';
-import 'package:neon_voyager/utils/notification_service.dart';
-import 'package:neon_voyager/utils/remote_config_service.dart';
+import 'package:stream_scout/config/providers.dart';
+import 'package:stream_scout/data/models/media.dart';
+import 'package:stream_scout/data/models/user_preferences.dart';
+import 'package:stream_scout/data/repositories/dismissed_repository.dart';
+import 'package:stream_scout/data/repositories/local_preferences_repository.dart';
+import 'package:stream_scout/data/repositories/tmdb_repository.dart';
+import 'package:stream_scout/data/repositories/user_preferences_repository.dart';
+import 'package:stream_scout/data/repositories/watch_history_repository.dart';
+import 'package:stream_scout/data/repositories/watchlist_repository.dart';
+import 'package:stream_scout/utils/analytics_service.dart';
+import 'package:stream_scout/utils/notification_service.dart';
+import 'package:stream_scout/utils/remote_config_service.dart';
 
 class MockTmdbRepository extends Mock implements ITmdbRepository {}
 

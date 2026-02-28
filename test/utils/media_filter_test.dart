@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:neon_voyager/data/models/media.dart';
-import 'package:neon_voyager/data/models/user_preferences.dart';
-import 'package:neon_voyager/utils/media_filter.dart';
+import 'package:stream_scout/data/models/media.dart';
+import 'package:stream_scout/data/models/user_preferences.dart';
+import 'package:stream_scout/utils/media_filter.dart';
 
 void main() {
   // --- Test data ---

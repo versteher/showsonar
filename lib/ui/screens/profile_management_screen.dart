@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:neon_voyager/config/providers/profile_providers.dart';
-import 'package:neon_voyager/data/models/app_profile.dart';
-import 'package:neon_voyager/ui/theme/app_theme.dart';
-import 'package:neon_voyager/ui/widgets/add_profile_sheet.dart';
-import 'package:neon_voyager/ui/widgets/app_snack_bar.dart';
-import 'package:neon_voyager/ui/widgets/empty_profiles_hint.dart';
-import 'package:neon_voyager/ui/widgets/profile_tile.dart';
+import 'package:stream_scout/config/providers/profile_providers.dart';
+import 'package:stream_scout/data/models/app_profile.dart';
+import 'package:stream_scout/ui/theme/app_theme.dart';
+import 'package:stream_scout/ui/widgets/add_profile_sheet.dart';
+import 'package:stream_scout/ui/widgets/app_snack_bar.dart';
+import 'package:stream_scout/ui/widgets/empty_profiles_hint.dart';
+import 'package:stream_scout/ui/widgets/profile_tile.dart';
 
 /// Screen for creating, switching, and removing family sub-profiles.
 class ProfileManagementScreen extends ConsumerWidget {

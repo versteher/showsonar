@@ -2,9 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:neon_voyager/config/providers/year_in_review_provider.dart';
-import 'package:neon_voyager/data/models/media.dart';
-import 'package:neon_voyager/data/models/watch_history_entry.dart';
+import 'package:stream_scout/config/providers/year_in_review_provider.dart';
+import 'package:stream_scout/data/models/media.dart';
+import 'package:stream_scout/data/models/watch_history_entry.dart';
 
 import '../../utils/test_provider_container.dart';
 

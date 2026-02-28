@@ -4,9 +4,9 @@ import 'package:integration_test/integration_test.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:network_image_mock/network_image_mock.dart';
-import 'package:neon_voyager/app.dart';
-import 'package:neon_voyager/ui/screens/onboarding_screen.dart';
-import 'package:neon_voyager/ui/widgets/hero_carousel.dart';
+import 'package:stream_scout/app.dart';
+import 'package:stream_scout/ui/screens/onboarding_screen.dart';
+import 'package:stream_scout/ui/widgets/hero_carousel.dart';
 
 import 'helpers/mock_setup.dart';
 
@@ -145,7 +145,7 @@ void main() {
         await tester.pumpAndSettle();
 
         // 3. Verify we are on the Home Screen
-        expect(find.text('NeonVoyager'), findsOneWidget);
+        expect(find.text('StreamScout'), findsOneWidget);
 
         // Wait for async providers to load
         await tester.pump(const Duration(seconds: 2));

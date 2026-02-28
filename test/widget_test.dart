@@ -3,9 +3,9 @@
 // Unit tests for models and services are in test/data/
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:neon_voyager/data/models/media.dart';
-import 'package:neon_voyager/data/models/streaming_provider.dart';
-import 'package:neon_voyager/ui/theme/app_theme.dart';
+import 'package:stream_scout/data/models/media.dart';
+import 'package:stream_scout/data/models/streaming_provider.dart';
+import 'package:stream_scout/ui/theme/app_theme.dart';
 
 void main() {
   group('App Components', () {

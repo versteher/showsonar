@@ -72,8 +72,8 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'build',
-      '-t', 'europe-west1-docker.pkg.dev/$PROJECT_ID/neonvoyager/api-proxy:$COMMIT_SHA',
-      '-t', 'europe-west1-docker.pkg.dev/$PROJECT_ID/neonvoyager/api-proxy:latest',
+      '-t', 'europe-west1-docker.pkg.dev/$PROJECT_ID/streamscout/api-proxy:$COMMIT_SHA',
+      '-t', 'europe-west1-docker.pkg.dev/$PROJECT_ID/streamscout/api-proxy:latest',
       'infra/cloud-run/api-proxy'
     ]
 
@@ -82,7 +82,7 @@ steps:
     args: [
       'push',
       '--all-tags',
-      'europe-west1-docker.pkg.dev/$PROJECT_ID/neonvoyager/api-proxy'
+      'europe-west1-docker.pkg.dev/$PROJECT_ID/streamscout/api-proxy'
     ]
 
   # 7. Deploy Cloud Run API Proxy
@@ -93,7 +93,7 @@ steps:
       - 'deploy'
       - 'api-proxy'
       - '--image'
-      - 'europe-west1-docker.pkg.dev/$PROJECT_ID/neonvoyager/api-proxy:$COMMIT_SHA'
+      - 'europe-west1-docker.pkg.dev/$PROJECT_ID/streamscout/api-proxy:$COMMIT_SHA'
       - '--region'
       - 'europe-west1'
       - '--project'

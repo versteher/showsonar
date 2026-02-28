@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:neon_voyager/ui/screens/onboarding_steps.dart';
+import 'package:stream_scout/ui/screens/onboarding_steps.dart';
 
 class OnboardingTasteStep extends StatelessWidget {
   const OnboardingTasteStep({super.key});

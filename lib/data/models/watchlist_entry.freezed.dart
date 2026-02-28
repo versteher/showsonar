@@ -21,14 +21,16 @@ WatchlistEntry _$WatchlistEntryFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$WatchlistEntry {
-  int get mediaId => throw _privateConstructorUsedError;
+  int get mediaId =>
+      throw _privateConstructorUsedError; // ignore: invalid_annotation_target
   @JsonKey(unknownEnumValue: MediaType.movie)
   MediaType get mediaType => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String? get posterPath => throw _privateConstructorUsedError;
   String? get backdropPath => throw _privateConstructorUsedError;
   DateTime get addedAt => throw _privateConstructorUsedError;
-  double? get voteAverage => throw _privateConstructorUsedError;
+  double? get voteAverage =>
+      throw _privateConstructorUsedError; // ignore: invalid_annotation_target
   @JsonKey(unknownEnumValue: WatchlistPriority.normal)
   WatchlistPriority get priority => throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
@@ -259,6 +261,7 @@ class _$WatchlistEntryImpl extends _WatchlistEntry {
 
   @override
   final int mediaId;
+  // ignore: invalid_annotation_target
   @override
   @JsonKey(unknownEnumValue: MediaType.movie)
   final MediaType mediaType;
@@ -272,6 +275,7 @@ class _$WatchlistEntryImpl extends _WatchlistEntry {
   final DateTime addedAt;
   @override
   final double? voteAverage;
+  // ignore: invalid_annotation_target
   @override
   @JsonKey(unknownEnumValue: WatchlistPriority.normal)
   final WatchlistPriority priority;
@@ -367,7 +371,7 @@ abstract class _WatchlistEntry extends WatchlistEntry {
       _$WatchlistEntryImpl.fromJson;
 
   @override
-  int get mediaId;
+  int get mediaId; // ignore: invalid_annotation_target
   @override
   @JsonKey(unknownEnumValue: MediaType.movie)
   MediaType get mediaType;
@@ -380,7 +384,7 @@ abstract class _WatchlistEntry extends WatchlistEntry {
   @override
   DateTime get addedAt;
   @override
-  double? get voteAverage;
+  double? get voteAverage; // ignore: invalid_annotation_target
   @override
   @JsonKey(unknownEnumValue: WatchlistPriority.normal)
   WatchlistPriority get priority;

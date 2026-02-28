@@ -58,7 +58,7 @@ class AiChatInputBar extends StatelessWidget {
                   ),
                   decoration: InputDecoration(
                     hintText: isLoading
-                        ? 'NeonVoyager AI denkt nach...'
+                        ? 'StreamScout AI denkt nach...'
                         : 'Frag mich was...',
                     hintStyle: const TextStyle(
                       color: AppTheme.textMuted,

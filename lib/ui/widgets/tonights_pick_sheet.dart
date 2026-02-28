@@ -1,4 +1,4 @@
-import 'package:neon_voyager/utils/app_haptics.dart';
+import 'package:stream_scout/utils/app_haptics.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:math';
 import 'package:flutter/material.dart';

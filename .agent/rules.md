@@ -1,8 +1,8 @@
 ---
-description: Neon Voyager — Daily Development Rules (features & bug fixes)
+description: StreamScout — Daily Development Rules (features & bug fixes)
 ---
 
-# 🚀 Neon Voyager — AI Agent Rules
+# 🚀 StreamScout — AI Agent Rules
 
 AI Agents MUST adhere to these rules when writing or modifying code.
 

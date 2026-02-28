@@ -4,12 +4,12 @@ lib/app.dart:4:8: Error: Not found: 'package:flutter_gen/gen_l10n/app_localizati
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
        ^
 lib/app.dart:25:31: Error: The getter 'AppLocalizations' isn't defined for the type 'App'.
- - 'App' is from 'package:neon_voyager/app.dart' ('lib/app.dart').
+ - 'App' is from 'package:stream_scout/app.dart' ('lib/app.dart').
 Try correcting the name to the name of an existing getter, or defining a getter or field named 'AppLocalizations'.
       localizationsDelegates: AppLocalizations.localizationsDelegates,
                               ^^^^^^^^^^^^^^^^
 lib/app.dart:26:25: Error: The getter 'AppLocalizations' isn't defined for the type 'App'.
- - 'App' is from 'package:neon_voyager/app.dart' ('lib/app.dart').
+ - 'App' is from 'package:stream_scout/app.dart' ('lib/app.dart').
 Try correcting the name to the name of an existing getter, or defining a getter or field named 'AppLocalizations'.
       supportedLocales: AppLocalizations.supportedLocales,
                         ^^^^^^^^^^^^^^^^

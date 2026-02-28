@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:neon_voyager/config/providers.dart';
-import 'package:neon_voyager/l10n/app_localizations.dart';
+import 'package:stream_scout/config/providers.dart';
+import 'package:stream_scout/l10n/app_localizations.dart';
 
 class OfflineBanner extends ConsumerWidget {
   const OfflineBanner({super.key});

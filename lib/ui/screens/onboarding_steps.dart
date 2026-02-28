@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:neon_voyager/config/providers.dart';
-import 'package:neon_voyager/data/models/streaming_provider.dart';
-import 'package:neon_voyager/data/constants/countries.dart';
+import 'package:stream_scout/config/providers.dart';
+import 'package:stream_scout/data/models/streaming_provider.dart';
+import 'package:stream_scout/data/constants/countries.dart';
 
 class OnboardingStepHeader extends StatelessWidget {
   const OnboardingStepHeader({
@@ -58,7 +58,7 @@ class OnboardingLocationStep extends StatelessWidget {
       child: Column(
         children: [
           const OnboardingStepHeader(
-            title: 'Welcome to NeonVoyager',
+            title: 'Welcome to StreamScout',
             subtitle:
                 'Let\'s personalize your experience. Where are you watching from?',
           ),
@@ -348,7 +348,7 @@ class OnboardingThemeStep extends ConsumerWidget {
         children: [
           const OnboardingStepHeader(
             title: 'Choose a Theme',
-            subtitle: 'Select how you want NeonVoyager to look.',
+            subtitle: 'Select how you want StreamScout to look.',
           ),
           RadioListTile<ThemeMode>(
             title: const Text('System Default'),

@@ -1,4 +1,9 @@
-00:00 +0: loading /Users/Shared/augmented-ai-apps/imdb/test/ui/screens/main_navigation_screen_test.dart                                                                                                00:01 +0: loading /Users/Shared/augmented-ai-apps/imdb/test/ui/screens/main_navigation_screen_test.dart                                                                                                00:01 +0: (setUpAll)                                                                                                                                                                                   00:01 +0: renders tabs and switches pages                                                                                                                                                              00:01 +0: renders tabs and switches pages                                                                                                                                                              
+
+00:00 +0: loading /Users/Shared/augmented-ai-apps/imdb/test/ui/screens/main_navigation_screen_test.dart                                                                                                
+00:01 +0: loading /Users/Shared/augmented-ai-apps/imdb/test/ui/screens/main_navigation_screen_test.dart                                                                                                
+00:01 +0: (setUpAll)                                                                                                                                                                                   
+00:01 +0: renders tabs and switches pages                                                                                                                                                              
+00:01 +0: renders tabs and switches pages                                                                                                                                                              
 ══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY ╞═══════════════════════════════════════════════════════════
 The following _TypeError was thrown building KeyedSubtree-[GlobalKey#f0c69]:
 type 'Null' is not a subtype of type 'Future<void>'
@@ -8,7 +13,7 @@ The relevant error-causing widget was:
 
 When the exception was thrown, this was the stack:
 #0      MockAnalyticsService.logScreenView (file:///Users/Shared/augmented-ai-apps/imdb/test/ui/screens/main_navigation_screen_test.dart:13:7)
-#1      _MainNavigationScreenState.initState (package:neon_voyager/ui/screens/main_navigation_screen.dart:37:16)
+#1      _MainNavigationScreenState.initState (package:stream_scout/ui/screens/main_navigation_screen.dart:37:16)
 #2      StatefulElement._firstBuild (package:flutter/src/widgets/framework.dart:5953:55)
 #3      ComponentElement.mount (package:flutter/src/widgets/framework.dart:5796:5)
 ...     Normal element mounting (25 frames)
@@ -130,10 +135,13 @@ The following message was thrown:
 Multiple exceptions (2) were detected during the running of the current test, and at least one was
 unexpected.
 ════════════════════════════════════════════════════════════════════════════════════════════════════
-00:01 +0 -1: renders tabs and switches pages [E]                                                                                                                                                       
+
+00:01 +0 -1: renders tabs and switches pages [E]                                                                                                                                                       
   Test failed. See exception logs above.
   The test description was: renders tabs and switches pages
   
 
 To run this test again: /Users/jan.brink/develop/flutter/bin/cache/dart-sdk/bin/dart test /Users/Shared/augmented-ai-apps/imdb/test/ui/screens/main_navigation_screen_test.dart -p vm --plain-name 'renders tabs and switches pages'
-00:01 +0 -1: (tearDownAll)                                                                                                                                                                             00:01 +0 -1: Some tests failed.                                                                                                                                                                        
+
+00:01 +0 -1: (tearDownAll)                                                                                                                                                                             
+00:01 +0 -1: Some tests failed.                                                                                                                                                                        

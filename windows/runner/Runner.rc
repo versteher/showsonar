@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.neonvoyager" "\0"
-            VALUE "FileDescription", "neon_voyager" "\0"
+            VALUE "CompanyName", "com.streamscout" "\0"
+            VALUE "FileDescription", "stream_scout" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "neon_voyager" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2026 com.neonvoyager. All rights reserved." "\0"
-            VALUE "OriginalFilename", "neon_voyager.exe" "\0"
-            VALUE "ProductName", "neon_voyager" "\0"
+            VALUE "InternalName", "stream_scout" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2026 com.streamscout. All rights reserved." "\0"
+            VALUE "OriginalFilename", "stream_scout.exe" "\0"
+            VALUE "ProductName", "stream_scout" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

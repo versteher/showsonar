@@ -15,7 +15,7 @@ terraform {
   # Remote state in GCS — created by the bootstrap script in WORLD_CLASS_ANALYSIS.md
   # Uncomment once the bucket exists:
   # backend "gcs" {
-  #   bucket = "neonvoyager-terraform-state"
+  #   bucket = "streamscout-terraform-state"
   #   prefix = "terraform/state"
   # }
 }

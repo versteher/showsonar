@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:neon_voyager/data/constants/countries.dart';
+import 'package:stream_scout/data/constants/countries.dart';
 
 void main() {
   group('netflixCountries', () {

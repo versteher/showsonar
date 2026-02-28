@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:neon_voyager/config/providers.dart';
-import 'package:neon_voyager/data/models/streaming_provider.dart';
-import 'package:neon_voyager/ui/screens/onboarding_steps.dart';
-import 'package:neon_voyager/ui/screens/onboarding_taste_step.dart';
+import 'package:stream_scout/config/providers.dart';
+import 'package:stream_scout/data/models/streaming_provider.dart';
+import 'package:stream_scout/ui/screens/onboarding_steps.dart';
+import 'package:stream_scout/ui/screens/onboarding_taste_step.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});

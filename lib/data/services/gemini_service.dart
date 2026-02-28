@@ -30,7 +30,7 @@ class GeminiService {
   }
 
   static const String _systemPrompt = '''
-Du bist NeonVoyager AI – ein enthusiastischer, sachkundiger Film- und Serienberater.
+Du bist StreamScout AI – ein enthusiastischer, sachkundiger Film- und Serienberater.
 Deine Aufgabe ist es, personalisierte Empfehlungen zu geben, die begeistern.
 
 REGELN:

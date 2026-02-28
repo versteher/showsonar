@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:neon_voyager/ui/screens/main_navigation_screen.dart';
-import 'package:neon_voyager/l10n/app_localizations.dart';
-import 'package:neon_voyager/utils/analytics_service.dart';
+import 'package:stream_scout/ui/screens/main_navigation_screen.dart';
+import 'package:stream_scout/l10n/app_localizations.dart';
+import 'package:stream_scout/utils/analytics_service.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockAnalyticsService extends Mock implements AnalyticsService {}

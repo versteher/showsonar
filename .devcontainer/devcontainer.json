@@ -1,0 +1,22 @@
+{
+    "name": "StreamScout Flutter Dev",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "Dart-Code.flutter",
+                "Dart-Code.dart-code",
+                "saoudrizwan.claude-dev"
+            ],
+            "settings": {
+                "dart.flutterSdkPath": "/sdks/flutter",
+                "editor.formatOnSave": true
+            }
+        }
+    },
+    "postCreateCommand": "flutter pub get && make gen",
+    "remoteUser": "root"
+}

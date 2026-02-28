@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:neon_voyager/data/models/media.dart';
-import 'package:neon_voyager/data/models/watch_history_entry.dart';
+import 'package:stream_scout/data/models/media.dart';
+import 'package:stream_scout/data/models/watch_history_entry.dart';
 
 void main() {
   group('WatchHistoryEntry', () {

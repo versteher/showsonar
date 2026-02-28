@@ -4,9 +4,9 @@ import 'package:mocktail/mocktail.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:neon_voyager/config/providers.dart';
-import 'package:neon_voyager/data/models/user_preferences.dart';
-import 'package:neon_voyager/domain/recommendation_engine.dart';
+import 'package:stream_scout/config/providers.dart';
+import 'package:stream_scout/data/models/user_preferences.dart';
+import 'package:stream_scout/domain/recommendation_engine.dart';
 
 import '../utils/test_provider_container.dart';
 

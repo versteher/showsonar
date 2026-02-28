@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:neon_voyager/config/providers.dart';
-import 'package:neon_voyager/data/models/tv_episode.dart';
-import 'package:neon_voyager/data/models/tv_season.dart';
-import 'package:neon_voyager/data/repositories/episode_tracking_repository.dart';
-import 'package:neon_voyager/ui/theme/app_theme.dart';
+import 'package:stream_scout/config/providers.dart';
+import 'package:stream_scout/data/models/tv_episode.dart';
+import 'package:stream_scout/data/models/tv_season.dart';
+import 'package:stream_scout/data/repositories/episode_tracking_repository.dart';
+import 'package:stream_scout/ui/theme/app_theme.dart';
 
 // Re-export the helper so callers don't need to import the providers file.
-export 'package:neon_voyager/config/providers.dart'
+export 'package:stream_scout/config/providers.dart'
     show tvSeasonProvider, nextUnwatchedInSeason;
 
 /// Expansion tile showing a single season's episodes and watch progress.

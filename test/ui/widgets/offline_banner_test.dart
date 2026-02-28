@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:neon_voyager/ui/widgets/offline_banner.dart';
-import 'package:neon_voyager/config/providers.dart';
+import 'package:stream_scout/ui/widgets/offline_banner.dart';
+import 'package:stream_scout/config/providers.dart';
 
 void main() {
   testWidgets('OfflineBanner shows when connectivity is none', (

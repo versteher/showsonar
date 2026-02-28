@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:neon_voyager/data/models/media.dart';
+import 'package:stream_scout/data/models/media.dart';
 
 Future<void> main() async {
   try {

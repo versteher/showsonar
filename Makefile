@@ -1,5 +1,5 @@
 
-# Makefile for neon_voyager
+# Makefile for stream_scout
 
 .PHONY: run-macos run-web run-ios run-android gen watch clean test lint help
 
@@ -19,9 +19,9 @@ help:
 
 FLAVOR ?= dev
 
-STT_FRAMEWORK := build/macos/Build/Products/Debug/neon_voyager.app/Contents/Frameworks/speech_to_text.framework
+STT_FRAMEWORK := build/macos/Build/Products/Debug/stream_scout.app/Contents/Frameworks/speech_to_text.framework
 STT_PLIST     := $(STT_FRAMEWORK)/Versions/A/Resources/Info.plist
-APP_BUNDLE    := build/macos/Build/Products/Debug/neon_voyager.app
+APP_BUNDLE    := build/macos/Build/Products/Debug/stream_scout.app
 
 # Patch and re-sign the speech_to_text framework so macOS TCC accepts the
 # privacy usage descriptions (TCC validates the code signature; patching the
@@ -44,9 +44,9 @@ run-macos:
 	@echo "Killing any process on port 8080..."
 	@lsof -ti :8080 | xargs kill -9 2>/dev/null || true
 	@echo "Killing any leftover app processes..."
-	@pkill -f "neon_voyager" 2>/dev/null || true
+	@pkill -f "stream_scout" 2>/dev/null || true
 	@echo "Clearing stale Hive lock files..."
-	@rm -f "$(HOME)/Library/Containers/com.neonvoyager.app/Data/Documents/"*.lock 2>/dev/null || true
+	@rm -f "$(HOME)/Library/Containers/com.streamscout.app/Data/Documents/"*.lock 2>/dev/null || true
 	@echo "Starting API proxy..."
 	@cd infra/cloud-run/api-proxy && \
 		source .venv/bin/activate && \

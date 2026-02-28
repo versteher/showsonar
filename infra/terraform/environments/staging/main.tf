@@ -2,7 +2,7 @@
 
 terraform {
   # backend "gcs" {
-  #   bucket = "neonvoyager-terraform-state"
+  #   bucket = "streamscout-terraform-state"
   #   prefix = "environments/staging"
   # }
 }

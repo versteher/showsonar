@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:neon_voyager/config/providers.dart';
-import 'package:neon_voyager/data/models/app_profile.dart';
-import 'package:neon_voyager/data/repositories/profile_repository.dart';
-import 'package:neon_voyager/data/repositories/user_preferences_repository.dart';
-import 'package:neon_voyager/data/repositories/watch_history_repository.dart';
-import 'package:neon_voyager/data/repositories/watchlist_repository.dart';
+import 'package:stream_scout/config/providers.dart';
+import 'package:stream_scout/data/models/app_profile.dart';
+import 'package:stream_scout/data/repositories/profile_repository.dart';
+import 'package:stream_scout/data/repositories/user_preferences_repository.dart';
+import 'package:stream_scout/data/repositories/watch_history_repository.dart';
+import 'package:stream_scout/data/repositories/watchlist_repository.dart';
 import '../firebase_fallback.dart';
 
 /// Repository for managing sub-profiles. Scoped to the current auth user.

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:neon_voyager/ui/widgets/branded_loading_indicator.dart';
+import 'package:stream_scout/ui/widgets/branded_loading_indicator.dart';
 import '../../config/providers.dart';
 import '../../data/models/media.dart';
 import '../../l10n/app_localizations.dart';

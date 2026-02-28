@@ -1,53 +1,62 @@
-00:00 +0: loading /Users/Shared/augmented-ai-apps/imdb/test/ui/widgets/media_card_test.dart                                                                                                            00:01 +0: loading /Users/Shared/augmented-ai-apps/imdb/test/ui/widgets/media_card_test.dart                                                                                                            00:02 +0: loading /Users/Shared/augmented-ai-apps/imdb/test/ui/widgets/media_card_test.dart                                                                                                            00:03 +0: loading /Users/Shared/augmented-ai-apps/imdb/test/ui/widgets/media_card_test.dart                                                                                                            00:04 +0: loading /Users/Shared/augmented-ai-apps/imdb/test/ui/widgets/media_card_test.dart                                                                                                            00:04 +0: MediaCard fires onLongPress callback when long-pressed                                                                                                                                       00:05 +0: MediaCard fires onLongPress callback when long-pressed                                                                                                                                       00:06 +0: MediaCard fires onLongPress callback when long-pressed                                                                                                                                       00:06 +0: MediaCard fires onLongPress callback when long-pressed                                                                                                                                       
+
+00:00 +0: loading /Users/Shared/augmented-ai-apps/imdb/test/ui/widgets/media_card_test.dart                                                                                                            
+00:01 +0: loading /Users/Shared/augmented-ai-apps/imdb/test/ui/widgets/media_card_test.dart                                                                                                            
+00:02 +0: loading /Users/Shared/augmented-ai-apps/imdb/test/ui/widgets/media_card_test.dart                                                                                                            
+00:03 +0: loading /Users/Shared/augmented-ai-apps/imdb/test/ui/widgets/media_card_test.dart                                                                                                            
+00:04 +0: loading /Users/Shared/augmented-ai-apps/imdb/test/ui/widgets/media_card_test.dart                                                                                                            
+00:04 +0: MediaCard fires onLongPress callback when long-pressed                                                                                                                                       
+00:05 +0: MediaCard fires onLongPress callback when long-pressed                                                                                                                                       
+00:06 +0: MediaCard fires onLongPress callback when long-pressed                                                                                                                                       
+00:06 +0: MediaCard fires onLongPress callback when long-pressed                                                                                                                                       
 ══╡ EXCEPTION CAUGHT BY GESTURE ╞═══════════════════════════════════════════════════════════════════
 The following StackOverflowError was thrown while handling a gesture:
 Stack Overflow
 
 When the exception was thrown, this was the stack:
-#0      AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:18:3)
-#1      AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#2      AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#3      AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#4      AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#5      AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#6      AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#7      AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#8      AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#9      AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#10     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#11     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#12     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#13     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#14     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#15     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#16     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#17     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#18     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#19     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#20     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#21     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#22     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#23     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#24     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#25     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#26     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#27     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#28     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#29     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#30     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#31     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#32     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#33     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#34     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#35     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#36     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#37     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#38     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#39     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#40     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#41     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#42     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
-#43     AppHaptics.mediumImpact (package:neon_voyager/utils/app_haptics.dart:19:16)
+#0      AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:18:3)
+#1      AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#2      AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#3      AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#4      AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#5      AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#6      AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#7      AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#8      AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#9      AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#10     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#11     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#12     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#13     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#14     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#15     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#16     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#17     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#18     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#19     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#20     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#21     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#22     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#23     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#24     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#25     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#26     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#27     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#28     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#29     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#30     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#31     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#32     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#33     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#34     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#35     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#36     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#37     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#38     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#39     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#40     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#41     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#42     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
+#43     AppHaptics.mediumImpact (package:stream_scout/utils/app_haptics.dart:19:16)
 ...
 ...
 #253432 FakeAsync.run.<anonymous closure>.<anonymous closure> (package:fake_async/fake_async.dart:189:18)
@@ -88,7 +97,8 @@ The following message was thrown:
 Multiple exceptions (2) were detected during the running of the current test, and at least one was
 unexpected.
 ════════════════════════════════════════════════════════════════════════════════════════════════════
-00:06 +0 -1: MediaCard fires onLongPress callback when long-pressed [E]                                                                                                                                
+
+00:06 +0 -1: MediaCard fires onLongPress callback when long-pressed [E]                                                                                                                                
   Test failed. See exception logs above.
   The test description was: fires onLongPress callback when long-pressed
   
@@ -99,4 +109,5 @@ To test code that needs an HttpClient, provide your own HttpClient implementatio
 test, so that your test can consistently provide a testable response to the code under test.
 
 To run this test again: /Users/jan.brink/develop/flutter/bin/cache/dart-sdk/bin/dart test /Users/Shared/augmented-ai-apps/imdb/test/ui/widgets/media_card_test.dart -p vm --plain-name 'MediaCard fires onLongPress callback when long-pressed'
-00:06 +0 -1: Some tests failed.                                                                                                                                                                        
+
+00:06 +0 -1: Some tests failed.                                                                                                                                                                        

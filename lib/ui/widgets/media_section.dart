@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:neon_voyager/data/models/media.dart';
-import 'package:neon_voyager/ui/theme/app_theme.dart';
-import 'package:neon_voyager/ui/widgets/media_card.dart';
+import 'package:stream_scout/data/models/media.dart';
+import 'package:stream_scout/ui/theme/app_theme.dart';
+import 'package:stream_scout/ui/widgets/media_card.dart';
 
 /// A horizontal scrolling list of media items with a section title
 class MediaSection extends StatelessWidget {

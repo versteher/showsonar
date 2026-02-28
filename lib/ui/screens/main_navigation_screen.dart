@@ -1,7 +1,7 @@
-import 'package:neon_voyager/utils/app_haptics.dart';
+import 'package:stream_scout/utils/app_haptics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:neon_voyager/l10n/app_localizations.dart';
+import 'package:stream_scout/l10n/app_localizations.dart';
 import '../theme/app_theme.dart';
 import '../../utils/analytics_service.dart';
 import '../widgets/offline_banner.dart';

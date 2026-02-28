@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:neon_voyager/data/models/media.dart';
-import 'package:neon_voyager/data/models/streaming_provider.dart';
+import 'package:stream_scout/data/models/media.dart';
+import 'package:stream_scout/data/models/streaming_provider.dart';
 
 void main() {
   group('Media', () {

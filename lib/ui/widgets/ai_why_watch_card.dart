@@ -111,7 +111,7 @@ class _AiWhyWatchCardState extends ConsumerState<AiWhyWatchCard> {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  'NeonVoyager AI denkt nach...',
+                  'StreamScout AI denkt nach...',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: AppTheme.textMuted,
                     fontStyle: FontStyle.italic,

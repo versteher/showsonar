@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:neon_voyager/ui/widgets/error_retry_widget.dart';
-import 'package:neon_voyager/l10n/app_localizations.dart';
+import 'package:stream_scout/ui/widgets/error_retry_widget.dart';
+import 'package:stream_scout/l10n/app_localizations.dart';
 
 void main() {
   group('ErrorRetryWidget (full)', () {

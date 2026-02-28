@@ -1,22 +1,22 @@
 flavors:
   dev:
     app:
-      name: "Neon Dev"
+      name: "StreamScout Dev"
     android:
-      applicationId: "com.neonvoyager.app.dev"
+      applicationId: "com.streamscout.app.dev"
     ios:
-      bundleId: "com.neonvoyager.app.dev"
+      bundleId: "com.streamscout.app.dev"
   staging:
     app:
-      name: "Neon Stg"
+      name: "StreamScout Stg"
     android:
-      applicationId: "com.neonvoyager.app.staging"
+      applicationId: "com.streamscout.app.staging"
     ios:
-      bundleId: "com.neonvoyager.app.staging"
+      bundleId: "com.streamscout.app.staging"
   prod:
     app:
-      name: "Neon Voyager"
+      name: "StreamScout"
     android:
-      applicationId: "com.neonvoyager.app"
+      applicationId: "com.streamscout.app"
     ios:
-      bundleId: "com.neonvoyager.app"
+      bundleId: "com.streamscout.app"

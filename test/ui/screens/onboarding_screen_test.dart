@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:neon_voyager/ui/screens/onboarding_screen.dart';
+import 'package:stream_scout/ui/screens/onboarding_screen.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
 class TestAssetBundle extends CachingAssetBundle {
@@ -105,7 +105,7 @@ void main() {
       );
 
       // Page 1: Location Page
-      expect(find.text('Welcome to NeonVoyager'), findsOneWidget);
+      expect(find.text('Welcome to StreamScout'), findsOneWidget);
       expect(find.text('Next'), findsOneWidget);
       expect(find.text('Back'), findsNothing);
 

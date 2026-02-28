@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:neon_voyager/data/models/person.dart';
+import 'package:stream_scout/data/models/person.dart';
 
 void main() {
   group('Person Models', () {

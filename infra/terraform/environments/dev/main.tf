@@ -4,7 +4,7 @@
 terraform {
   # Uncomment after creating the GCS state bucket:
   # backend "gcs" {
-  #   bucket = "neonvoyager-terraform-state"
+  #   bucket = "streamscout-terraform-state"
   #   prefix = "environments/dev"
   # }
 }

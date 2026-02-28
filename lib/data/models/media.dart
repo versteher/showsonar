@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:neon_voyager/l10n/app_localizations.dart';
+import 'package:stream_scout/l10n/app_localizations.dart';
 import 'streaming_provider.dart';
 import 'person.dart';
 

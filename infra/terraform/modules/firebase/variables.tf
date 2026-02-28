@@ -1,6 +1,6 @@
 variable "project_id" {
   type        = string
-  description = "GCP project ID (e.g. neonvoyager-dev)"
+  description = "GCP project ID (e.g. streamscout-dev)"
 }
 
 variable "environment" {
@@ -16,14 +16,14 @@ variable "region" {
 
 variable "android_package_name" {
   type        = string
-  description = "Android application package name (e.g. com.neonvoyager.app)"
-  default     = "com.neonvoyager.app"
+  description = "Android application package name (e.g. com.streamscout.app)"
+  default     = "com.streamscout.app"
 }
 
 variable "ios_bundle_id" {
   type        = string
-  description = "iOS/macOS bundle identifier (e.g. com.neonvoyager.app)"
-  default     = "com.neonvoyager.app"
+  description = "iOS/macOS bundle identifier (e.g. com.streamscout.app)"
+  default     = "com.streamscout.app"
 }
 
 variable "app_check_key_id" {

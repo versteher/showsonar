@@ -1,14 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:neon_voyager/ui/screens/home_screen.dart';
-import 'package:neon_voyager/data/repositories/tmdb_repository.dart';
-import 'package:neon_voyager/data/repositories/user_preferences_repository.dart';
-import 'package:neon_voyager/data/repositories/watch_history_repository.dart';
-import 'package:neon_voyager/config/providers.dart';
-import 'package:neon_voyager/config/providers/curated_providers.dart';
-import 'package:neon_voyager/data/models/media.dart';
-import 'package:neon_voyager/data/models/user_preferences.dart';
-import 'package:neon_voyager/domain/recommendation_engine.dart';
+import 'package:stream_scout/ui/screens/home_screen.dart';
+import 'package:stream_scout/data/repositories/tmdb_repository.dart';
+import 'package:stream_scout/data/repositories/user_preferences_repository.dart';
+import 'package:stream_scout/data/repositories/watch_history_repository.dart';
+import 'package:stream_scout/config/providers.dart';
+import 'package:stream_scout/config/providers/curated_providers.dart';
+import 'package:stream_scout/data/models/media.dart';
+import 'package:stream_scout/data/models/user_preferences.dart';
+import 'package:stream_scout/domain/recommendation_engine.dart';
 import '../../utils/test_app_wrapper.dart';
 
 class MockTmdbRepository extends Mock implements ITmdbRepository {}
@@ -148,7 +148,7 @@ void main() {
       await tester.pump(const Duration(milliseconds: 500));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.text('NeonVoyager'), findsOneWidget);
+      expect(find.text('StreamScout'), findsOneWidget);
     });
   });
 }

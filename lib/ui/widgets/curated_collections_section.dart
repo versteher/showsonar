@@ -1,4 +1,4 @@
-import 'package:neon_voyager/utils/app_haptics.dart';
+import 'package:stream_scout/utils/app_haptics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:neon_voyager/utils/analytics_service.dart';
+import 'package:stream_scout/utils/analytics_service.dart';
 
 void main() {
   group('AnalyticsService', () {

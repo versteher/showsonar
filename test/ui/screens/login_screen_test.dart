@@ -3,9 +3,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:neon_voyager/ui/screens/login_screen.dart';
-import 'package:neon_voyager/config/providers.dart';
-import 'package:neon_voyager/data/services/auth_service.dart';
+import 'package:stream_scout/ui/screens/login_screen.dart';
+import 'package:stream_scout/config/providers.dart';
+import 'package:stream_scout/data/services/auth_service.dart';
 
 class MockAuthService extends Mock implements AuthService {}
 

@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:dio/dio.dart';
-import 'package:neon_voyager/data/services/tmdb_api_client.dart';
+import 'package:stream_scout/data/services/tmdb_api_client.dart';
 
 class MockDio extends Mock implements Dio {}
 

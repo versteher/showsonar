@@ -4,13 +4,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import 'package:neon_voyager/ui/screens/detail_screen.dart';
-import 'package:neon_voyager/ui/widgets/watchlist_button.dart';
-import 'package:neon_voyager/config/providers.dart';
-import 'package:neon_voyager/data/models/media.dart';
-import 'package:neon_voyager/data/models/watch_history_entry.dart';
-import 'package:neon_voyager/data/models/user_preferences.dart';
-import 'package:neon_voyager/data/repositories/watchlist_repository.dart';
+import 'package:stream_scout/ui/screens/detail_screen.dart';
+import 'package:stream_scout/ui/widgets/watchlist_button.dart';
+import 'package:stream_scout/config/providers.dart';
+import 'package:stream_scout/data/models/media.dart';
+import 'package:stream_scout/data/models/watch_history_entry.dart';
+import 'package:stream_scout/data/models/user_preferences.dart';
+import 'package:stream_scout/data/repositories/watchlist_repository.dart';
 
 import '../../utils/test_app_wrapper.dart';
 

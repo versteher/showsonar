@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:neon_voyager/ui/screens/settings_screen.dart';
-import 'package:neon_voyager/config/providers.dart';
-import 'package:neon_voyager/data/models/user_preferences.dart';
+import 'package:stream_scout/ui/screens/settings_screen.dart';
+import 'package:stream_scout/config/providers.dart';
+import 'package:stream_scout/data/models/user_preferences.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../utils/test_app_wrapper.dart';

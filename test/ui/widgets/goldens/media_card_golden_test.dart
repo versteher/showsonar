@@ -4,12 +4,12 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
-import 'package:neon_voyager/data/models/media.dart';
-import 'package:neon_voyager/ui/widgets/media_card.dart';
-import 'package:neon_voyager/l10n/app_localizations.dart';
-import 'package:neon_voyager/config/providers.dart';
-import 'package:neon_voyager/data/models/user_preferences.dart';
-import 'package:neon_voyager/data/models/streaming_provider.dart';
+import 'package:stream_scout/data/models/media.dart';
+import 'package:stream_scout/ui/widgets/media_card.dart';
+import 'package:stream_scout/l10n/app_localizations.dart';
+import 'package:stream_scout/config/providers.dart';
+import 'package:stream_scout/data/models/user_preferences.dart';
+import 'package:stream_scout/data/models/streaming_provider.dart';
 import 'package:flutter/services.dart';
 
 class TestAssetBundle extends CachingAssetBundle {
