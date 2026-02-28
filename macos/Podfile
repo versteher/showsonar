@@ -37,7 +37,35 @@ end
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
-    flutter_additional_macos_build_settings(target)
+    if target.respond_to?(:product_type) && target.product_type == 'com.apple.product-type.framework'
+      flutter_additional_macos_build_settings(target)
+    end
+    
+    target.build_configurations.each do |config|
+      config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = 'YES'
+      config.build_settings['SWIFT_SUPPRESS_WARNINGS'] = 'YES'
+      config.build_settings['WARNING_CFLAGS'] = '-w'
+      
+      if config.build_settings['OTHER_LDFLAGS']
+        if config.build_settings['OTHER_LDFLAGS'].is_a?(Array)
+          config.build_settings['OTHER_LDFLAGS'] = config.build_settings['OTHER_LDFLAGS'] - ['-lc++', '-l"c++"']
+        elsif config.build_settings['OTHER_LDFLAGS'].is_a?(String)
+          config.build_settings['OTHER_LDFLAGS'] = config.build_settings['OTHER_LDFLAGS'].gsub(/-lc\+\+|-l"c\+\+"/, '')
+        end
+      end
+    end
+  end
+
+  # Scrub the generated xcconfig files for the aggregate targets to remove '-lc++' and '-l"c++"'
+  installer.aggregate_targets.each do |target|
+    target.user_build_configurations.keys.each do |config_name|
+      xcconfig_path = target.xcconfig_path(config_name)
+      if File.exist?(xcconfig_path)
+        content = File.read(xcconfig_path)
+        new_content = content.gsub(/-lc\+\+|-l"c\+\+"/, '')
+        File.write(xcconfig_path, new_content) if content != new_content
+      end
+    end
   end
 
   # Inject privacy usage descriptions into the speech_to_text pod's Info.plist.
