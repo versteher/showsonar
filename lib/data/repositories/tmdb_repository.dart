@@ -5,6 +5,14 @@ import '../../utils/age_rating_mapper.dart';
 import '../../config/api_config.dart';
 import '../services/tmdb_api_client.dart';
 
+part 'tmdb_repository_search.dart';
+part 'tmdb_repository_discover.dart';
+part 'tmdb_repository_details.dart';
+
+// ---------------------------------------------------------------------------
+// Value types
+// ---------------------------------------------------------------------------
+
 /// Result from watch providers API
 class WatchProviderResult {
   final List<WatchProvider> flatrate; // Streaming subscriptions
@@ -79,6 +87,10 @@ class WatchProvider {
   String get fullLogoUrl =>
       logoPath != null ? 'https://image.tmdb.org/t/p/w92$logoPath' : '';
 }
+
+// ---------------------------------------------------------------------------
+// Interface
+// ---------------------------------------------------------------------------
 
 abstract class ITmdbRepository {
   Future<List<Media>> searchMulti(
@@ -205,11 +217,19 @@ abstract class ITmdbRepository {
   void clearCache();
 }
 
+// ---------------------------------------------------------------------------
+// Internal cache helper
+// ---------------------------------------------------------------------------
+
 class _CacheEntry<T> {
   final T data;
   final DateTime time;
   const _CacheEntry({required this.data, required this.time});
 }
+
+// ---------------------------------------------------------------------------
+// Concrete implementation
+// ---------------------------------------------------------------------------
 
 class TmdbRepository implements ITmdbRepository {
   final TmdbApiClient _apiClient;
@@ -221,6 +241,8 @@ class TmdbRepository implements ITmdbRepository {
 
   @override
   void clearCache() => _cache.clear();
+
+  // ---- Private helpers shared by all part files --------------------------
 
   Future<T> _cachedFetch<T>(
     String cacheKey,
@@ -241,59 +263,37 @@ class TmdbRepository implements ITmdbRepository {
     }
   }
 
-  @override
-  Future<List<Media>> searchMulti(
-    String query, {
-    int page = 1,
-    bool includeAdult = false,
-    int? maxAgeRating,
-  }) async {
-    if (query.isEmpty) return [];
-    final effectiveIncludeAdult =
-        includeAdult || (maxAgeRating != null && maxAgeRating >= 21);
-    final data = await _apiClient.searchMulti(
-      query,
-      page: page,
-      includeAdult: effectiveIncludeAdult,
-    );
-    return _parseMediaResults(data);
+  List<Media> _parseMediaResults(Map<String, dynamic> data) {
+    final results = data['results'] as List<dynamic>? ?? [];
+    return results
+        .where(
+          (item) => item['media_type'] == 'movie' || item['media_type'] == 'tv',
+        )
+        .map((item) {
+          final type = item['media_type'] == 'movie'
+              ? MediaType.movie
+              : MediaType.tv;
+          return Media.fromTmdbJson(
+            item,
+            type,
+            targetRegion: ApiConfig.defaultRegion,
+          );
+        })
+        .toList();
   }
 
-  @override
-  Future<List<Media>> searchMovies(
-    String query, {
-    int page = 1,
-    bool includeAdult = false,
-    int? maxAgeRating,
-  }) async {
-    if (query.isEmpty) return [];
-    final effectiveIncludeAdult =
-        includeAdult || (maxAgeRating != null && maxAgeRating >= 21);
-    final data = await _apiClient.searchMovies(
-      query,
-      page: page,
-      includeAdult: effectiveIncludeAdult,
-    );
-    return _parseMediaList(data, MediaType.movie);
+  List<Media> _parseMediaList(
+    Map<String, dynamic> data,
+    MediaType type, {
+    String region = 'DE',
+  }) {
+    final results = data['results'] as List<dynamic>? ?? [];
+    return results
+        .map((item) => Media.fromTmdbJson(item, type, targetRegion: region))
+        .toList();
   }
 
-  @override
-  Future<List<Media>> searchTvSeries(
-    String query, {
-    int page = 1,
-    bool includeAdult = false,
-    int? maxAgeRating,
-  }) async {
-    if (query.isEmpty) return [];
-    final effectiveIncludeAdult =
-        includeAdult || (maxAgeRating != null && maxAgeRating >= 21);
-    final data = await _apiClient.searchTvSeries(
-      query,
-      page: page,
-      includeAdult: effectiveIncludeAdult,
-    );
-    return _parseMediaList(data, MediaType.tv);
-  }
+  // ---- Core: trending, popular, top-rated --------------------------------
 
   @override
   Future<List<Media>> getTrending({
@@ -362,29 +362,80 @@ class TmdbRepository implements ITmdbRepository {
     });
   }
 
-  @override
-  Future<Media> getMovieDetails(int movieId) async {
-    final data = await _apiClient.getMovieDetails(movieId);
-    return Media.fromTmdbJson(data, MediaType.movie);
-  }
+  // ---- Delegates to part files -------------------------------------------
+
+  // Search (tmdb_repository_search.dart)
 
   @override
-  Future<Media> getTvDetails(int tvId) async {
-    final data = await _apiClient.getTvDetails(tvId);
-    return Media.fromTmdbJson(data, MediaType.tv);
-  }
+  Future<List<Media>> searchMulti(
+    String query, {
+    int page = 1,
+    bool includeAdult = false,
+    int? maxAgeRating,
+  }) =>
+      _searchMulti(
+        query,
+        page: page,
+        includeAdult: includeAdult,
+        maxAgeRating: maxAgeRating,
+      );
 
   @override
-  Future<List<Media>> getSimilar(int mediaId, MediaType type) async {
-    final data = await _apiClient.getSimilar(type.tmdbPath, mediaId);
-    return _parseMediaList(data, type);
-  }
+  Future<List<Media>> searchMovies(
+    String query, {
+    int page = 1,
+    bool includeAdult = false,
+    int? maxAgeRating,
+  }) =>
+      _searchMovies(
+        query,
+        page: page,
+        includeAdult: includeAdult,
+        maxAgeRating: maxAgeRating,
+      );
 
   @override
-  Future<List<Media>> getRecommendations(int mediaId, MediaType type) async {
-    final data = await _apiClient.getRecommendations(type.tmdbPath, mediaId);
-    return _parseMediaList(data, type);
-  }
+  Future<List<Media>> searchTvSeries(
+    String query, {
+    int page = 1,
+    bool includeAdult = false,
+    int? maxAgeRating,
+  }) =>
+      _searchTvSeries(
+        query,
+        page: page,
+        includeAdult: includeAdult,
+        maxAgeRating: maxAgeRating,
+      );
+
+  // Details (tmdb_repository_details.dart)
+
+  @override
+  Future<Media> getMovieDetails(int movieId) => _getMovieDetails(movieId);
+
+  @override
+  Future<Media> getTvDetails(int tvId) => _getTvDetails(tvId);
+
+  @override
+  Future<List<Media>> getSimilar(int mediaId, MediaType type) =>
+      _getSimilar(mediaId, type);
+
+  @override
+  Future<List<Media>> getRecommendations(int mediaId, MediaType type) =>
+      _getRecommendations(mediaId, type);
+
+  @override
+  Future<Person> getPersonDetails(int personId) => _getPersonDetails(personId);
+
+  @override
+  Future<List<PersonCredit>> getPersonCredits(int personId) =>
+      _getPersonCredits(personId);
+
+  @override
+  Future<TvSeason> getTvSeasonDetails(int tvId, int seasonNumber) =>
+      _getTvSeasonDetails(tvId, seasonNumber);
+
+  // Discover / providers / upcoming / trailer (tmdb_repository_discover.dart)
 
   @override
   Future<List<Media>> discoverMovies({
@@ -398,7 +449,7 @@ class TmdbRepository implements ITmdbRepository {
     int page = 1,
     bool includeAdult = false,
   }) async {
-    final result = await discoverMoviesWithCount(
+    final result = await _discoverMoviesWithCount(
       genreIds: genreIds,
       minRating: minRating,
       year: year,
@@ -423,43 +474,18 @@ class TmdbRepository implements ITmdbRepository {
     String sortBy = 'popularity.desc',
     int page = 1,
     bool includeAdult = false,
-  }) async {
-    final region = watchRegion ?? ApiConfig.defaultRegion;
-    final effectiveIncludeAdult =
-        includeAdult || (maxAgeRating != null && maxAgeRating >= 21);
-
-    final queryParams = <String, dynamic>{
-      'page': page,
-      'sort_by': sortBy,
-      'include_adult': effectiveIncludeAdult,
-      'region': region,
-    };
-
-    if (genreIds != null && genreIds.isNotEmpty) {
-      queryParams['with_genres'] = genreIds.join(',');
-    }
-    if (minRating != null) queryParams['vote_average.gte'] = minRating;
-    if (year != null) queryParams['primary_release_year'] = year;
-    if (withProviders != null && withProviders.isNotEmpty) {
-      queryParams['with_watch_providers'] = withProviders.join('|');
-      queryParams['watch_region'] = region;
-      queryParams['with_watch_monetization_types'] = 'flatrate|free';
-    }
-
-    if (maxAgeRating != null && maxAgeRating < 18) {
-      final cert = AgeRatingMapper.getCertification(region, maxAgeRating);
-      if (cert != null) {
-        queryParams['certification_country'] = region;
-        queryParams['certification.lte'] = cert;
-      }
-    }
-
-    final data = await _apiClient.discoverMovies(queryParams);
-    final results = _parseMediaList(data, MediaType.movie, region: region);
-    final totalResults = data['total_results'] as int? ?? 0;
-
-    return (results: results, totalResults: totalResults);
-  }
+  }) =>
+      _discoverMoviesWithCount(
+        genreIds: genreIds,
+        minRating: minRating,
+        year: year,
+        withProviders: withProviders,
+        watchRegion: watchRegion,
+        maxAgeRating: maxAgeRating,
+        sortBy: sortBy,
+        page: page,
+        includeAdult: includeAdult,
+      );
 
   @override
   Future<List<Media>> discoverTvSeries({
@@ -473,7 +499,7 @@ class TmdbRepository implements ITmdbRepository {
     int page = 1,
     bool includeAdult = false,
   }) async {
-    final result = await discoverTvSeriesWithCount(
+    final result = await _discoverTvSeriesWithCount(
       genreIds: genreIds,
       minRating: minRating,
       year: year,
@@ -498,57 +524,42 @@ class TmdbRepository implements ITmdbRepository {
     String sortBy = 'popularity.desc',
     int page = 1,
     bool includeAdult = false,
-  }) async {
-    final effectiveIncludeAdult =
-        includeAdult || (maxAgeRating != null && maxAgeRating >= 21);
+  }) =>
+      _discoverTvSeriesWithCount(
+        genreIds: genreIds,
+        minRating: minRating,
+        year: year,
+        withProviders: withProviders,
+        watchRegion: watchRegion,
+        maxAgeRating: maxAgeRating,
+        sortBy: sortBy,
+        page: page,
+        includeAdult: includeAdult,
+      );
 
-    final queryParams = <String, dynamic>{
-      'page': page,
-      'sort_by': sortBy,
-      'include_adult': effectiveIncludeAdult,
-    };
-
-    if (genreIds != null && genreIds.isNotEmpty) {
-      queryParams['with_genres'] = genreIds.join(',');
-    }
-    if (minRating != null) queryParams['vote_average.gte'] = minRating;
-    if (year != null) queryParams['first_air_date_year'] = year;
-    if (withProviders != null && withProviders.isNotEmpty) {
-      queryParams['with_watch_providers'] = withProviders.join('|');
-      queryParams['watch_region'] = watchRegion ?? ApiConfig.defaultRegion;
-      queryParams['with_watch_monetization_types'] = 'flatrate|free';
-    }
-
-    if (maxAgeRating != null && maxAgeRating <= 12) {
-      final safeGenres = [10762, 10751, 16];
-      if (maxAgeRating <= 6) {
-        queryParams['with_genres'] = safeGenres.join('|');
-        queryParams['without_genres'] = '10768,18,80,27,99';
-      } else {
-        queryParams['without_genres'] = '10768,80,27';
-      }
-    }
-
-    final data = await _apiClient.discoverTvSeries(queryParams);
-    final results = _parseMediaList(data, MediaType.tv);
-    final totalResults = data['total_results'] as int? ?? 0;
-
-    return (results: results, totalResults: totalResults);
-  }
+  @override
+  Future<List<Media>> discoverByProvider({
+    required List<int> providerIds,
+    String region = 'DE',
+    double? minRating,
+    int page = 1,
+    bool includeAdult = false,
+  }) =>
+      _discoverByProvider(
+        providerIds: providerIds,
+        region: region,
+        minRating: minRating,
+        page: page,
+        includeAdult: includeAdult,
+      );
 
   @override
   Future<WatchProviderResult> getWatchProviders(
     int mediaId,
     MediaType type, {
     String region = 'DE',
-  }) async {
-    final data = await _apiClient.getWatchProviders(type.tmdbPath, mediaId);
-    final results = data['results'] as Map<String, dynamic>? ?? {};
-    final regionData = results[region] as Map<String, dynamic>?;
-
-    if (regionData == null) return WatchProviderResult.empty();
-    return WatchProviderResult.fromJson(regionData);
-  }
+  }) =>
+      _getWatchProviders(mediaId, type, region: region);
 
   @override
   Future<List<Media>> getUpcomingMovies({
@@ -558,42 +569,15 @@ class TmdbRepository implements ITmdbRepository {
     double? minRating,
     int page = 1,
     bool includeAdult = false,
-  }) async {
-    final region = watchRegion ?? ApiConfig.defaultRegion;
-    final now = DateTime.now();
-    final futureDate = now.add(const Duration(days: 90));
-    final effectiveIncludeAdult =
-        includeAdult || (maxAgeRating != null && maxAgeRating >= 21);
-
-    final queryParams = <String, dynamic>{
-      'page': page,
-      'sort_by': 'popularity.desc',
-      'include_adult': effectiveIncludeAdult,
-      'primary_release_date.gte':
-          '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}',
-      'primary_release_date.lte':
-          '${futureDate.year}-${futureDate.month.toString().padLeft(2, '0')}-${futureDate.day.toString().padLeft(2, '0')}',
-      'region': region,
-    };
-
-    if (minRating != null) queryParams['vote_average.gte'] = minRating;
-    if (withProviders != null && withProviders.isNotEmpty) {
-      queryParams['with_watch_providers'] = withProviders.join('|');
-      queryParams['watch_region'] = region;
-      queryParams['with_watch_monetization_types'] = 'flatrate|free';
-    }
-
-    if (maxAgeRating != null && maxAgeRating < 18) {
-      final cert = AgeRatingMapper.getCertification(region, maxAgeRating);
-      if (cert != null) {
-        queryParams['certification_country'] = region;
-        queryParams['certification.lte'] = cert;
-      }
-    }
-
-    final data = await _apiClient.discoverMovies(queryParams);
-    return _parseMediaList(data, MediaType.movie, region: region);
-  }
+  }) =>
+      _getUpcomingMovies(
+        withProviders: withProviders,
+        watchRegion: watchRegion,
+        maxAgeRating: maxAgeRating,
+        minRating: minRating,
+        page: page,
+        includeAdult: includeAdult,
+      );
 
   @override
   Future<List<Media>> getUpcomingTvSeries({
@@ -603,157 +587,17 @@ class TmdbRepository implements ITmdbRepository {
     double? minRating,
     int page = 1,
     bool includeAdult = false,
-  }) async {
-    final now = DateTime.now();
-    final futureDate = now.add(const Duration(days: 90));
-    final effectiveIncludeAdult =
-        includeAdult || (maxAgeRating != null && maxAgeRating >= 21);
-
-    final queryParams = <String, dynamic>{
-      'page': page,
-      'sort_by': 'popularity.desc',
-      'include_adult': effectiveIncludeAdult,
-      'first_air_date.gte':
-          '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}',
-      'first_air_date.lte':
-          '${futureDate.year}-${futureDate.month.toString().padLeft(2, '0')}-${futureDate.day.toString().padLeft(2, '0')}',
-    };
-
-    if (minRating != null) queryParams['vote_average.gte'] = minRating;
-    if (withProviders != null && withProviders.isNotEmpty) {
-      queryParams['with_watch_providers'] = withProviders.join('|');
-      queryParams['watch_region'] = watchRegion ?? ApiConfig.defaultRegion;
-      queryParams['with_watch_monetization_types'] = 'flatrate|free';
-    }
-
-    if (maxAgeRating != null && maxAgeRating <= 12) {
-      final safeGenres = [10762, 10751, 16];
-      if (maxAgeRating <= 6) {
-        queryParams['with_genres'] = safeGenres.join('|');
-        queryParams['without_genres'] = '10768,18,80,27,99';
-      } else {
-        queryParams['without_genres'] = '10768,80,27';
-      }
-    }
-
-    final data = await _apiClient.discoverTvSeries(queryParams);
-    return _parseMediaList(data, MediaType.tv);
-  }
+  }) =>
+      _getUpcomingTvSeries(
+        withProviders: withProviders,
+        watchRegion: watchRegion,
+        maxAgeRating: maxAgeRating,
+        minRating: minRating,
+        page: page,
+        includeAdult: includeAdult,
+      );
 
   @override
-  Future<String?> getTrailerUrl(int mediaId, MediaType type) async {
-    try {
-      final data = await _apiClient.get('/${type.tmdbPath}/$mediaId/videos');
-      final results = data['results'] as List<dynamic>? ?? [];
-
-      for (final video in results) {
-        if (video['site'] == 'YouTube' &&
-            (video['type'] == 'Trailer' || video['type'] == 'Teaser')) {
-          return 'https://www.youtube.com/watch?v=${video['key']}';
-        }
-      }
-      return null;
-    } on TmdbException {
-      return null;
-    }
-  }
-
-  @override
-  Future<List<Media>> discoverByProvider({
-    required List<int> providerIds,
-    String region = 'DE',
-    double? minRating,
-    int page = 1,
-    bool includeAdult = false,
-  }) async {
-    final queryParams = <String, dynamic>{
-      'page': page,
-      'sort_by': 'popularity.desc',
-      'include_adult': includeAdult,
-      'watch_region': region,
-      'with_watch_providers': providerIds.join('|'),
-      'with_watch_monetization_types': 'flatrate|free',
-    };
-
-    if (minRating != null) queryParams['vote_average.gte'] = minRating;
-
-    final data = await _apiClient.discoverMovies(queryParams);
-    return _parseMediaList(data, MediaType.movie, region: region);
-  }
-
-  @override
-  Future<Person> getPersonDetails(int personId) async {
-    return _cachedFetch('person_$personId', () async {
-      final data = await _apiClient.getPersonDetails(personId);
-      return Person.fromTmdbJson(data);
-    });
-  }
-
-  @override
-  Future<List<PersonCredit>> getPersonCredits(int personId) async {
-    return _cachedFetch('person_credits_$personId', () async {
-      final data = await _apiClient.getPersonCredits(personId);
-      final castData = data['cast'] as List<dynamic>? ?? [];
-      final crewData = data['crew'] as List<dynamic>? ?? [];
-
-      final allCredits = <PersonCredit>[];
-
-      for (final item in castData) {
-        try {
-          allCredits.add(
-            PersonCredit.fromTmdbJson(item as Map<String, dynamic>),
-          );
-        } catch (_) {} // Skip invalid items
-      }
-
-      for (final item in crewData) {
-        try {
-          allCredits.add(
-            PersonCredit.fromTmdbJson(item as Map<String, dynamic>),
-          );
-        } catch (_) {} // Skip invalid items
-      }
-
-      // Sort by popularity or release date
-      return allCredits;
-    });
-  }
-
-  @override
-  Future<TvSeason> getTvSeasonDetails(int tvId, int seasonNumber) async {
-    return _cachedFetch('tv_season_${tvId}_$seasonNumber', () async {
-      final data = await _apiClient.getTvSeasonDetails(tvId, seasonNumber);
-      return TvSeason.fromTmdbJson(tvId, data);
-    });
-  }
-
-  List<Media> _parseMediaResults(Map<String, dynamic> data) {
-    final results = data['results'] as List<dynamic>? ?? [];
-    return results
-        .where(
-          (item) => item['media_type'] == 'movie' || item['media_type'] == 'tv',
-        )
-        .map((item) {
-          final type = item['media_type'] == 'movie'
-              ? MediaType.movie
-              : MediaType.tv;
-          return Media.fromTmdbJson(
-            item,
-            type,
-            targetRegion: ApiConfig.defaultRegion,
-          );
-        })
-        .toList();
-  }
-
-  List<Media> _parseMediaList(
-    Map<String, dynamic> data,
-    MediaType type, {
-    String region = 'DE',
-  }) {
-    final results = data['results'] as List<dynamic>? ?? [];
-    return results
-        .map((item) => Media.fromTmdbJson(item, type, targetRegion: region))
-        .toList();
-  }
+  Future<String?> getTrailerUrl(int mediaId, MediaType type) =>
+      _getTrailerUrl(mediaId, type);
 }

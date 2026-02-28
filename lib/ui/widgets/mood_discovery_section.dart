@@ -2,11 +2,12 @@ import 'package:neon_voyager/utils/app_haptics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:go_router/go_router.dart';
 import 'package:neon_voyager/l10n/app_localizations.dart';
 import '../../config/providers.dart';
+import '../../data/models/media.dart';
 import '../theme/app_theme.dart';
 import '../widgets/media_card.dart';
-import '../screens/detail_screen.dart';
 
 /// Mood-based quick discovery section with emoji chips and results
 class MoodDiscoverySection extends ConsumerWidget {
@@ -166,14 +167,9 @@ class MoodDiscoverySection extends ConsumerWidget {
                       child: MediaCard(
                         media: filtered[index],
                         onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (_) => DetailScreen(
-                                mediaId: filtered[index].id,
-                                mediaType: filtered[index].type,
-                              ),
-                            ),
-                          );
+                          final media = filtered[index];
+                          final typePath = media.type == MediaType.movie ? 'movie' : 'tv';
+                          context.push('/$typePath/${media.id}');
                         },
                       ),
                     );

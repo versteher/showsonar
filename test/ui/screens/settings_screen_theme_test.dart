@@ -27,19 +27,21 @@ class MockUserPreferencesRepository extends UserPreferencesRepository {
   }
 }
 
-class MockLocalPreferencesRepository extends LocalPreferencesRepository {
+class MockLocalPreferencesRepository implements LocalPreferencesRepository {
   ThemeMode _themeMode = ThemeMode.system;
 
   @override
-  Future<void> init() async {}
-
+  bool get hasSeenOnboarding => false;
+  @override
+  Future<void> setHasSeenOnboarding(bool value) async {}
   @override
   ThemeMode get themeMode => _themeMode;
-
   @override
   Future<void> setThemeMode(ThemeMode mode) async {
     _themeMode = mode;
   }
+  @override
+  Future<void> clear() async {}
 }
 
 void main() {

@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:go_router/go_router.dart';
 import 'package:neon_voyager/l10n/app_localizations.dart';
 import '../../config/providers.dart';
+import '../../data/models/media.dart';
 import '../../data/models/watch_history_entry.dart';
 
 import '../theme/app_theme.dart';
-import '../screens/detail_screen.dart';
 
 /// Section showing in-progress TV series for easy resume
 class ContinueWatchingSection extends ConsumerWidget {
@@ -87,14 +88,8 @@ class _ContinueCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => DetailScreen(
-              mediaId: entry.mediaId,
-              mediaType: entry.mediaType,
-            ),
-          ),
-        );
+        final typePath = entry.mediaType == MediaType.movie ? 'movie' : 'tv';
+        context.push('/$typePath/${entry.mediaId}');
       },
       child: Container(
         width: 240,

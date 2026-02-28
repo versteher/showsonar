@@ -289,7 +289,7 @@ class _RatingDialogState extends State<RatingDialog> {
               children: [
                 Expanded(
                   child: OutlinedButton(
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () => Navigator.of(context).pop(),
                     child: const Text('Abbrechen'),
                   ),
                 ),
@@ -299,8 +299,7 @@ class _RatingDialogState extends State<RatingDialog> {
                   child: ElevatedButton.icon(
                     onPressed: _rating > 0
                         ? () {
-                            Navigator.pop(
-                              context,
+                            Navigator.of(context).pop(
                               RatingResult(
                                 rating: _rating,
                                 notes: _notesController.text.isNotEmpty

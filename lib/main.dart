@@ -8,6 +8,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'app.dart';
 import 'flavors.dart';
 import 'config/providers.dart';
+import 'data/repositories/local_preferences_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,8 +43,17 @@ void main() async {
 
   // Initialize Repositories and Hive
   try {
-    await initializeRepositories();
-    runApp(const ProviderScope(child: App()));
+    final sharedPrefs = await initializeRepositories();
+    runApp(
+      ProviderScope(
+        overrides: [
+          localPreferencesRepositoryProvider.overrideWithValue(
+            LocalPreferencesRepository(sharedPrefs),
+          ),
+        ],
+        child: const App(),
+      ),
+    );
   } catch (e, stack) {
     debugPrint('Initialization error: $e\n$stack');
     runApp(

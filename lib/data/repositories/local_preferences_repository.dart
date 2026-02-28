@@ -1,42 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-/// Repository for managing local-only device state (not synced to Firestore)
+/// Repository for managing local-only device state (not synced to Firestore).
+/// Uses shared_preferences — no Hive lock-file issues on macOS.
 class LocalPreferencesRepository {
-  static const _boxName = 'local_prefs';
   static const _hasSeenOnboardingKey = 'has_seen_onboarding';
   static const _themeModeKey = 'theme_mode';
 
-  Box get _box => Hive.box(_boxName);
+  final SharedPreferences _prefs;
 
-  Future<void> init() async {
-    if (!Hive.isBoxOpen(_boxName)) {
-      await Hive.openBox(_boxName);
-    }
-  }
+  const LocalPreferencesRepository(this._prefs);
 
-  bool get hasSeenOnboarding {
-    return _box.get(_hasSeenOnboardingKey, defaultValue: false) as bool;
-  }
+  bool get hasSeenOnboarding =>
+      _prefs.getBool(_hasSeenOnboardingKey) ?? false;
 
-  Future<void> setHasSeenOnboarding(bool value) async {
-    await _box.put(_hasSeenOnboardingKey, value);
-  }
+  Future<void> setHasSeenOnboarding(bool value) =>
+      _prefs.setBool(_hasSeenOnboardingKey, value);
 
   ThemeMode get themeMode {
-    final modeStr =
-        _box.get(_themeModeKey, defaultValue: ThemeMode.dark.name) as String;
+    final modeStr = _prefs.getString(_themeModeKey) ?? ThemeMode.dark.name;
     return ThemeMode.values.firstWhere(
       (e) => e.name == modeStr,
       orElse: () => ThemeMode.dark,
     );
   }
 
-  Future<void> setThemeMode(ThemeMode mode) async {
-    await _box.put(_themeModeKey, mode.name);
-  }
+  Future<void> setThemeMode(ThemeMode mode) =>
+      _prefs.setString(_themeModeKey, mode.name);
 
-  Future<void> clear() async {
-    await _box.clear();
-  }
+  Future<void> clear() => _prefs.clear();
 }

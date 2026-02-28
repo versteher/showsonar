@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:go_router/go_router.dart';
 import '../../config/providers.dart';
 import '../../data/models/shared_watchlist.dart';
 import '../theme/app_theme.dart';
@@ -126,7 +127,7 @@ class SharedWatchlistsScreen extends ConsumerWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
+            onPressed: () => ctx.pop(),
             child: const Text(
               'Cancel',
               style: TextStyle(color: AppTheme.textMuted),
@@ -136,7 +137,7 @@ class SharedWatchlistsScreen extends ConsumerWidget {
             onPressed: () async {
               final name = controller.text.trim();
               if (name.isEmpty) return;
-              Navigator.of(ctx).pop();
+              ctx.pop();
               AppHaptics.mediumImpact();
               await ref
                   .read(sharedWatchlistRepositoryProvider)
@@ -255,7 +256,7 @@ class _SharedWatchlistCard extends ConsumerWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
+            onPressed: () => ctx.pop(),
             child: const Text(
               'Cancel',
               style: TextStyle(color: AppTheme.textMuted),
@@ -265,7 +266,7 @@ class _SharedWatchlistCard extends ConsumerWidget {
             onPressed: () async {
               final name = controller.text.trim();
               if (name.isEmpty) return;
-              Navigator.of(ctx).pop();
+              ctx.pop();
               await repo.updateWatchlistName(list.id, name);
               ref.invalidate(sharedWatchlistsProvider);
             },

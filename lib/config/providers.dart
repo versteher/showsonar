@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../data/models/user_preferences.dart';
 import '../data/services/tmdb_api_client.dart';
@@ -20,6 +21,8 @@ import 'firebase_fallback.dart';
 // Barrel exports – all providers from sub-files
 // ============================================================================
 export 'providers/media_providers.dart';
+export 'providers/media_discover_providers.dart';
+export 'providers/media_detail_providers.dart';
 export 'providers/watch_history_providers.dart';
 export 'providers/watchlist_providers.dart';
 export 'providers/mood_providers.dart';
@@ -130,12 +133,14 @@ final recommendationEngineProvider = FutureProvider<RecommendationEngine>((
   );
 });
 
-/// Provider for local device preferences repository
-final localPreferencesRepositoryProvider = Provider<LocalPreferencesRepository>(
-  (ref) {
-    return LocalPreferencesRepository();
-  },
-);
+/// Provider for local device preferences repository.
+/// Must be overridden in ProviderScope with an initialized SharedPreferences instance.
+final localPreferencesRepositoryProvider =
+    Provider<LocalPreferencesRepository>((_) {
+  throw UnimplementedError(
+    'localPreferencesRepositoryProvider must be overridden with a SharedPreferences instance',
+  );
+});
 
 /// Provider for theme mode state
 final themeModeProvider = StateProvider<ThemeMode>((ref) {
@@ -148,22 +153,21 @@ final themeModeProvider = StateProvider<ThemeMode>((ref) {
   }
 });
 
-/// Initialize all repositories once at app startup
-Future<void> initializeRepositories() async {
+/// Initialize all repositories once at app startup.
+/// Returns the [SharedPreferences] instance to be injected via ProviderScope.
+Future<SharedPreferences> initializeRepositories() async {
   await Hive.initFlutter();
 
-  // Pre-open all Hive boxes at startup to avoid repeated init() calls
+  // Pre-open Hive boxes needed for one-time Hive→Firestore migrations.
+  // local_prefs is no longer stored in Hive (moved to shared_preferences).
   await Future.wait([
     Hive.openBox<String>('user_preferences'),
     Hive.openBox<String>('watch_history'),
     Hive.openBox<String>('watchlist'),
     Hive.openBox<String>('dismissed_media'),
-    Hive.openBox('local_prefs'),
   ]);
 
-  // Need to ensure the local preferences repo is fully initialized
-  final localPrefs = LocalPreferencesRepository();
-  await localPrefs.init();
+  return SharedPreferences.getInstance();
 }
 
 /// Provider for network connectivity state

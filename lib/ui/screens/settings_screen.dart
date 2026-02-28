@@ -3,16 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:neon_voyager/l10n/app_localizations.dart';
 import '../../config/providers.dart';
-import '../../data/models/user_preferences.dart';
-
 import '../theme/app_theme.dart';
-import '../widgets/app_snack_bar.dart';
-import '../widgets/app_page_route.dart';
-import 'taste_profile_screen.dart';
 import '../widgets/streaming_services_grid.dart';
 import '../widgets/country_selector.dart';
 import '../widgets/branded_loading_indicator.dart';
 import '../widgets/profile_switcher_tile.dart';
+import '../widgets/settings_account_card.dart';
+import '../widgets/settings_reset_card.dart';
+import '../widgets/settings_theme_selector.dart';
 
 /// Settings screen for managing user preferences
 class SettingsScreen extends ConsumerWidget {
@@ -91,7 +89,7 @@ class SettingsScreen extends ConsumerWidget {
                       // Theme Section
                       _buildSectionTitle(context, 'Theme'),
                       const SizedBox(height: AppTheme.spacingMd),
-                      _buildThemeSelector(context, ref, prefs),
+                      SettingsThemeSelector(prefs: prefs),
 
                       const SizedBox(height: AppTheme.spacingXl),
 
@@ -105,7 +103,7 @@ class SettingsScreen extends ConsumerWidget {
                       // Account Section
                       _buildSectionTitle(context, 'Account'),
                       const SizedBox(height: AppTheme.spacingMd),
-                      _buildAccountCard(context, ref, authState),
+                      SettingsAccountCard(authState: authState),
 
                       const SizedBox(height: AppTheme.spacingXl),
 
@@ -116,7 +114,7 @@ class SettingsScreen extends ConsumerWidget {
                         AppLocalizations.of(context)!.settingsReset,
                       ),
                       const SizedBox(height: AppTheme.spacingMd),
-                      _buildResetButton(context, ref),
+                      const SettingsResetCard(),
 
                       const SizedBox(height: AppTheme.spacingXl),
 
@@ -191,207 +189,6 @@ class SettingsScreen extends ConsumerWidget {
 
   Widget _buildSectionTitle(BuildContext context, String title) {
     return Text(title, style: Theme.of(context).textTheme.headlineSmall);
-  }
-
-  Widget _buildThemeSelector(
-    BuildContext context,
-    WidgetRef ref,
-    UserPreferences prefs,
-  ) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(AppTheme.spacingMd),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
-        border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
-      ),
-      child: SegmentedButton<String>(
-        segments: const [
-          ButtonSegment<String>(
-            value: 'system',
-            icon: Icon(Icons.brightness_auto),
-            label: Text('System'),
-          ),
-          ButtonSegment<String>(
-            value: 'light',
-            icon: Icon(Icons.light_mode),
-            label: Text('Light'),
-          ),
-          ButtonSegment<String>(
-            value: 'dark',
-            icon: Icon(Icons.dark_mode),
-            label: Text('Dark'),
-          ),
-        ],
-        selected: {prefs.themeMode},
-        onSelectionChanged: (Set<String> newSelection) async {
-          final modeStr = newSelection.first;
-          final newMode = ThemeMode.values.firstWhere(
-            (e) => e.name == modeStr,
-            orElse: () => ThemeMode.system,
-          );
-          ref.read(themeModeProvider.notifier).state = newMode;
-          ref.read(localPreferencesRepositoryProvider).setThemeMode(newMode);
-
-          final repo = ref.read(userPreferencesRepositoryProvider);
-          await repo.init();
-          await repo.updateThemeMode(modeStr);
-          ref.invalidate(userPreferencesProvider);
-        },
-      ),
-    );
-  }
-
-  Widget _buildAccountCard(
-    BuildContext context,
-    WidgetRef ref,
-    AsyncValue authState,
-  ) {
-    final user = authState.valueOrNull;
-    final isLoggedIn = user != null;
-
-    return Container(
-      padding: const EdgeInsets.all(AppTheme.spacingMd),
-      decoration: BoxDecoration(
-        color: AppTheme.surface,
-        borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
-        border: Border.all(color: AppTheme.surfaceBorder),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: (isLoggedIn ? AppTheme.success : AppTheme.primary)
-                  .withValues(alpha: 0.2),
-              borderRadius: BorderRadius.circular(AppTheme.radiusSmall),
-            ),
-            child: Icon(
-              isLoggedIn ? Icons.account_circle : Icons.login,
-              color: isLoggedIn ? AppTheme.success : AppTheme.primary,
-              size: 20,
-            ),
-          ),
-          const SizedBox(width: AppTheme.spacingMd),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  isLoggedIn ? 'Signed In' : 'Not Signed In',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                Text(
-                  isLoggedIn
-                      ? (user.email ?? 'Authenticated')
-                      : 'Sign in to sync your data',
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              ],
-            ),
-          ),
-          OutlinedButton(
-            onPressed: () async {
-              if (isLoggedIn) {
-                await ref.read(authServiceProvider).signOut();
-              } else {
-                context.push('/login');
-              }
-            },
-            child: Text(isLoggedIn ? 'Sign Out' : 'Sign In'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildResetButton(BuildContext context, WidgetRef ref) {
-    return Container(
-      padding: const EdgeInsets.all(AppTheme.spacingMd),
-      decoration: BoxDecoration(
-        color: AppTheme.surface,
-        borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
-        border: Border.all(color: AppTheme.surfaceBorder),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: AppTheme.warning.withValues(alpha: 0.2),
-              borderRadius: BorderRadius.circular(AppTheme.radiusSmall),
-            ),
-            child: const Icon(
-              Icons.refresh_rounded,
-              color: AppTheme.warning,
-              size: 20,
-            ),
-          ),
-          const SizedBox(width: AppTheme.spacingMd),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.settingsResetTitle,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                Text(
-                  AppLocalizations.of(context)!.settingsResetSubtitle,
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              ],
-            ),
-          ),
-          OutlinedButton(
-            onPressed: () async {
-              final confirmed = await showDialog<bool>(
-                context: context,
-                builder: (ctx) => AlertDialog(
-                  backgroundColor: AppTheme.surface,
-                  title: Text(
-                    AppLocalizations.of(context)!.settingsResetConfirm,
-                  ),
-                  content: Text(
-                    AppLocalizations.of(context)!.settingsResetMessage,
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () => context.pop(false),
-                      child: Text(AppLocalizations.of(context)!.detailCancel),
-                    ),
-                    ElevatedButton(
-                      onPressed: () => context.pop(true),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppTheme.warning,
-                      ),
-                      child: Text(AppLocalizations.of(context)!.settingsReset),
-                    ),
-                  ],
-                ),
-              );
-
-              if (confirmed == true) {
-                final repo = ref.read(userPreferencesRepositoryProvider);
-                await repo.init();
-                await repo.resetToDefaults();
-                ref.invalidate(userPreferencesProvider);
-
-                if (context.mounted) {
-                  AppSnackBar.showSuccess(
-                    context,
-                    AppLocalizations.of(context)!.settingsResetTitle,
-                    icon: Icons.refresh_rounded,
-                  );
-                }
-              }
-            },
-            child: const Text('Reset'),
-          ),
-        ],
-      ),
-    );
   }
 
   Widget _buildApiInfoCard(BuildContext context) {
@@ -491,9 +288,7 @@ class SettingsScreen extends ConsumerWidget {
 
   Widget _buildTasteProfileCard(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(
-        context,
-      ).push(AppPageRoute(page: const TasteProfileScreen())),
+      onTap: () => context.push('/taste-profile'),
       child: Container(
         padding: const EdgeInsets.all(AppTheme.spacingMd),
         decoration: BoxDecoration(

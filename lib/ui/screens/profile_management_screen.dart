@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:neon_voyager/config/providers/profile_providers.dart';
 import 'package:neon_voyager/data/models/app_profile.dart';
 import 'package:neon_voyager/ui/theme/app_theme.dart';
+import 'package:neon_voyager/ui/widgets/add_profile_sheet.dart';
 import 'package:neon_voyager/ui/widgets/app_snack_bar.dart';
+import 'package:neon_voyager/ui/widgets/empty_profiles_hint.dart';
+import 'package:neon_voyager/ui/widgets/profile_tile.dart';
 
 /// Screen for creating, switching, and removing family sub-profiles.
 class ProfileManagementScreen extends ConsumerWidget {
@@ -51,7 +55,7 @@ class ProfileManagementScreen extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Default (main) profile tile
-                    _ProfileTile(
+                    ProfileTile(
                       emoji: '👤',
                       name: 'Default',
                       subtitle: 'Main profile — shared across the account',
@@ -82,7 +86,7 @@ class ProfileManagementScreen extends ConsumerWidget {
                     profilesAsync.when(
                       data: (profiles) {
                         if (profiles.isEmpty) {
-                          return _EmptyProfilesHint(
+                          return EmptyProfilesHint(
                             onAdd: () => _showAddProfileSheet(context, ref),
                           );
                         }
@@ -93,7 +97,7 @@ class ProfileManagementScreen extends ConsumerWidget {
                                 padding: const EdgeInsets.only(
                                   bottom: AppTheme.spacingSm,
                                 ),
-                                child: _ProfileTile(
+                                child: ProfileTile(
                                   emoji: profile.avatarEmoji,
                                   name: profile.name,
                                   subtitle:
@@ -102,8 +106,7 @@ class ProfileManagementScreen extends ConsumerWidget {
                                   onSwitch: () {
                                     ref
                                         .read(activeProfileIdProvider.notifier)
-                                        .state = profile
-                                        .id;
+                                        .state = profile.id;
                                     AppSnackBar.showSuccess(
                                       context,
                                       'Switched to ${profile.name}',
@@ -176,7 +179,7 @@ class ProfileManagementScreen extends ConsumerWidget {
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       builder: (ctx) =>
-          _AddProfileSheet(onCreated: () => ref.invalidate(profilesProvider)),
+          AddProfileSheet(onCreated: () => ref.invalidate(profilesProvider)),
     );
   }
 
@@ -196,12 +199,12 @@ class ProfileManagementScreen extends ConsumerWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
+            onPressed: () => ctx.pop(false),
             child: const Text('Cancel'),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: AppTheme.error),
-            onPressed: () => Navigator.of(ctx).pop(true),
+            onPressed: () => ctx.pop(true),
             child: const Text('Delete'),
           ),
         ],
@@ -222,351 +225,6 @@ class ProfileManagementScreen extends ConsumerWidget {
           icon: Icons.delete_rounded,
         );
       }
-    }
-  }
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Profile tile
-// ─────────────────────────────────────────────────────────────────────────────
-
-class _ProfileTile extends StatelessWidget {
-  final String emoji;
-  final String name;
-  final String subtitle;
-  final bool isActive;
-  final VoidCallback onSwitch;
-  final VoidCallback? onDelete;
-
-  const _ProfileTile({
-    required this.emoji,
-    required this.name,
-    required this.subtitle,
-    required this.isActive,
-    required this.onSwitch,
-    required this.onDelete,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 250),
-      padding: const EdgeInsets.all(AppTheme.spacingMd),
-      decoration: BoxDecoration(
-        color: isActive
-            ? AppTheme.primary.withValues(alpha: 0.12)
-            : AppTheme.surface,
-        borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
-        border: Border.all(
-          color: isActive
-              ? AppTheme.primary.withValues(alpha: 0.6)
-              : AppTheme.surfaceBorder,
-          width: isActive ? 1.5 : 1,
-        ),
-      ),
-      child: Row(
-        children: [
-          // Avatar
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              gradient: isActive ? AppTheme.primaryGradient : null,
-              color: isActive ? null : AppTheme.surfaceBorder,
-              borderRadius: BorderRadius.circular(24),
-            ),
-            child: Center(
-              child: Text(emoji, style: const TextStyle(fontSize: 24)),
-            ),
-          ),
-          const SizedBox(width: AppTheme.spacingMd),
-
-          // Name + subtitle
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      name,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: isActive
-                            ? FontWeight.w700
-                            : FontWeight.normal,
-                      ),
-                    ),
-                    if (isActive) ...[
-                      const SizedBox(width: 6),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 2,
-                        ),
-                        decoration: BoxDecoration(
-                          gradient: AppTheme.primaryGradient,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Text(
-                          'ACTIVE',
-                          style: TextStyle(
-                            fontSize: 9,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                            letterSpacing: 0.8,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ],
-                ),
-                Text(
-                  subtitle,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodySmall?.copyWith(color: AppTheme.textMuted),
-                ),
-              ],
-            ),
-          ),
-
-          // Actions
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (!isActive)
-                TextButton(onPressed: onSwitch, child: const Text('Switch')),
-              if (onDelete != null)
-                IconButton(
-                  icon: const Icon(
-                    Icons.delete_outline_rounded,
-                    color: AppTheme.error,
-                    size: 20,
-                  ),
-                  tooltip: 'Delete profile',
-                  onPressed: onDelete,
-                ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Empty state
-// ─────────────────────────────────────────────────────────────────────────────
-
-class _EmptyProfilesHint extends StatelessWidget {
-  final VoidCallback onAdd;
-
-  const _EmptyProfilesHint({required this.onAdd});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onAdd,
-      child: Container(
-        padding: const EdgeInsets.all(AppTheme.spacingLg),
-        decoration: BoxDecoration(
-          color: AppTheme.surface,
-          borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
-          border: Border.all(
-            style: BorderStyle.solid,
-            color: AppTheme.surfaceBorder,
-          ),
-        ),
-        child: Column(
-          children: [
-            const Icon(
-              Icons.person_add_alt_1_rounded,
-              size: 48,
-              color: AppTheme.textMuted,
-            ),
-            const SizedBox(height: AppTheme.spacingSm),
-            Text(
-              'Add a Family Profile',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: 4),
-            Text(
-              'Create separate profiles for family members.\nEach profile has its own independent watchlist.',
-              textAlign: TextAlign.center,
-              style: Theme.of(
-                context,
-              ).textTheme.bodySmall?.copyWith(color: AppTheme.textMuted),
-            ),
-            const SizedBox(height: AppTheme.spacingMd),
-            ElevatedButton.icon(
-              onPressed: onAdd,
-              icon: const Icon(Icons.add_rounded),
-              label: const Text('Create Profile'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Add profile bottom sheet
-// ─────────────────────────────────────────────────────────────────────────────
-
-class _AddProfileSheet extends ConsumerStatefulWidget {
-  final VoidCallback onCreated;
-
-  const _AddProfileSheet({required this.onCreated});
-
-  @override
-  ConsumerState<_AddProfileSheet> createState() => _AddProfileSheetState();
-}
-
-class _AddProfileSheetState extends ConsumerState<_AddProfileSheet> {
-  final _nameController = TextEditingController();
-  String _selectedEmoji = '🎬';
-  bool _saving = false;
-
-  static const _emojis = [
-    '🎬',
-    '🍿',
-    '👦',
-    '👧',
-    '🧑',
-    '👩',
-    '👨',
-    '👴',
-    '👵',
-    '🦸',
-    '🧙',
-    '🤖',
-  ];
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final bottomInset = MediaQuery.of(context).viewInsets.bottom;
-
-    return Padding(
-      padding: EdgeInsets.fromLTRB(24, 24, 24, 24 + bottomInset),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Drag handle
-          Center(
-            child: Container(
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: AppTheme.surfaceBorder,
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-
-          Text('New Profile', style: Theme.of(context).textTheme.headlineSmall),
-          const SizedBox(height: AppTheme.spacingMd),
-
-          // Emoji picker
-          Text(
-            'Choose an avatar',
-            style: Theme.of(
-              context,
-            ).textTheme.labelMedium?.copyWith(color: AppTheme.textMuted),
-          ),
-          const SizedBox(height: AppTheme.spacingSm),
-          Wrap(
-            spacing: 10,
-            runSpacing: 10,
-            children: _emojis.map((e) {
-              final selected = e == _selectedEmoji;
-              return GestureDetector(
-                onTap: () => setState(() => _selectedEmoji = e),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 160),
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    gradient: selected ? AppTheme.primaryGradient : null,
-                    color: selected ? null : AppTheme.surface,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: selected
-                          ? Colors.transparent
-                          : AppTheme.surfaceBorder,
-                    ),
-                  ),
-                  child: Center(
-                    child: Text(e, style: const TextStyle(fontSize: 24)),
-                  ),
-                ),
-              );
-            }).toList(),
-          ),
-          const SizedBox(height: AppTheme.spacingMd),
-
-          // Name field
-          TextField(
-            controller: _nameController,
-            autofocus: true,
-            decoration: InputDecoration(
-              labelText: 'Profile name',
-              hintText: 'e.g. Kids, Partner, Alex',
-              prefixText: '$_selectedEmoji  ',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
-              ),
-            ),
-            textCapitalization: TextCapitalization.words,
-            onSubmitted: (_) => _save(),
-          ),
-          const SizedBox(height: AppTheme.spacingMd),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text('Cancel'),
-              ),
-              const SizedBox(width: AppTheme.spacingSm),
-              ElevatedButton(
-                onPressed: _saving ? null : _save,
-                child: _saving
-                    ? const SizedBox.square(
-                        dimension: 18,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      )
-                    : const Text('Create'),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Future<void> _save() async {
-    final name = _nameController.text.trim();
-    if (name.isEmpty) return;
-
-    setState(() => _saving = true);
-    try {
-      await ref
-          .read(profileRepositoryProvider)
-          .createProfile(name: name, avatarEmoji: _selectedEmoji);
-      widget.onCreated();
-      if (mounted) Navigator.of(context).pop();
-    } finally {
-      if (mounted) setState(() => _saving = false);
     }
   }
 }
