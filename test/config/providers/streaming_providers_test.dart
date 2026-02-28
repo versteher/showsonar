@@ -94,10 +94,7 @@ void main() {
       );
       expect(available, isNotEmpty);
       expect(available.first.provider.id, 'netflix');
-      expect(
-        available.first.logoUrl,
-        'https://image.tmdb.org/t/p/w92/netflix.jpg',
-      );
+      expect(available.first.logoUrl, 'assets/images/netflix_logo.png');
     });
   });
 }

@@ -139,7 +139,7 @@ void main() {
         'ard_mediathek',
         'zdf_mediathek',
       ]);
-      expect(tmdbIds, [8, 219, 537]);
+      expect(tmdbIds, [8, 219, 537, 175, 1796, 36]);
     });
 
     test('getTmdbIds should skip unknown provider IDs', () {
@@ -148,7 +148,7 @@ void main() {
         'unknown_service',
         'ard_mediathek',
       ]);
-      expect(tmdbIds, [8, 219]);
+      expect(tmdbIds, [8, 219, 175, 1796]);
     });
 
     test('getTmdbIds with empty list returns empty', () {

@@ -27,7 +27,7 @@ class MockDio implements Dio {
 
     return Response<T>(
       requestOptions: RequestOptions(path: path),
-      data: {'results': []} as T,
+      data: '{"results": []}' as T,
       statusCode: 200,
     );
   }
