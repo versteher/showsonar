@@ -147,7 +147,7 @@ class _TrackEpisodesButton extends StatelessWidget {
           },
           style: OutlinedButton.styleFrom(
             foregroundColor: AppTheme.accent,
-            side: BorderSide(color: AppTheme.accent.withOpacity(0.6)),
+            side: BorderSide(color: AppTheme.accent.withValues(alpha: 0.6)),
             padding: const EdgeInsets.symmetric(vertical: 12),
           ),
           icon: const Icon(Icons.format_list_numbered_rounded),

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:network_image_mock/network_image_mock.dart';
-import 'package:neon_voyager/main.dart';
+import 'package:neon_voyager/app.dart';
 import 'package:neon_voyager/ui/screens/onboarding_screen.dart';
 import 'package:neon_voyager/ui/widgets/hero_carousel.dart';
 
@@ -108,7 +107,7 @@ void main() {
             bundle: TestAssetBundle(),
             child: ProviderScope(
               overrides: getIntegrationTestOverrides(),
-              child: const NeonVoyagerApp(),
+              child: const App(),
             ),
           ),
         );

@@ -43,7 +43,7 @@ class SocialUserTile extends ConsumerWidget {
                     child: Image.network(
                       profile.photoUrl!,
                       fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) =>
+                      errorBuilder: (_, _, _) =>
                           SocialInitials(profile.displayName),
                     ),
                   )
@@ -96,7 +96,7 @@ class SocialUserTile extends ConsumerWidget {
                 color: AppTheme.primary,
               ),
             ),
-            error: (_, __) => const SizedBox.shrink(),
+            error: (_, _) => const SizedBox.shrink(),
           ),
         ],
       ),

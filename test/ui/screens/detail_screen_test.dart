@@ -11,18 +11,13 @@ import 'package:neon_voyager/data/models/media.dart';
 import 'package:neon_voyager/data/models/watch_history_entry.dart';
 import 'package:neon_voyager/data/models/user_preferences.dart';
 import 'package:neon_voyager/data/repositories/watchlist_repository.dart';
-import 'package:neon_voyager/data/repositories/watch_history_repository.dart';
 
 import '../../utils/test_app_wrapper.dart';
 
 class MockWatchlistRepository extends Mock implements WatchlistRepository {}
 
-class MockWatchHistoryRepository extends Mock
-    implements WatchHistoryRepository {}
-
 void main() {
   late MockWatchlistRepository mockWatchlistRepo;
-  late MockWatchHistoryRepository mockHistoryRepo;
 
   final mockMedia = Media(
     id: 123,
@@ -61,7 +56,6 @@ void main() {
 
   setUp(() {
     mockWatchlistRepo = MockWatchlistRepository();
-    mockHistoryRepo = MockWatchHistoryRepository();
   });
 
   group('DetailScreen Widget Tests', () {

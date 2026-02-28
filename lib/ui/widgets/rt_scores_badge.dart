@@ -76,7 +76,7 @@ class RtScoresBadge extends ConsumerWidget {
         ).animate().fadeIn(delay: 200.ms, duration: 300.ms);
       },
       loading: () => const SizedBox.shrink(),
-      error: (_, __) => const SizedBox.shrink(),
+      error: (_, _) => const SizedBox.shrink(),
     );
   }
 

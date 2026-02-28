@@ -57,7 +57,7 @@ class SocialActivityFeedCard extends StatelessWidget {
                     child: Image.network(
                       item.userPhotoUrl!,
                       fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) =>
+                      errorBuilder: (_, _, _) =>
                           SocialInitials(item.userDisplayName),
                     ),
                   )
@@ -111,7 +111,7 @@ class SocialActivityFeedCard extends StatelessWidget {
                   width: 44,
                   height: 66,
                   fit: BoxFit.cover,
-                  errorBuilder: (_, __, ___) => Container(
+                  errorBuilder: (_, _, _) => Container(
                     width: 44,
                     height: 66,
                     color: AppTheme.surfaceLight,

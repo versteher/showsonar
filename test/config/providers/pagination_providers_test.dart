@@ -42,7 +42,7 @@ void main() {
       () => mockRepo.getPopularMovies(page: 1),
     ).thenAnswer((_) async => mockMedia);
 
-    final sub = container.listen(popularMoviesPaginationProvider, (_, __) {});
+    final sub = container.listen(popularMoviesPaginationProvider, (_, _) {});
 
     // Wait for initial load
     await Future.delayed(const Duration(milliseconds: 10));
@@ -95,7 +95,7 @@ void main() {
         () => mockRepo.getPopularMovies(page: 2),
       ).thenAnswer((_) async => mockMediaPage2);
 
-      final sub = container.listen(popularMoviesPaginationProvider, (_, __) {});
+      final sub = container.listen(popularMoviesPaginationProvider, (_, _) {});
 
       // Wait for initial load
       await Future.delayed(const Duration(milliseconds: 10));
@@ -141,7 +141,7 @@ void main() {
         () => mockRepo.getPopularMovies(page: 2),
       ).thenAnswer((_) async => <Media>[]);
 
-      final sub = container.listen(popularMoviesPaginationProvider, (_, __) {});
+      final sub = container.listen(popularMoviesPaginationProvider, (_, _) {});
 
       await Future.delayed(const Duration(milliseconds: 10));
       await container.read(popularMoviesPaginationProvider.notifier).loadMore();

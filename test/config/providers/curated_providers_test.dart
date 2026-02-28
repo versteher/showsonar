@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:neon_voyager/config/providers.dart';
 import 'package:neon_voyager/config/providers/curated_providers.dart';
 import 'package:neon_voyager/data/models/media.dart';
 import 'package:neon_voyager/data/models/user_preferences.dart';

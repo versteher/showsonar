@@ -23,7 +23,7 @@ class WatchlistSortBar extends StatelessWidget {
           vertical: 8,
         ),
         itemCount: WatchlistSort.values.length,
-        separatorBuilder: (_, __) => const SizedBox(width: 8),
+        separatorBuilder: (_, _) => const SizedBox(width: 8),
         itemBuilder: (context, index) {
           final sort = WatchlistSort.values[index];
           final isSelected = sort == currentSort;

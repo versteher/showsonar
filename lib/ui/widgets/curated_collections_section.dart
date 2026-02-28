@@ -49,7 +49,7 @@ class CuratedCollectionsSection extends ConsumerWidget {
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: AppTheme.spacingMd),
             itemCount: CuratedCollection.values.length,
-            separatorBuilder: (_, __) =>
+            separatorBuilder: (_, _) =>
                 const SizedBox(width: AppTheme.spacingSm),
             itemBuilder: (context, index) {
               final collection = CuratedCollection.values[index];

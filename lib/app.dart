@@ -35,7 +35,7 @@ class App extends ConsumerWidget {
       ? Banner(
           location: BannerLocation.topStart,
           message: F.name.toUpperCase(),
-          color: Colors.green.withOpacity(0.6),
+          color: Colors.green.withValues(alpha: 0.6),
           textStyle: const TextStyle(
             fontWeight: FontWeight.w700,
             fontSize: 12.0,

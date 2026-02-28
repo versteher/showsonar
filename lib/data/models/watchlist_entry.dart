@@ -43,12 +43,14 @@ class WatchlistEntry with _$WatchlistEntry {
 
   const factory WatchlistEntry({
     required int mediaId,
+    // ignore: invalid_annotation_target
     @JsonKey(unknownEnumValue: MediaType.movie) required MediaType mediaType,
     required String title,
     String? posterPath,
     String? backdropPath,
     required DateTime addedAt,
     double? voteAverage,
+    // ignore: invalid_annotation_target
     @JsonKey(unknownEnumValue: WatchlistPriority.normal)
     @Default(WatchlistPriority.normal)
     WatchlistPriority priority,

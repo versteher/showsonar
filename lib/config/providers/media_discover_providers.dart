@@ -4,7 +4,7 @@ import '../../data/models/media.dart';
 import '../../domain/recommendation_engine.dart';
 import '../../utils/media_filter.dart';
 import '../providers.dart';
-import 'pagination_providers.dart';
+
 
 /// Sort mode for genre sections: 'popularity.desc' or 'vote_average.desc'
 final genreSortByProvider = StateProvider<String>((ref) => 'popularity.desc');

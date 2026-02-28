@@ -107,7 +107,7 @@ class SeasonExpansionTile extends ConsumerWidget {
                             borderRadius: BorderRadius.circular(4),
                             child: LinearProgressIndicator(
                               value: fraction.clamp(0.0, 1.0),
-                              backgroundColor: Colors.white.withOpacity(0.1),
+                              backgroundColor: Colors.white.withValues(alpha: 0.1),
                               valueColor: AlwaysStoppedAnimation<Color>(
                                 fraction >= 1.0
                                     ? AppTheme.success
@@ -121,7 +121,7 @@ class SeasonExpansionTile extends ConsumerWidget {
                         Text(
                           '$watchedInSeason/${airedEps.length}',
                           style: TextStyle(
-                            color: Colors.white.withOpacity(0.5),
+                            color: Colors.white.withValues(alpha: 0.5),
                             fontSize: 12,
                           ),
                         ),
@@ -132,7 +132,7 @@ class SeasonExpansionTile extends ConsumerWidget {
                       Text(
                         _nextAirText(nextAiring),
                         style: TextStyle(
-                          color: AppTheme.warning.withOpacity(0.9),
+                          color: AppTheme.warning.withValues(alpha: 0.9),
                           fontSize: 11,
                         ),
                       ),
@@ -203,7 +203,7 @@ class _EpisodeRow extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           decoration: BoxDecoration(
             color: isNextUnwatched
-                ? AppTheme.accent.withOpacity(0.08)
+                ? AppTheme.accent.withValues(alpha: 0.08)
                 : Colors.transparent,
             border: isNextUnwatched
                 ? Border(left: BorderSide(color: AppTheme.accent, width: 3))
@@ -219,7 +219,7 @@ class _EpisodeRow extends StatelessWidget {
                   style: TextStyle(
                     color: isFuture
                         ? Colors.white24
-                        : Colors.white.withOpacity(0.5),
+                        : Colors.white.withValues(alpha: 0.5),
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
                   ),
@@ -259,7 +259,7 @@ class _EpisodeRow extends StatelessWidget {
                       Text(
                         '${episode.runtime} min',
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.35),
+                          color: Colors.white.withValues(alpha: 0.35),
                           fontSize: 11,
                         ),
                       ),
@@ -278,7 +278,7 @@ class _EpisodeRow extends StatelessWidget {
                     key: ValueKey(isWatched),
                     color: isWatched
                         ? AppTheme.success
-                        : Colors.white.withOpacity(0.3),
+                        : Colors.white.withValues(alpha: 0.3),
                     size: 22,
                     semanticLabel: isWatched ? 'Watched' : 'Not watched',
                   ),
@@ -286,7 +286,7 @@ class _EpisodeRow extends StatelessWidget {
               else
                 Icon(
                   Icons.lock_clock_outlined,
-                  color: Colors.white.withOpacity(0.2),
+                  color: Colors.white.withValues(alpha: 0.2),
                   size: 20,
                   semanticLabel: 'Not yet aired',
                 ),

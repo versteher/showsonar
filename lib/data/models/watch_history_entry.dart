@@ -12,6 +12,7 @@ class WatchHistoryEntry with _$WatchHistoryEntry {
 
   const factory WatchHistoryEntry({
     required int mediaId,
+    // ignore: invalid_annotation_target
     @JsonKey(unknownEnumValue: MediaType.movie) required MediaType mediaType,
     required String title,
     String? posterPath,

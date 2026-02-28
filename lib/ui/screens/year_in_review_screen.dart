@@ -145,7 +145,7 @@ class _YearInReviewScreenState extends ConsumerState<YearInReviewScreen>
             );
           },
           loading: () => const SizedBox.shrink(),
-          error: (_, __) => Text(
+          error: (_, _) => Text(
             '$_selectedYear in Review',
             style: const TextStyle(
               color: Colors.white,

@@ -52,15 +52,15 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     }
 
     try {
-      print('Initializing speech recognition...');
+      debugPrint('Initializing speech recognition...');
       final available = await _speech.initialize(
         onError: (error) {
-          print('Speech initialization error: $error');
+          debugPrint('Speech initialization error: $error');
           setState(() => _isListening = false);
         },
         debugLogging: true,
       );
-      print('Speech initialization result: $available');
+      debugPrint('Speech initialization result: $available');
 
       if (available) {
         setState(() => _isListening = true);
@@ -78,11 +78,11 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           pauseFor: const Duration(seconds: 3),
         );
       } else {
-        print('Speech recognition not available on this device');
+        debugPrint('Speech recognition not available on this device');
       }
     } catch (e, stack) {
-      print('Error initializing speech recognition: $e');
-      print(stack);
+      debugPrint('Error initializing speech recognition: $e');
+      debugPrint(stack.toString());
       setState(() => _isListening = false);
     }
   }
@@ -171,7 +171,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                     BoxShadow(
                                       color: const Color(
                                         0xFFFF0000,
-                                      ).withOpacity(0.4),
+                                      ).withValues(alpha: 0.4),
                                       blurRadius: 12,
                                     ),
                                   ]

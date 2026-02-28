@@ -294,7 +294,7 @@ class _HeroCarouselState extends ConsumerState<HeroCarousel> {
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
                             itemCount: media.providerData.length,
-                            separatorBuilder: (_, __) =>
+                            separatorBuilder: (_, _) =>
                                 const SizedBox(width: 8),
                             itemBuilder: (context, index) {
                               final logoUrl = media.providerData[index].logoUrl;

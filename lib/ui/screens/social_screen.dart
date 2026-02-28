@@ -199,7 +199,7 @@ class _ActivityFeedTab extends ConsumerWidget {
       loading: () => const Center(
         child: CircularProgressIndicator(color: AppTheme.primary),
       ),
-      error: (_, __) => SocialEmptyState(
+      error: (_, _) => SocialEmptyState(
         icon: Icons.error_outline_rounded,
         title: 'Couldn\'t load feed',
         subtitle: 'Pull to refresh',
@@ -238,7 +238,7 @@ class _FollowingTab extends ConsumerWidget {
       loading: () => const Center(
         child: CircularProgressIndicator(color: AppTheme.primary),
       ),
-      error: (_, __) => SocialEmptyState(
+      error: (_, _) => SocialEmptyState(
         icon: Icons.error_outline_rounded,
         title: 'Couldn\'t load following list',
         subtitle: 'Check your connection and try again',
@@ -276,7 +276,7 @@ class _SearchResults extends ConsumerWidget {
       loading: () => const Center(
         child: CircularProgressIndicator(color: AppTheme.primary),
       ),
-      error: (_, __) => SocialEmptyState(
+      error: (_, _) => SocialEmptyState(
         icon: Icons.error_outline_rounded,
         title: 'Search failed',
         subtitle: 'Try again later',

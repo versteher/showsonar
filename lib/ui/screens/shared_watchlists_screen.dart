@@ -91,7 +91,7 @@ class SharedWatchlistsScreen extends ConsumerWidget {
       loading: () => const Center(
         child: CircularProgressIndicator(color: AppTheme.primary),
       ),
-      error: (_, __) => const Center(
+      error: (_, _) => const Center(
         child: Text(
           'Could not load shared lists',
           style: TextStyle(color: AppTheme.textMuted),

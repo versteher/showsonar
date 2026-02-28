@@ -74,7 +74,7 @@ class Slide3TopPicks extends StatelessWidget {
                                 width: 48,
                                 height: 72,
                                 fit: BoxFit.cover,
-                                errorWidget: (_, __, ___) =>
+                                errorWidget: (_, _, _) =>
                                     const _PosterPlaceholder(),
                               )
                             : const _PosterPlaceholder(),

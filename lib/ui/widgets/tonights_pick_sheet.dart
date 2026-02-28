@@ -2,7 +2,7 @@ import 'package:neon_voyager/utils/app_haptics.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -133,15 +133,17 @@ class _TonightsPickSheetState extends ConsumerState<TonightsPickSheet> {
     // Vote confidence
     if (m.voteCount >= 5000) {
       score += 1.5;
-    } else if (m.voteCount >= 1000)
+    } else if (m.voteCount >= 1000) {
       score += 0.8;
+    }
     // Freshness bonus
     if (m.releaseDate != null) {
       final yearsOld = DateTime.now().difference(m.releaseDate!).inDays / 365;
       if (yearsOld < 2) {
         score += 1.0;
-      } else if (yearsOld < 5)
+      } else if (yearsOld < 5) {
         score += 0.5;
+      }
     }
     return score;
   }
