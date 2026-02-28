@@ -4,7 +4,7 @@
 terraform {
   # Uncomment after creating the GCS state bucket:
   # backend "gcs" {
-  #   bucket = "streamscout-terraform-state"
+  #   bucket = "showsonar-terraform-state"
   #   prefix = "environments/dev"
   # }
 }

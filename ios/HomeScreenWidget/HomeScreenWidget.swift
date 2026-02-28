@@ -15,7 +15,7 @@ struct Provider: TimelineProvider {
         var entries: [SimpleEntry] = []
 
         // User defaults group should be created manually in Xcode
-        let userDefaults = UserDefaults(suiteName: "group.com.streamscout.streamscout.widget")
+        let userDefaults = UserDefaults(suiteName: "group.com.showsonar.showsonar.widget")
         let title = userDefaults?.string(forKey: "title") ?? "Tonight's Pick"
         let description = userDefaults?.string(forKey: "description") ?? "No recommendations."
 

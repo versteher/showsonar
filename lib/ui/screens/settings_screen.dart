@@ -265,7 +265,7 @@ class SettingsScreen extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'StreamScout',
+                    'ShowSonar',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   Text(

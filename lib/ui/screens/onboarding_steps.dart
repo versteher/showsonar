@@ -58,7 +58,7 @@ class OnboardingLocationStep extends StatelessWidget {
       child: Column(
         children: [
           const OnboardingStepHeader(
-            title: 'Welcome to StreamScout',
+            title: 'Welcome to ShowSonar',
             subtitle:
                 'Let\'s personalize your experience. Where are you watching from?',
           ),
@@ -348,7 +348,7 @@ class OnboardingThemeStep extends ConsumerWidget {
         children: [
           const OnboardingStepHeader(
             title: 'Choose a Theme',
-            subtitle: 'Select how you want StreamScout to look.',
+            subtitle: 'Select how you want ShowSonar to look.',
           ),
           RadioListTile<ThemeMode>(
             title: const Text('System Default'),

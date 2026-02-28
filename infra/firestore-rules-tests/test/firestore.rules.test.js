@@ -9,7 +9,7 @@ let testEnv;
 
 before(async () => {
     testEnv = await initializeTestEnvironment({
-        projectId: 'streamscout-dev',
+        projectId: 'showsonar-dev',
         firestore: {
             rules: fs.readFileSync('../terraform/modules/firestore/firestore.rules', 'utf8'),
         },

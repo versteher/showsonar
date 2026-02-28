@@ -145,7 +145,7 @@ void main() {
         await tester.pumpAndSettle();
 
         // 3. Verify we are on the Home Screen
-        expect(find.text('StreamScout'), findsOneWidget);
+        expect(find.text('ShowSonar'), findsOneWidget);
 
         // Wait for async providers to load
         await tester.pump(const Duration(seconds: 2));

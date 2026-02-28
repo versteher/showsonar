@@ -149,7 +149,7 @@ void main() {
       await tester.pump(const Duration(milliseconds: 500));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.text('StreamScout'), findsOneWidget);
+      expect(find.text('ShowSonar'), findsOneWidget);
     });
 
     testWidgets('renders error states when data fetching fails', (

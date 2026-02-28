@@ -105,7 +105,7 @@ void main() {
       );
 
       // Page 1: Location Page
-      expect(find.text('Welcome to StreamScout'), findsOneWidget);
+      expect(find.text('Welcome to ShowSonar'), findsOneWidget);
       expect(find.text('Next'), findsOneWidget);
       expect(find.text('Back'), findsNothing);
 

@@ -11,13 +11,13 @@ popd
 
 echo "Running tests on Firebase Test Lab..."
 
-# Assumes gcloud is authenticated and project is set to streamscout-dev
+# Assumes gcloud is authenticated and project is set to showsonar-dev
 gcloud firebase test android run \
   --type instrumentation \
   --app build/app/outputs/apk/debug/app-debug.apk \
   --test build/app/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
   --device model=Pixel3,version=30,locale=en,orientation=portrait \
   --timeout 5m \
-  --project streamscout-dev
+  --project showsonar-dev
 
 echo "Firebase Test Lab execution completed successfully."

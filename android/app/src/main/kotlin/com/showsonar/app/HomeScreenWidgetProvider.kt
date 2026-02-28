@@ -1,4 +1,4 @@
-package com.streamscout.app
+package com.showsonar.app
 
 import android.appwidget.AppWidgetManager
 import android.content.Context

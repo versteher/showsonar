@@ -18,10 +18,10 @@ resource "google_firebase_project" "default" {
 # ── Android app ───────────────────────────────────────────────────────────────
 # Bundle ID must match the value set in android/app/build.gradle.
 
-resource "google_firebase_android_app" "streamscout" {
+resource "google_firebase_android_app" "showsonar" {
   provider     = google-beta
   project      = var.project_id
-  display_name = "StreamScout Android (${var.environment})"
+  display_name = "ShowSonar Android (${var.environment})"
   package_name = var.android_package_name
 
   depends_on = [google_firebase_project.default]
@@ -30,10 +30,10 @@ resource "google_firebase_android_app" "streamscout" {
 # ── iOS app ───────────────────────────────────────────────────────────────────
 # Bundle ID must match the value in the Xcode project settings.
 
-resource "google_firebase_apple_app" "streamscout" {
+resource "google_firebase_apple_app" "showsonar" {
   provider     = google-beta
   project      = var.project_id
-  display_name = "StreamScout iOS (${var.environment})"
+  display_name = "ShowSonar iOS (${var.environment})"
   bundle_id    = var.ios_bundle_id
 
   depends_on = [google_firebase_project.default]
@@ -46,10 +46,10 @@ resource "google_firebase_apple_app" "streamscout" {
 resource "google_firebase_app_check_play_integrity_config" "android" {
   provider = google-beta
   project  = var.project_id
-  app_id   = google_firebase_android_app.streamscout.app_id
+  app_id   = google_firebase_android_app.showsonar.app_id
   token_ttl = "3600s"
 
-  depends_on = [google_firebase_android_app.streamscout]
+  depends_on = [google_firebase_android_app.showsonar]
 }
 
 # ── App Check: iOS (DeviceCheck) ──────────────────────────────────────────────
@@ -68,12 +68,12 @@ resource "google_firebase_app_check_device_check_config" "ios" {
 
   provider    = google-beta
   project     = var.project_id
-  app_id      = google_firebase_apple_app.streamscout.app_id
+  app_id      = google_firebase_apple_app.showsonar.app_id
   key_id      = var.app_check_key_id
   private_key = var.app_check_private_key
   token_ttl   = "3600s"
 
-  depends_on = [google_firebase_apple_app.streamscout]
+  depends_on = [google_firebase_apple_app.showsonar]
 }
 
 # ── Remote Config ─────────────────────────────────────────────────────────────

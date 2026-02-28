@@ -2,7 +2,7 @@
 
 terraform {
   # backend "gcs" {
-  #   bucket = "streamscout-terraform-state"
+  #   bucket = "showsonar-terraform-state"
   #   prefix = "environments/prod"
   # }
 }

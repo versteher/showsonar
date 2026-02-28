@@ -1,4 +1,4 @@
-# 🚀 StreamScout — World-Class App Roadmap
+# 🚀 ShowSonar — World-Class App Roadmap
 
 > Complete, ordered checklist of **every** improvement needed. Work top to bottom within each tier. Mark `[x]` when done.
 >
@@ -25,8 +25,8 @@
 
 - [x] **P0-2 · Set up GCP project + Terraform scaffold**
   - Install Terraform + `gcloud` CLI
-  - Create GCP project (`streamscout-dev`)
-  - Enable billing, create Terraform state bucket (`gs://streamscout-terraform-state`)
+  - Create GCP project (`showsonar-dev`)
+  - Enable billing, create Terraform state bucket (`gs://showsonar-terraform-state`)
   - Create `infra/terraform/` directory structure with `providers.tf`, `variables.tf`, `versions.tf`
   - Create `environments/dev/`, `staging/`, `prod/` directories
   - Enable required APIs: `secretmanager`, `run`, `artifactregistry`, `cloudbuild`, `firestore`, `identitytoolkit`, `cloudfunctions`
@@ -361,7 +361,7 @@
 
 - [x] **R-1 · App icon & splash screen** — Design branded icon, add `flutter_native_splash`
 - [x] **R-2 · Privacy policy** — Create and host at a public URL (required by both stores)
-- [x] **R-3 · Bundle ID & signing** — Configure `com.streamscout.app` for iOS + Android
+- [x] **R-3 · Bundle ID & signing** — Configure `com.showsonar.app` for iOS + Android
 - [x] **R-4 · ProGuard / R8 rules** — Add shrink rules for Android release builds
 - [x] **R-5 · Versioning strategy** — Semantic versioning with CI auto-increment build number
 - [x] **R-6 · App Store metadata** — Screenshots, descriptions, keywords for both stores
@@ -439,13 +439,13 @@ brew install terraform google-cloud-sdk
 gcloud auth login && gcloud auth application-default login
 
 # 3. Create project (only manual step)
-gcloud projects create streamscout-dev --name="StreamScout Dev"
-gcloud config set project streamscout-dev
+gcloud projects create showsonar-dev --name="ShowSonar Dev"
+gcloud config set project showsonar-dev
 
 # 4. Enable billing → console.cloud.google.com/billing
 
 # 5. State bucket
-gsutil mb -l europe-west1 gs://streamscout-terraform-state
+gsutil mb -l europe-west1 gs://showsonar-terraform-state
 
 # 6. Apply
 cd infra/terraform/environments/dev

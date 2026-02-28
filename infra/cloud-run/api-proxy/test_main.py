@@ -1,5 +1,5 @@
 """
-Unit tests for the StreamScout API proxy.
+Unit tests for the ShowSonar API proxy.
 App Check is disabled via APP_CHECK_ENABLED=false env var.
 Upstream HTTP calls are mocked with respx.
 """

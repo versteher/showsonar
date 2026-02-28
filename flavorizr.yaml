@@ -1,22 +1,22 @@
 flavors:
   dev:
     app:
-      name: "StreamScout Dev"
+      name: "ShowSonar Dev"
     android:
-      applicationId: "com.streamscout.app.dev"
+      applicationId: "com.showsonar.app.dev"
     ios:
-      bundleId: "com.streamscout.app.dev"
+      bundleId: "com.showsonar.app.dev"
   staging:
     app:
-      name: "StreamScout Stg"
+      name: "ShowSonar Stg"
     android:
-      applicationId: "com.streamscout.app.staging"
+      applicationId: "com.showsonar.app.staging"
     ios:
-      bundleId: "com.streamscout.app.staging"
+      bundleId: "com.showsonar.app.staging"
   prod:
     app:
-      name: "StreamScout"
+      name: "ShowSonar"
     android:
-      applicationId: "com.streamscout.app"
+      applicationId: "com.showsonar.app"
     ios:
-      bundleId: "com.streamscout.app"
+      bundleId: "com.showsonar.app"

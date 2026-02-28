@@ -1,6 +1,6 @@
 variable "project_id" {
   type        = string
-  description = "GCP project ID (e.g. streamscout-dev)"
+  description = "GCP project ID (e.g. showsonar-dev)"
 }
 
 variable "environment" {
@@ -16,14 +16,14 @@ variable "region" {
 
 variable "android_package_name" {
   type        = string
-  description = "Android application package name (e.g. com.streamscout.app)"
-  default     = "com.streamscout.app"
+  description = "Android application package name (e.g. com.showsonar.app)"
+  default     = "com.showsonar.app"
 }
 
 variable "ios_bundle_id" {
   type        = string
-  description = "iOS/macOS bundle identifier (e.g. com.streamscout.app)"
-  default     = "com.streamscout.app"
+  description = "iOS/macOS bundle identifier (e.g. com.showsonar.app)"
+  default     = "com.showsonar.app"
 }
 
 variable "app_check_key_id" {

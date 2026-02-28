@@ -1,5 +1,5 @@
 {
-    "name": "StreamScout Flutter Dev",
+    "name": "ShowSonar Flutter Dev",
     "build": {
         "dockerfile": "Dockerfile",
         "context": ".."

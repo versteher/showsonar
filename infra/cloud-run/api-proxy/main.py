@@ -1,5 +1,5 @@
 """
-StreamScout API Proxy
+ShowSonar API Proxy
 ======================
 Runs on Cloud Run (scale-to-zero). Forwards requests to TMDB, Gemini, and OMDb,
 injecting API keys from environment variables (mounted from Secret Manager).
@@ -53,7 +53,7 @@ OMDB_BASE = "https://www.omdbapi.com"
 # ---------------------------------------------------------------------------
 # App
 # ---------------------------------------------------------------------------
-app = FastAPI(title="StreamScout API Proxy", docs_url=None, redoc_url=None)
+app = FastAPI(title="ShowSonar API Proxy", docs_url=None, redoc_url=None)
 
 # ---------------------------------------------------------------------------
 # CORS — allow the Flutter web app (localhost:3000) to call the proxy

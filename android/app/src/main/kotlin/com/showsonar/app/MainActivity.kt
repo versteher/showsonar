@@ -1,4 +1,4 @@
-package com.streamscout.app
+package com.showsonar.app
 
 import io.flutter.embedding.android.FlutterActivity
 

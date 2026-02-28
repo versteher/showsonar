@@ -5,10 +5,10 @@ output "firebase_project_id" {
 
 output "android_app_id" {
   description = "Firebase Android app ID (used for App Check and google-services.json download)"
-  value       = google_firebase_android_app.streamscout.app_id
+  value       = google_firebase_android_app.showsonar.app_id
 }
 
 output "ios_app_id" {
   description = "Firebase iOS app ID (used for App Check and GoogleService-Info.plist download)"
-  value       = google_firebase_apple_app.streamscout.app_id
+  value       = google_firebase_apple_app.showsonar.app_id
 }

@@ -46,7 +46,7 @@ run-macos:
 	@echo "Killing any leftover app processes..."
 	@pkill -f "stream_scout" 2>/dev/null || true
 	@echo "Clearing stale Hive lock files..."
-	@rm -f "$(HOME)/Library/Containers/com.streamscout.app/Data/Documents/"*.lock 2>/dev/null || true
+	@rm -f "$(HOME)/Library/Containers/com.showsonar.app/Data/Documents/"*.lock 2>/dev/null || true
 	@echo "Starting API proxy..."
 	@cd infra/cloud-run/api-proxy && \
 		source .venv/bin/activate && \

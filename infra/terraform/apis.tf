@@ -1,4 +1,4 @@
-# Enable all required GCP APIs for StreamScout
+# Enable all required GCP APIs for ShowSonar
 # These must be enabled before any other modules can run.
 
 locals {

@@ -1,6 +1,6 @@
 variable "project_id" {
   type        = string
-  description = "GCP project ID (e.g. streamscout-dev)"
+  description = "GCP project ID (e.g. showsonar-dev)"
 }
 
 variable "region" {

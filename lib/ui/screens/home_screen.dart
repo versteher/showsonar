@@ -168,7 +168,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         shaderCallback: (bounds) =>
                             AppTheme.primaryGradient.createShader(bounds),
                         child: Text(
-                          'StreamScout',
+                          'ShowSonar',
                           style: Theme.of(context).textTheme.titleLarge
                               ?.copyWith(
                                 fontWeight: FontWeight.w800,

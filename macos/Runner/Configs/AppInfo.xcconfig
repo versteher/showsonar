@@ -8,7 +8,7 @@
 PRODUCT_NAME = stream_scout
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.streamscout.app
+PRODUCT_BUNDLE_IDENTIFIER = com.showsonar.app
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2026 com.streamscout. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2026 com.showsonar. All rights reserved.

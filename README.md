@@ -1,4 +1,4 @@
-# StreamScout 🚀
+# ShowSonar 🚀
 
 > Intelligent movie & series recommendation app — Flutter + GCP + Firebase
 
@@ -127,8 +127,8 @@ gcloud auth application-default login
 ### 3b. Create the GCP project
 
 ```bash
-gcloud projects create streamscout-dev --name="StreamScout Dev"
-gcloud config set project streamscout-dev
+gcloud projects create showsonar-dev --name="ShowSonar Dev"
+gcloud config set project showsonar-dev
 ```
 
 > **Enable billing** in the console: [console.cloud.google.com/billing](https://console.cloud.google.com/billing)
@@ -137,7 +137,7 @@ gcloud config set project streamscout-dev
 ### 3c. Create the Terraform state bucket
 
 ```bash
-gsutil mb -l europe-west1 gs://streamscout-terraform-state
+gsutil mb -l europe-west1 gs://showsonar-terraform-state
 ```
 
 Then uncomment the `backend "gcs"` block in `infra/terraform/versions.tf`.
@@ -152,12 +152,12 @@ terraform apply   # creates all GCP resources
 ```
 
 This creates all required GCP resources. Quick links to inspect them in your console:
-- [Secret Manager](https://console.cloud.google.com/security/secret-manager?project=streamscout-dev) for API keys
-- [Artifact Registry](https://console.cloud.google.com/artifacts?project=streamscout-dev) for Docker proxies
-- [Cloud Run](https://console.cloud.google.com/run?project=streamscout-dev) for your deployed API proxy
-- [Firebase Console](https://console.firebase.google.com/project/streamscout-dev/overview) (Auth, Crashlytics, etc.)
-- [Firestore Database](https://console.firebase.google.com/project/streamscout-dev/firestore)
-- [Cloud Build configuration](https://console.cloud.google.com/cloud-build/triggers?project=streamscout-dev)
+- [Secret Manager](https://console.cloud.google.com/security/secret-manager?project=showsonar-dev) for API keys
+- [Artifact Registry](https://console.cloud.google.com/artifacts?project=showsonar-dev) for Docker proxies
+- [Cloud Run](https://console.cloud.google.com/run?project=showsonar-dev) for your deployed API proxy
+- [Firebase Console](https://console.firebase.google.com/project/showsonar-dev/overview) (Auth, Crashlytics, etc.)
+- [Firestore Database](https://console.firebase.google.com/project/showsonar-dev/firestore)
+- [Cloud Build configuration](https://console.cloud.google.com/cloud-build/triggers?project=showsonar-dev)
 
 ### 3e. Load secrets into Secret Manager
 
@@ -172,7 +172,7 @@ echo -n "$(grep OMDB_API_KEY .env | cut -d= -f2)"    | gcloud secrets versions a
 ```bash
 cd infra/cloud-run/api-proxy
 gcloud builds submit \
-  --tag europe-west1-docker.pkg.dev/streamscout-dev/streamscout/api-proxy:latest
+  --tag europe-west1-docker.pkg.dev/showsonar-dev/showsonar/api-proxy:latest
 ```
 
 The `terraform apply` output prints the proxy URL — copy it for Step 3g.
@@ -182,14 +182,14 @@ The `terraform apply` output prints the proxy URL — copy it for Step 3g.
 ```bash
 cd infra/terraform/environments/dev
 terraform output proxy_url
-# → https://streamscout-api-proxy-dev-xxxx-ew.a.run.app
+# → https://showsonar-api-proxy-dev-xxxx-ew.a.run.app
 ```
 
 Release builds use this URL via `--dart-define`:
 
 ```bash
 flutter build ios \
-  --dart-define=PROXY_URL=https://streamscout-api-proxy-dev-xxxx-ew.a.run.app
+  --dart-define=PROXY_URL=https://showsonar-api-proxy-dev-xxxx-ew.a.run.app
 ```
 
 ---

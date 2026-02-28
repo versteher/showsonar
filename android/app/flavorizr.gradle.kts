@@ -8,18 +8,18 @@ android.apply {
     productFlavors {
         create("dev") {
             dimension = "flavor-type"
-            applicationId = "com.streamscout.app.dev"
-            resValue(type = "string", name = "app_name", value = "StreamScout Dev")
+            applicationId = "com.showsonar.app.dev"
+            resValue(type = "string", name = "app_name", value = "ShowSonar Dev")
         }
         create("staging") {
             dimension = "flavor-type"
-            applicationId = "com.streamscout.app.staging"
-            resValue(type = "string", name = "app_name", value = "StreamScout Stg")
+            applicationId = "com.showsonar.app.staging"
+            resValue(type = "string", name = "app_name", value = "ShowSonar Stg")
         }
         create("prod") {
             dimension = "flavor-type"
-            applicationId = "com.streamscout.app"
-            resValue(type = "string", name = "app_name", value = "StreamScout")
+            applicationId = "com.showsonar.app"
+            resValue(type = "string", name = "app_name", value = "ShowSonar")
         }
     }
 }

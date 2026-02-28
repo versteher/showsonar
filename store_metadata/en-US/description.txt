@@ -1,4 +1,4 @@
-Discover your next favorite movie or TV show. With personalized AI recommendations, cross-platform streaming availability, and social sharing, StreamScout is the only streaming companion you need.
+Discover your next favorite movie or TV show. With personalized AI recommendations, cross-platform streaming availability, and social sharing, ShowSonar is the only streaming companion you need.
 
 Features:
 - Track Movies & TV Shows: Keep a comprehensive watch history and watchlist.
@@ -9,4 +9,4 @@ Features:
 - Cast & Crew: Explore filmographies of your favorite actors and directors.
 - Privacy First: Secure cloud backup with granular controls.
 
-Stop scrolling endlessly. Let StreamScout guide your entertainment journey!
+Stop scrolling endlessly. Let ShowSonar guide your entertainment journey!

@@ -1,8 +1,8 @@
 ---
-description: StreamScout — New Project Bootstrap Reference
+description: ShowSonar — New Project Bootstrap Reference
 ---
 
-# 🚀 StreamScout — New Project Setup Guide
+# 🚀 ShowSonar — New Project Setup Guide
 
 Copy this file to `.agent/rules.md` in any new blank project to immediately enforce World-Class standards.
 For ongoing daily development, use the condensed `.agent/rules.md` instead.
@@ -17,7 +17,7 @@ For ongoing daily development, use the condensed `.agent/rules.md` instead.
 - **Navigation:** `go_router`. `context.go()` / `context.push()`. Never raw `Navigator`.
 - **Models:** `freezed` + `json_serializable`. Run `make gen` for all code generation.
 - **Database:** Firestore (with native offline persistence). `Hive` only for local flags.
-  - **macOS Hive lock files:** Lock files live in `~/Library/Containers/com.streamscout.app/Data/Documents/`. Stale locks crash with `FileSystemException: lock failed (errno = 35)`. `make run-macos` clears them automatically.
+  - **macOS Hive lock files:** Lock files live in `~/Library/Containers/com.showsonar.app/Data/Documents/`. Stale locks crash with `FileSystemException: lock failed (errno = 35)`. `make run-macos` clears them automatically.
 - **Secrets:** Zero on device. GCP Secret Manager → Cloud Run proxy only.
 - **Services vs Repos:** HTTP logic → `lib/data/services/`. Business + Firestore → `lib/data/repositories/`.
 - **File size:** Max 300 lines per file.

@@ -1,8 +1,8 @@
 ---
-description: StreamScout — Daily Development Rules (features & bug fixes)
+description: ShowSonar — Daily Development Rules (features & bug fixes)
 ---
 
-# 🚀 StreamScout — AI Agent Rules
+# 🚀 ShowSonar — AI Agent Rules
 
 AI Agents MUST adhere to these rules when writing or modifying code.
 
