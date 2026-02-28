@@ -1,5 +1,5 @@
 
-
+ShowSonar
 
 2. put all as a devcontainer with the extensions for claude and flutter in vscode. also make sure to install all libs and tools by default in the container. 
 

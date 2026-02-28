@@ -9,6 +9,7 @@ import 'package:stream_scout/config/providers/curated_providers.dart';
 import 'package:stream_scout/data/models/media.dart';
 import 'package:stream_scout/data/models/user_preferences.dart';
 import 'package:stream_scout/domain/recommendation_engine.dart';
+import 'package:stream_scout/ui/widgets/error_retry_widget.dart';
 import '../../utils/test_app_wrapper.dart';
 
 class MockTmdbRepository extends Mock implements ITmdbRepository {}
@@ -149,6 +150,58 @@ void main() {
       await tester.pump(const Duration(seconds: 1));
 
       expect(find.text('StreamScout'), findsOneWidget);
+    });
+
+    testWidgets('renders error states when data fetching fails', (
+      tester,
+    ) async {
+      // Setup mock to throw an exception for trending and upcoming
+      when(
+        () => mockTmdb.getTrending(
+          type: any(named: 'type'),
+          timeWindow: any(named: 'timeWindow'),
+          page: any(named: 'page'),
+        ),
+      ).thenThrow(Exception('Failed to fetch from TMDB'));
+
+      when(
+        () => mockTmdb.getUpcomingMovies(page: any(named: 'page')),
+      ).thenThrow(Exception('Failed to fetch from TMDB'));
+
+      await tester.pumpWidget(
+        pumpAppScreen(
+          child: const HomeScreen(),
+          overrides: [
+            tmdbRepositoryProvider.overrideWithValue(mockTmdb),
+            userPreferencesRepositoryProvider.overrideWithValue(mockPrefs),
+            watchHistoryRepositoryProvider.overrideWithValue(mockWatchHistory),
+            userPreferencesProvider.overrideWith(
+              (ref) => Future.value(
+                const UserPreferences(
+                  countryCode: 'US',
+                  countryName: 'United States',
+                  subscribedServiceIds: [],
+                ),
+              ),
+            ),
+            dismissedMediaIdsProvider.overrideWith(
+              (ref) => Future.value(<String>{}),
+            ),
+            becauseYouWatchedProvider.overrideWith(
+              (ref) => Future.value(<RecommendationGroup>[]),
+            ),
+            curatedCollectionProvider.overrideWith(
+              (ref) => Future.value(<Media>[]),
+            ),
+          ],
+        ),
+      );
+
+      await tester.pump(const Duration(milliseconds: 500));
+      await tester.pump(const Duration(seconds: 1));
+
+      // ErrorRetryWidget should be present at least once
+      expect(find.byType(ErrorRetryWidget), findsWidgets);
     });
   });
 }
