@@ -3,6 +3,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import '../../config/api_config.dart';
 
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+
 // Conditional import: dart:io is not available on web.
 // The _configureDioForNative helper is only called when !kIsWeb.
 import 'tmdb_api_client_native.dart'
@@ -24,9 +26,12 @@ class TmdbException implements Exception {
 /// without parsing into domain models.
 class TmdbApiClient {
   Dio? _dioInstance;
+  final CacheOptions? _cacheOptions;
 
   /// Creates a TmdbApiClient with optional Dio injection for testing
-  TmdbApiClient({Dio? dio}) : _dioInstance = dio;
+  TmdbApiClient({Dio? dio, CacheOptions? cacheOptions})
+    : _dioInstance = dio,
+      _cacheOptions = cacheOptions;
 
   /// Lazy initialization of Dio to ensure ApiConfig is read after build-time defines
   Dio get _dio {
@@ -43,6 +48,11 @@ class TmdbApiClient {
       // to avoid network content filter issues. On web, use the default
       // browser adapter.
       platform.configureDio(dio);
+
+      if (_cacheOptions != null) {
+        dio.interceptors.add(DioCacheInterceptor(options: _cacheOptions));
+      }
+
       _dioInstance = dio;
     }
     return _dioInstance!;

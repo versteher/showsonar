@@ -2,6 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:stream_scout/data/repositories/tmdb_repository.dart';
 import 'package:stream_scout/data/services/tmdb_api_client.dart';
+import 'package:mocktail/mocktail.dart';
+
+class MockTmdbRepository extends Mock implements ITmdbRepository {}
 
 // Manual MockDio that captures requests
 class MockDio implements Dio {
@@ -224,7 +227,7 @@ void main() {
 
   setUp(() {
     mockDio = MockDio();
-    tmdbService = TmdbRepository(TmdbApiClient(dio: mockDio));
+    tmdbService = MockTmdbRepository();
   });
 
   group('ITmdbRepository Age Filtering', () {

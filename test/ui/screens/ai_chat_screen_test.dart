@@ -11,7 +11,7 @@ import '../../utils/test_app_wrapper.dart';
 
 class MockGeminiService extends Mock implements GeminiService {}
 
-class MockTmdbRepository extends Mock implements TmdbRepository {}
+class MockTmdbRepository extends Mock implements ITmdbRepository {}
 
 void main() {
   late MockGeminiService mockGemini;
@@ -75,9 +75,7 @@ void main() {
 
       // Check user message is shown
       expect(
-        find.text(
-          'What are the best trending movies and series right now?',
-        ),
+        find.text('What are the best trending movies and series right now?'),
         findsOneWidget,
       );
       // Check AI response is shown

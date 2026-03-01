@@ -3,8 +3,11 @@ import 'package:mocktail/mocktail.dart';
 import 'package:stream_scout/data/repositories/tmdb_repository.dart';
 import 'package:stream_scout/data/services/tmdb_api_client.dart';
 import 'package:stream_scout/data/models/media.dart';
+import 'package:stream_scout/data/exceptions/tmdb_exception.dart';
 
 class MockTmdbApiClient extends Mock implements TmdbApiClient {}
+
+class MockITmdbRepository extends Mock implements ITmdbRepository {}
 
 void main() {
   late MockTmdbApiClient mockApiClient;

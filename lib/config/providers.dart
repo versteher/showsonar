@@ -14,6 +14,10 @@ import '../data/repositories/local_preferences_repository.dart';
 import '../domain/recommendation_engine.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:flutter/foundation.dart'; // for kIsWeb
 import '../utils/analytics_service.dart';
 import 'firebase_fallback.dart';
 
@@ -56,7 +60,20 @@ final authStateProvider = StreamProvider<User?>((ref) {
 
 /// Provider for TMDB API Client
 final tmdbApiClientProvider = Provider<TmdbApiClient>((ref) {
-  return TmdbApiClient();
+  // Try to load cache options synchronously.
+  // We'll trust the initialization process to have provided it, otherwise it passes null (no cache)
+  CacheOptions? cacheOptions;
+  try {
+    cacheOptions = ref.read(_cacheOptionsProvider);
+  } catch (_) {
+    // Proceed without cache if not initialized
+  }
+  return TmdbApiClient(cacheOptions: cacheOptions);
+});
+
+/// Internal provider to hold the global cache options, overridden in ProviderScope
+final _cacheOptionsProvider = Provider<CacheOptions>((_) {
+  throw UnimplementedError('cacheOptionsProvider not initialized');
 });
 
 /// Provider for TMDB repository
@@ -137,8 +154,9 @@ final recommendationEngineProvider = FutureProvider<RecommendationEngine>((
 
 /// Provider for local device preferences repository.
 /// Must be overridden in ProviderScope with an initialized SharedPreferences instance.
-final localPreferencesRepositoryProvider =
-    Provider<LocalPreferencesRepository>((_) {
+final localPreferencesRepositoryProvider = Provider<LocalPreferencesRepository>((
+  _,
+) {
   throw UnimplementedError(
     'localPreferencesRepositoryProvider must be overridden with a SharedPreferences instance',
   );
@@ -170,6 +188,31 @@ Future<SharedPreferences> initializeRepositories() async {
   ]);
 
   return SharedPreferences.getInstance();
+}
+
+/// Initialize the Dio cache options
+Future<CacheOptions> initializeCacheOptions() async {
+  CacheStore cacheStore;
+  if (!kIsWeb) {
+    final dir = await getApplicationDocumentsDirectory();
+    final cachePath = '${dir.path}/tmdb_api_cache';
+    cacheStore = HiveCacheStore(cachePath);
+  } else {
+    // Web does not support standard file systems
+    cacheStore = MemCacheStore();
+  }
+
+  return CacheOptions(
+    store: cacheStore,
+    policy:
+        CachePolicy.refreshForceCache, // Try network first, fallback to cache
+    hitCacheOnErrorExcept: [401, 403],
+    maxStale: const Duration(days: 30), // Serve stale cache for up to 30 days
+    priority: CachePriority.normal,
+    cipher: null,
+    keyBuilder: CacheOptions.defaultCacheKeyBuilder,
+    allowPostMethod: false,
+  );
 }
 
 /// Provider for network connectivity state

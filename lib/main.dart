@@ -44,12 +44,15 @@ void main() async {
   // Initialize Repositories and Hive
   try {
     final sharedPrefs = await initializeRepositories();
+    final cacheOptions = await initializeCacheOptions();
+
     runApp(
       ProviderScope(
         overrides: [
           localPreferencesRepositoryProvider.overrideWithValue(
             LocalPreferencesRepository(sharedPrefs),
           ),
+          _cacheOptionsProvider.overrideWithValue(cacheOptions),
         ],
         child: const App(),
       ),
