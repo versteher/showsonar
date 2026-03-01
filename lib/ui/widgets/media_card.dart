@@ -9,7 +9,6 @@ import '../../data/models/media.dart';
 import '../../config/providers.dart';
 import '../theme/app_theme.dart';
 import 'rt_scores_badge.dart';
-import 'rt_scores_badge.dart';
 
 /// A premium movie/series poster card with glassmorphism effect
 class MediaCard extends ConsumerWidget {

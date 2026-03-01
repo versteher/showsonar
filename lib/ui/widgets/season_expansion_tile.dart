@@ -28,7 +28,7 @@ class SeasonExpansionTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final seasonAsync = ref.watch(
-      tvSeasonProvider(tvId: tvId, seasonNumber: seasonNumber),
+      tvSeasonProvider((tvId: tvId, seasonNumber: seasonNumber)),
     );
 
     return Padding(
@@ -107,7 +107,9 @@ class SeasonExpansionTile extends ConsumerWidget {
                             borderRadius: BorderRadius.circular(4),
                             child: LinearProgressIndicator(
                               value: fraction.clamp(0.0, 1.0),
-                              backgroundColor: Colors.white.withValues(alpha: 0.1),
+                              backgroundColor: Colors.white.withValues(
+                                alpha: 0.1,
+                              ),
                               valueColor: AlwaysStoppedAnimation<Color>(
                                 fraction >= 1.0
                                     ? AppTheme.success

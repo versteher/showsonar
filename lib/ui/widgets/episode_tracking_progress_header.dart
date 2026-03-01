@@ -22,9 +22,11 @@ class EpisodeTrackingProgressHeader extends ConsumerWidget {
     int totalAired = 0;
     for (int s = 1; s <= numberOfSeasons; s++) {
       final seasonAsync = ref.watch(
-        tvSeasonProvider(tvId: tvId, seasonNumber: s),
+        tvSeasonProvider((tvId: tvId, seasonNumber: s)),
       );
-      seasonAsync.whenData((season) => totalAired += season.airedEpisodeCount);
+      if (seasonAsync.hasValue && seasonAsync.value != null) {
+        totalAired += seasonAsync.value!.airedEpisodeCount;
+      }
     }
 
     final watched = watchedKeys.length;
