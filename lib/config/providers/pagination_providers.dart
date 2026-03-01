@@ -1,5 +1,9 @@
+import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/models/media.dart';
+import '../../data/repositories/tmdb_repository.dart';
+import '../../domain/viewing_context.dart';
+import '../../utils/media_filter.dart';
 import '../providers.dart';
 
 /// State object representing a paginated list of Media items
@@ -96,13 +100,14 @@ abstract class PaginationNotifier
 class TrendingPaginationNotifier
     extends FamilyAsyncNotifier<PaginationState<Media>, String> {
   late MediaType? _type;
-  late String _timeWindow;
 
   @override
   Future<PaginationState<Media>> build(String arg) async {
+    // Watch viewing context so we auto-rebuild when it changes
+    ref.watch(viewingContextProvider);
+
     final parts = arg.split('_');
     final typeStr = parts[0];
-    _timeWindow = parts[1];
     _type = typeStr == 'movie'
         ? MediaType.movie
         : (typeStr == 'tv' ? MediaType.tv : null);
@@ -110,10 +115,55 @@ class TrendingPaginationNotifier
     return PaginationState(items: items, page: 1, hasMore: items.isNotEmpty);
   }
 
-  Future<List<Media>> fetchPage(int page) {
-    return ref
-        .read(tmdbRepositoryProvider)
-        .getTrending(type: _type, timeWindow: _timeWindow, page: page);
+  Future<List<Media>> fetchPage(int page) async {
+    final tmdb = ref.read(tmdbRepositoryProvider);
+    final prefs = await ref.read(userPreferencesProvider.future);
+    final ctx = ref.read(viewingContextProvider);
+    final filter = ViewingContextFilter.forContext(
+      ctx,
+      favoriteGenreIds: prefs.favoriteGenreIds,
+    );
+    final providerIds = prefs.tmdbProviderIds;
+    final effectiveAge = filter.maxAgeRatingOverride != null
+        ? min(prefs.maxAgeRating, filter.maxAgeRatingOverride!)
+        : prefs.maxAgeRating;
+
+    if (providerIds.isEmpty) return [];
+
+    // Fetch movies + TV via discover (supports genre/age filters)
+    final moviesFuture = (_type == null || _type == MediaType.movie)
+        ? tmdb.discoverMovies(
+            genreIds: filter.includeGenreIds,
+            withoutGenreIds: filter.excludeGenreIds,
+            genreMode: GenreFilterMode.or,
+            withProviders: providerIds,
+            watchRegion: prefs.countryCode,
+            sortBy: 'popularity.desc',
+            maxAgeRating: effectiveAge,
+            minRating: prefs.minimumRating,
+            page: page,
+          )
+        : Future.value(<Media>[]);
+
+    final tvFuture = (_type == null || _type == MediaType.tv)
+        ? tmdb.discoverTvSeries(
+            genreIds: filter.includeGenreIds,
+            withoutGenreIds: filter.excludeGenreIds,
+            genreMode: GenreFilterMode.or,
+            withProviders: providerIds,
+            watchRegion: prefs.countryCode,
+            sortBy: 'popularity.desc',
+            maxAgeRating: effectiveAge,
+            minRating: prefs.minimumRating,
+            page: page,
+          )
+        : Future.value(<Media>[]);
+
+    final results = await Future.wait([moviesFuture, tvFuture]);
+    final combined = [...results[0], ...results[1]];
+    final filtered = MediaFilter.applyPreferences(combined, prefs);
+    filtered.sort((a, b) => (b.popularity ?? 0).compareTo(a.popularity ?? 0));
+    return filtered;
   }
 
   Future<void> loadMore() async {

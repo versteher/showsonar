@@ -331,5 +331,9 @@
     "actionCopy": "Kopieren",
     "actionCopied": "Text kopiert",
     "actionShare": "Teilen",
-    "actionCopiedForSharing": "In Zwischenablage kopiert — zum Teilen einfügen"
+    "actionCopiedForSharing": "In Zwischenablage kopiert — zum Teilen einfügen",
+    "viewingContextAll": "Alle",
+    "viewingContextKids": "Kinder",
+    "viewingContextDateNight": "Date Night",
+    "viewingContextSolo": "Solo"
 }

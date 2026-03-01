@@ -9,7 +9,7 @@ import '../../config/providers/curated_providers.dart';
 import '../../data/models/media.dart';
 import '../theme/app_theme.dart';
 import '../widgets/media_section.dart';
-import '../widgets/streaming_filter_bar.dart';
+import '../widgets/viewing_context_chip_bar.dart';
 import '../widgets/continue_watching_section.dart';
 import '../widgets/hero_carousel.dart';
 import '../widgets/upcoming_card.dart';
@@ -188,13 +188,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ),
               ),
 
-              // Streaming Services Filter + Hide Watched Toggle
+              // Viewing Context Chips + Hide Watched Toggle
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.only(top: AppTheme.spacingLg),
                   child: Column(
                     children: const [
-                      StreamingFilterBar(),
+                      ViewingContextChipBar(),
                       SizedBox(height: 8),
                       HideWatchedToggle(),
                     ],

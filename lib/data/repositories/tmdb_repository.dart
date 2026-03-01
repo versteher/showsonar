@@ -13,6 +13,10 @@ part 'tmdb_repository_details.dart';
 // Value types
 // ---------------------------------------------------------------------------
 
+/// Controls how genre IDs are joined in the TMDB `with_genres` parameter.
+/// `and` uses comma (all genres must match), `or` uses pipe (any genre matches).
+enum GenreFilterMode { and, or }
+
 /// Result from watch providers API
 class WatchProviderResult {
   final List<WatchProvider> flatrate; // Streaming subscriptions
@@ -129,6 +133,8 @@ abstract class ITmdbRepository {
 
   Future<List<Media>> discoverMovies({
     List<int>? genreIds,
+    List<int>? withoutGenreIds,
+    GenreFilterMode genreMode = GenreFilterMode.and,
     double? minRating,
     int? year,
     List<int>? withProviders,
@@ -141,6 +147,8 @@ abstract class ITmdbRepository {
 
   Future<({List<Media> results, int totalResults})> discoverMoviesWithCount({
     List<int>? genreIds,
+    List<int>? withoutGenreIds,
+    GenreFilterMode genreMode = GenreFilterMode.and,
     double? minRating,
     int? year,
     List<int>? withProviders,
@@ -153,6 +161,8 @@ abstract class ITmdbRepository {
 
   Future<List<Media>> discoverTvSeries({
     List<int>? genreIds,
+    List<int>? withoutGenreIds,
+    GenreFilterMode genreMode = GenreFilterMode.and,
     double? minRating,
     int? year,
     List<int>? withProviders,
@@ -165,6 +175,8 @@ abstract class ITmdbRepository {
 
   Future<({List<Media> results, int totalResults})> discoverTvSeriesWithCount({
     List<int>? genreIds,
+    List<int>? withoutGenreIds,
+    GenreFilterMode genreMode = GenreFilterMode.and,
     double? minRating,
     int? year,
     List<int>? withProviders,
@@ -440,6 +452,8 @@ class TmdbRepository implements ITmdbRepository {
   @override
   Future<List<Media>> discoverMovies({
     List<int>? genreIds,
+    List<int>? withoutGenreIds,
+    GenreFilterMode genreMode = GenreFilterMode.and,
     double? minRating,
     int? year,
     List<int>? withProviders,
@@ -451,6 +465,8 @@ class TmdbRepository implements ITmdbRepository {
   }) async {
     final result = await _discoverMoviesWithCount(
       genreIds: genreIds,
+      withoutGenreIds: withoutGenreIds,
+      genreMode: genreMode,
       minRating: minRating,
       year: year,
       withProviders: withProviders,
@@ -466,6 +482,8 @@ class TmdbRepository implements ITmdbRepository {
   @override
   Future<({List<Media> results, int totalResults})> discoverMoviesWithCount({
     List<int>? genreIds,
+    List<int>? withoutGenreIds,
+    GenreFilterMode genreMode = GenreFilterMode.and,
     double? minRating,
     int? year,
     List<int>? withProviders,
@@ -477,6 +495,8 @@ class TmdbRepository implements ITmdbRepository {
   }) =>
       _discoverMoviesWithCount(
         genreIds: genreIds,
+        withoutGenreIds: withoutGenreIds,
+        genreMode: genreMode,
         minRating: minRating,
         year: year,
         withProviders: withProviders,
@@ -490,6 +510,8 @@ class TmdbRepository implements ITmdbRepository {
   @override
   Future<List<Media>> discoverTvSeries({
     List<int>? genreIds,
+    List<int>? withoutGenreIds,
+    GenreFilterMode genreMode = GenreFilterMode.and,
     double? minRating,
     int? year,
     List<int>? withProviders,
@@ -501,6 +523,8 @@ class TmdbRepository implements ITmdbRepository {
   }) async {
     final result = await _discoverTvSeriesWithCount(
       genreIds: genreIds,
+      withoutGenreIds: withoutGenreIds,
+      genreMode: genreMode,
       minRating: minRating,
       year: year,
       withProviders: withProviders,
@@ -516,6 +540,8 @@ class TmdbRepository implements ITmdbRepository {
   @override
   Future<({List<Media> results, int totalResults})> discoverTvSeriesWithCount({
     List<int>? genreIds,
+    List<int>? withoutGenreIds,
+    GenreFilterMode genreMode = GenreFilterMode.and,
     double? minRating,
     int? year,
     List<int>? withProviders,
@@ -527,6 +553,8 @@ class TmdbRepository implements ITmdbRepository {
   }) =>
       _discoverTvSeriesWithCount(
         genreIds: genreIds,
+        withoutGenreIds: withoutGenreIds,
+        genreMode: genreMode,
         minRating: minRating,
         year: year,
         withProviders: withProviders,

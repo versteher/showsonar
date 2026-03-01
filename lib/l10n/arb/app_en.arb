@@ -531,5 +531,9 @@
     "actionCopy": "Copy",
     "actionCopied": "Text copied",
     "actionShare": "Share",
-    "actionCopiedForSharing": "Copied to clipboard — paste to share"
+    "actionCopiedForSharing": "Copied to clipboard — paste to share",
+    "viewingContextAll": "All",
+    "viewingContextKids": "Kids",
+    "viewingContextDateNight": "Date Night",
+    "viewingContextSolo": "Solo"
 }

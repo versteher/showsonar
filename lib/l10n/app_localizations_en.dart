@@ -749,4 +749,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get actionCopiedForSharing => 'Copied to clipboard — paste to share';
+
+  @override
+  String get viewingContextAll => 'All';
+  @override
+  String get viewingContextKids => 'Kids';
+  @override
+  String get viewingContextDateNight => 'Date Night';
+  @override
+  String get viewingContextSolo => 'Solo';
 }

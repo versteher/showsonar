@@ -1181,6 +1181,12 @@ abstract class AppLocalizations {
   String get actionCopied;
   String get actionShare;
   String get actionCopiedForSharing;
+
+  /// Viewing context chip labels
+  String get viewingContextAll;
+  String get viewingContextKids;
+  String get viewingContextDateNight;
+  String get viewingContextSolo;
 }
 
 class _AppLocalizationsDelegate

@@ -2,6 +2,8 @@ import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../data/models/media.dart';
+import '../../data/repositories/tmdb_repository.dart';
+import '../../domain/viewing_context.dart';
 import '../../utils/media_filter.dart';
 import '../providers.dart';
 
@@ -113,27 +115,34 @@ final seasonalTitleProvider = Provider<String>((ref) {
 Future<List<Media>> seasonal(Ref ref) async {
   final tmdb = ref.watch(tmdbRepositoryProvider);
   final prefs = await ref.watch(userPreferencesProvider.future);
+  final ctx = ref.watch(viewingContextProvider);
+  final filter = ViewingContextFilter.forContext(ctx, favoriteGenreIds: prefs.favoriteGenreIds);
   final providerIds = prefs.tmdbProviderIds;
   final theme = _getCurrentTheme();
+  final effectiveAge = filter.maxAgeRatingOverride != null
+      ? min(prefs.maxAgeRating, filter.maxAgeRatingOverride!)
+      : prefs.maxAgeRating;
 
   if (providerIds.isEmpty) return [];
 
   final results = await Future.wait([
     tmdb.discoverMovies(
       genreIds: theme.genreIds,
+      withoutGenreIds: filter.excludeGenreIds,
       withProviders: providerIds,
       watchRegion: prefs.countryCode,
       sortBy: 'vote_average.desc',
       minRating: max(7.0, prefs.minimumRating),
-      maxAgeRating: prefs.maxAgeRating,
+      maxAgeRating: effectiveAge,
     ),
     tmdb.discoverTvSeries(
       genreIds: theme.genreIds,
+      withoutGenreIds: filter.excludeGenreIds,
       withProviders: providerIds,
       watchRegion: prefs.countryCode,
       sortBy: 'vote_average.desc',
       minRating: max(7.0, prefs.minimumRating),
-      maxAgeRating: prefs.maxAgeRating,
+      maxAgeRating: effectiveAge,
     ),
   ]);
 
@@ -147,43 +156,54 @@ Future<List<Media>> seasonal(Ref ref) async {
 
 class SeasonalPaginationNotifier extends PaginationNotifier {
   @override
+  Future<PaginationState<Media>> build() async {
+    // Watch viewing context so we auto-rebuild when it changes
+    ref.watch(viewingContextProvider);
+    return super.build();
+  }
+
+  @override
   Future<List<Media>> fetchPage(int page) async {
     final tmdb = ref.read(tmdbRepositoryProvider);
     final prefs = await ref.read(userPreferencesProvider.future);
+    final ctx = ref.read(viewingContextProvider);
+    final filter = ViewingContextFilter.forContext(ctx, favoriteGenreIds: prefs.favoriteGenreIds);
     final providerIds = prefs.tmdbProviderIds;
     final theme = _getCurrentTheme();
+    final effectiveAge = filter.maxAgeRatingOverride != null
+        ? min(prefs.maxAgeRating, filter.maxAgeRatingOverride!)
+        : prefs.maxAgeRating;
 
     if (providerIds.isEmpty) return [];
 
     final results = await Future.wait([
       tmdb.discoverMovies(
         genreIds: theme.genreIds,
+        withoutGenreIds: filter.excludeGenreIds,
         withProviders: providerIds,
         watchRegion: prefs.countryCode,
         sortBy: 'vote_average.desc',
         minRating: max(7.0, prefs.minimumRating),
-        maxAgeRating: prefs.maxAgeRating,
+        maxAgeRating: effectiveAge,
         page: page,
       ),
       tmdb.discoverTvSeries(
         genreIds: theme.genreIds,
+        withoutGenreIds: filter.excludeGenreIds,
         withProviders: providerIds,
         watchRegion: prefs.countryCode,
         sortBy: 'vote_average.desc',
         minRating: max(7.0, prefs.minimumRating),
-        maxAgeRating: prefs.maxAgeRating,
+        maxAgeRating: effectiveAge,
         page: page,
       ),
     ]);
 
     final combined = [...results[0], ...results[1]];
     final filtered = MediaFilter.applyPreferences(combined, prefs);
-    // Ensure decent vote count
     final quality = filtered.where((m) => m.voteCount >= 500).toList();
     quality.sort((a, b) => b.voteAverage.compareTo(a.voteAverage));
-    return quality
-        .take(20)
-        .toList(); // Currently still returning just the top 20 of that page
+    return quality.take(20).toList();
   }
 }
 

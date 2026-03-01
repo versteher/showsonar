@@ -16,7 +16,49 @@ import 'package:stream_scout/ui/theme/app_theme.dart';
 
 import '../../../utils/test_app_wrapper.dart';
 
-class MockTmdbRepository extends Mock implements ITmdbRepository {}
+/// A fake TMDB repository that returns canned data.
+class FakeTmdbRepository extends Fake implements ITmdbRepository {
+  final List<Media> media;
+  FakeTmdbRepository(this.media);
+
+  @override
+  Future<List<Media>> discoverMovies({
+    List<int>? genreIds, List<int>? withoutGenreIds,
+    GenreFilterMode genreMode = GenreFilterMode.and,
+    double? minRating, int? year, List<int>? withProviders,
+    String? watchRegion, int? maxAgeRating,
+    String sortBy = 'popularity.desc', int page = 1, bool includeAdult = false,
+  }) async => media;
+
+  @override
+  Future<List<Media>> discoverTvSeries({
+    List<int>? genreIds, List<int>? withoutGenreIds,
+    GenreFilterMode genreMode = GenreFilterMode.and,
+    double? minRating, int? year, List<int>? withProviders,
+    String? watchRegion, int? maxAgeRating,
+    String sortBy = 'popularity.desc', int page = 1, bool includeAdult = false,
+  }) async => media;
+
+  @override
+  Future<List<Media>> getUpcomingMovies({
+    List<int>? withProviders, String? watchRegion, int? maxAgeRating,
+    double? minRating, int page = 1, bool includeAdult = false,
+  }) async => media;
+
+  @override
+  Future<List<Media>> getUpcomingTvSeries({
+    List<int>? withProviders, String? watchRegion, int? maxAgeRating,
+    double? minRating, int page = 1, bool includeAdult = false,
+  }) async => media;
+
+  @override
+  Future<WatchProviderResult> getWatchProviders(
+    int mediaId,
+    MediaType type, {
+    String region = 'DE',
+  }) async =>
+      WatchProviderResult.empty();
+}
 
 class MockPreferencesRepository extends Mock
     implements UserPreferencesRepository {}
@@ -30,7 +72,6 @@ void main() {
   });
 
   testGoldens('HomeScreen - Light and Dark Themes', (tester) async {
-    final mockTmdb = MockTmdbRepository();
     final mockPrefs = MockPreferencesRepository();
     final mockWatchHistory = MockWatchHistoryRepository();
 
@@ -39,7 +80,7 @@ void main() {
         id: 1,
         title: 'Mock Movie 1',
         overview: 'Overview 1',
-        posterPath: '', // Bypass network loading
+        posterPath: '',
         backdropPath: '',
         type: MediaType.movie,
         releaseDate: DateTime(2023),
@@ -51,7 +92,7 @@ void main() {
         id: 2,
         title: 'Mock Movie 2',
         overview: 'Overview 2',
-        posterPath: '', // Bypass network loading
+        posterPath: '',
         backdropPath: '',
         type: MediaType.movie,
         releaseDate: DateTime(2022),
@@ -61,53 +102,8 @@ void main() {
       ),
     ];
 
-    when(
-      () => mockTmdb.getTrending(
-        type: any(named: 'type'),
-        timeWindow: any(named: 'timeWindow'),
-        page: any(named: 'page'),
-      ),
-    ).thenAnswer((_) async => mockMediaList);
-    when(
-      () => mockTmdb.getPopularMovies(page: any(named: 'page')),
-    ).thenAnswer((_) async => mockMediaList);
-    when(
-      () => mockTmdb.getPopularTvSeries(page: any(named: 'page')),
-    ).thenAnswer((_) async => mockMediaList);
-    when(
-      () => mockTmdb.getTopRatedMovies(page: any(named: 'page')),
-    ).thenAnswer((_) async => mockMediaList);
-    when(
-      () => mockTmdb.getTopRatedTvSeries(page: any(named: 'page')),
-    ).thenAnswer((_) async => mockMediaList);
-    when(
-      () => mockTmdb.getUpcomingMovies(page: any(named: 'page')),
-    ).thenAnswer((_) async => mockMediaList);
-    when(
-      () => mockTmdb.getUpcomingTvSeries(page: any(named: 'page')),
-    ).thenAnswer((_) async => mockMediaList);
-    when(
-      () => mockTmdb.discoverMovies(
-        genreIds: any(named: 'genreIds'),
-        withProviders: any(named: 'withProviders'),
-        watchRegion: any(named: 'watchRegion'),
-        sortBy: any(named: 'sortBy'),
-        minRating: any(named: 'minRating'),
-        maxAgeRating: any(named: 'maxAgeRating'),
-        page: any(named: 'page'),
-      ),
-    ).thenAnswer((_) async => mockMediaList);
-    when(
-      () => mockTmdb.discoverTvSeries(
-        genreIds: any(named: 'genreIds'),
-        withProviders: any(named: 'withProviders'),
-        watchRegion: any(named: 'watchRegion'),
-        sortBy: any(named: 'sortBy'),
-        minRating: any(named: 'minRating'),
-        maxAgeRating: any(named: 'maxAgeRating'),
-        page: any(named: 'page'),
-      ),
-    ).thenAnswer((_) async => mockMediaList);
+    final fakeTmdb = FakeTmdbRepository(mockMediaList);
+
     when(() => mockPrefs.getPreferences()).thenAnswer(
       (_) async => const UserPreferences(
         countryCode: 'US',
@@ -118,7 +114,7 @@ void main() {
     when(() => mockWatchHistory.getAllEntries()).thenAnswer((_) async => []);
 
     final overrides = [
-      tmdbRepositoryProvider.overrideWithValue(mockTmdb),
+      tmdbRepositoryProvider.overrideWithValue(fakeTmdb),
       userPreferencesRepositoryProvider.overrideWithValue(mockPrefs),
       watchHistoryRepositoryProvider.overrideWithValue(mockWatchHistory),
       userPreferencesProvider.overrideWith(
@@ -156,7 +152,6 @@ void main() {
 
     await tester.pumpDeviceBuilder(builder);
 
-    // Let the Futures resolve and animations settle
     await tester.pump(const Duration(milliseconds: 500));
     await tester.pump(const Duration(seconds: 1));
 

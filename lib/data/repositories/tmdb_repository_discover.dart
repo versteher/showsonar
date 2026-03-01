@@ -3,6 +3,8 @@ part of 'tmdb_repository.dart';
 extension _TmdbRepositoryDiscover on TmdbRepository {
   Future<({List<Media> results, int totalResults})> _discoverMoviesWithCount({
     List<int>? genreIds,
+    List<int>? withoutGenreIds,
+    GenreFilterMode genreMode = GenreFilterMode.and,
     double? minRating,
     int? year,
     List<int>? withProviders,
@@ -24,7 +26,11 @@ extension _TmdbRepositoryDiscover on TmdbRepository {
     };
 
     if (genreIds != null && genreIds.isNotEmpty) {
-      queryParams['with_genres'] = genreIds.join(',');
+      final sep = genreMode == GenreFilterMode.or ? '|' : ',';
+      queryParams['with_genres'] = genreIds.join(sep);
+    }
+    if (withoutGenreIds != null && withoutGenreIds.isNotEmpty) {
+      queryParams['without_genres'] = withoutGenreIds.join(',');
     }
     if (minRating != null) queryParams['vote_average.gte'] = minRating;
     if (year != null) queryParams['primary_release_year'] = year;
@@ -51,6 +57,8 @@ extension _TmdbRepositoryDiscover on TmdbRepository {
 
   Future<({List<Media> results, int totalResults})> _discoverTvSeriesWithCount({
     List<int>? genreIds,
+    List<int>? withoutGenreIds,
+    GenreFilterMode genreMode = GenreFilterMode.and,
     double? minRating,
     int? year,
     List<int>? withProviders,
@@ -70,7 +78,8 @@ extension _TmdbRepositoryDiscover on TmdbRepository {
     };
 
     if (genreIds != null && genreIds.isNotEmpty) {
-      queryParams['with_genres'] = genreIds.join(',');
+      final sep = genreMode == GenreFilterMode.or ? '|' : ',';
+      queryParams['with_genres'] = genreIds.join(sep);
     }
     if (minRating != null) queryParams['vote_average.gte'] = minRating;
     if (year != null) queryParams['first_air_date_year'] = year;
@@ -80,14 +89,21 @@ extension _TmdbRepositoryDiscover on TmdbRepository {
       queryParams['with_watch_monetization_types'] = 'flatrate|free';
     }
 
+    // Collect all excluded genre IDs (caller + age-rating based)
+    final allExcluded = <int>{...?withoutGenreIds};
+
     if (maxAgeRating != null && maxAgeRating <= 12) {
       final safeGenres = [10762, 10751, 16];
       if (maxAgeRating <= 6) {
         queryParams['with_genres'] = safeGenres.join('|');
-        queryParams['without_genres'] = '10768,18,80,27,99';
+        allExcluded.addAll([10768, 18, 80, 27, 99]);
       } else {
-        queryParams['without_genres'] = '10768,80,27';
+        allExcluded.addAll([10768, 80, 27]);
       }
+    }
+
+    if (allExcluded.isNotEmpty) {
+      queryParams['without_genres'] = allExcluded.join(',');
     }
 
     final data = await _apiClient.discoverTvSeries(queryParams);

@@ -6,7 +6,7 @@ part of 'media_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$trendingHash() => r'8041ab35df9ee1bd3edad017aab819f245e1a9fb';
+String _$trendingHash() => r'9609fc98e03af8e543857e5e9f8c61e6796b4ea4';
 
 /// Provider for trending content - filtered by user's streaming services
 /// Uses discover sorted by popularity since /trending doesn't support provider filter
@@ -26,7 +26,7 @@ final trendingProvider = AutoDisposeFutureProvider<List<Media>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef TrendingRef = AutoDisposeFutureProviderRef<List<Media>>;
-String _$popularMoviesHash() => r'1dc13ea9eb5e6d24476b92e948717ada058fe007';
+String _$popularMoviesHash() => r'24433f916629a9c292fc8b97c1c948b1cdec3737';
 
 /// Provider for popular movies - filtered by user's streaming services
 ///
@@ -45,7 +45,7 @@ final popularMoviesProvider = AutoDisposeFutureProvider<List<Media>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef PopularMoviesRef = AutoDisposeFutureProviderRef<List<Media>>;
-String _$popularTvSeriesHash() => r'508f3972f9517ea761868dbc47d4c8f563a3c810';
+String _$popularTvSeriesHash() => r'a624bfe200989ff2b8bd79c992d31e6f2ec697f6';
 
 /// Provider for popular TV series - filtered by user's streaming services
 ///
@@ -64,7 +64,7 @@ final popularTvSeriesProvider = AutoDisposeFutureProvider<List<Media>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef PopularTvSeriesRef = AutoDisposeFutureProviderRef<List<Media>>;
-String _$topRatedMoviesHash() => r'cb6393a268e305df183013e4eb0c77c1d352b0fe';
+String _$topRatedMoviesHash() => r'7179ec7fb8ceb8efb8adf3470bd9a4a2a45b53b2';
 
 /// Provider for top rated movies - filtered by user's streaming services
 ///
@@ -83,7 +83,7 @@ final topRatedMoviesProvider = AutoDisposeFutureProvider<List<Media>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef TopRatedMoviesRef = AutoDisposeFutureProviderRef<List<Media>>;
-String _$topRatedTvSeriesHash() => r'4e9fb1f67a0a32798959b47f3451f4f3dc12ce6d';
+String _$topRatedTvSeriesHash() => r'86323b4fb357f939fd95fae3ffec9bcf4388cc1b';
 
 /// Provider for top rated TV series - filtered by user's streaming services
 ///

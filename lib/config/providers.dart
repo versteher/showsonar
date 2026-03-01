@@ -37,6 +37,7 @@ export 'providers/shared_watchlist_providers.dart';
 export 'providers/profile_providers.dart';
 export 'providers/episode_tracking_providers.dart';
 export 'providers/ai_chat_providers.dart';
+export 'providers/viewing_context_providers.dart';
 
 // ============================================================================
 // Core service & repository providers (kept here to avoid circular deps)

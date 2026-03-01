@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stream_scout/config/providers.dart';
 import 'package:stream_scout/data/models/media.dart';
 import 'package:stream_scout/data/models/user_preferences.dart';
+import 'package:stream_scout/data/repositories/tmdb_repository.dart';
 
 import '../../utils/test_provider_container.dart';
 
@@ -121,6 +122,7 @@ void main() {
           sortBy: 'popularity.desc',
           maxAgeRating: 18,
           minRating: 0.0,
+          genreMode: GenreFilterMode.or,
         ),
       ).thenAnswer((_) async => [testMovie]);
 
@@ -145,6 +147,7 @@ void main() {
           sortBy: 'popularity.desc',
           maxAgeRating: 18,
           minRating: 0.0,
+          genreMode: GenreFilterMode.or,
         ),
       ).thenAnswer((_) async => [testMovie]);
 

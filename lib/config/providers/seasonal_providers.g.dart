@@ -6,7 +6,7 @@ part of 'seasonal_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$seasonalHash() => r'bd7d757b9c0c726740dd28f87cbce1ddff321f6f';
+String _$seasonalHash() => r'2474432a6138bbfb7adfafee1557acfdc9456ec8';
 
 /// Seasonal content provider
 ///

@@ -2,6 +2,8 @@ import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../data/models/media.dart';
+import '../../data/repositories/tmdb_repository.dart';
+import '../../domain/viewing_context.dart';
 import '../../utils/media_filter.dart';
 import '../providers.dart';
 
@@ -13,23 +15,37 @@ part 'media_providers.g.dart';
 Future<List<Media>> trending(Ref ref) async {
   final tmdb = ref.watch(tmdbRepositoryProvider);
   final prefs = await ref.watch(userPreferencesProvider.future);
+  final ctx = ref.watch(viewingContextProvider);
+  final filter = ViewingContextFilter.forContext(
+    ctx,
+    favoriteGenreIds: prefs.favoriteGenreIds,
+  );
   final providerIds = prefs.tmdbProviderIds;
+  final effectiveAge = filter.maxAgeRatingOverride != null
+      ? min(prefs.maxAgeRating, filter.maxAgeRatingOverride!)
+      : prefs.maxAgeRating;
 
   if (providerIds.isEmpty) return [];
 
   final movies = await tmdb.discoverMovies(
+    genreIds: filter.includeGenreIds,
+    withoutGenreIds: filter.excludeGenreIds,
+    genreMode: GenreFilterMode.or,
     withProviders: providerIds,
     watchRegion: prefs.countryCode,
     sortBy: 'popularity.desc',
-    maxAgeRating: prefs.maxAgeRating,
+    maxAgeRating: effectiveAge,
     minRating: prefs.minimumRating,
   );
 
   final tvSeries = await tmdb.discoverTvSeries(
+    genreIds: filter.includeGenreIds,
+    withoutGenreIds: filter.excludeGenreIds,
+    genreMode: GenreFilterMode.or,
     withProviders: providerIds,
     watchRegion: prefs.countryCode,
     sortBy: 'popularity.desc',
-    maxAgeRating: prefs.maxAgeRating,
+    maxAgeRating: effectiveAge,
     minRating: prefs.minimumRating,
   );
 
@@ -92,15 +108,23 @@ Future<List<Media>> trending(Ref ref) async {
 Future<List<Media>> popularMovies(Ref ref) async {
   final tmdb = ref.watch(tmdbRepositoryProvider);
   final prefs = await ref.watch(userPreferencesProvider.future);
+  final ctx = ref.watch(viewingContextProvider);
+  final filter = ViewingContextFilter.forContext(ctx, favoriteGenreIds: prefs.favoriteGenreIds);
   final providerIds = prefs.tmdbProviderIds;
+  final effectiveAge = filter.maxAgeRatingOverride != null
+      ? min(prefs.maxAgeRating, filter.maxAgeRatingOverride!)
+      : prefs.maxAgeRating;
 
   if (providerIds.isEmpty) return [];
 
   final results = await tmdb.discoverMovies(
+    genreIds: filter.includeGenreIds,
+    withoutGenreIds: filter.excludeGenreIds,
+    genreMode: GenreFilterMode.or,
     withProviders: providerIds,
     watchRegion: prefs.countryCode,
     sortBy: 'popularity.desc',
-    maxAgeRating: prefs.maxAgeRating,
+    maxAgeRating: effectiveAge,
     minRating: prefs.minimumRating,
   );
 
@@ -112,15 +136,23 @@ Future<List<Media>> popularMovies(Ref ref) async {
 Future<List<Media>> popularTvSeries(Ref ref) async {
   final tmdb = ref.watch(tmdbRepositoryProvider);
   final prefs = await ref.watch(userPreferencesProvider.future);
+  final ctx = ref.watch(viewingContextProvider);
+  final filter = ViewingContextFilter.forContext(ctx, favoriteGenreIds: prefs.favoriteGenreIds);
   final providerIds = prefs.tmdbProviderIds;
+  final effectiveAge = filter.maxAgeRatingOverride != null
+      ? min(prefs.maxAgeRating, filter.maxAgeRatingOverride!)
+      : prefs.maxAgeRating;
 
   if (providerIds.isEmpty) return [];
 
   final results = await tmdb.discoverTvSeries(
+    genreIds: filter.includeGenreIds,
+    withoutGenreIds: filter.excludeGenreIds,
+    genreMode: GenreFilterMode.or,
     withProviders: providerIds,
     watchRegion: prefs.countryCode,
     sortBy: 'popularity.desc',
-    maxAgeRating: prefs.maxAgeRating,
+    maxAgeRating: effectiveAge,
     minRating: prefs.minimumRating,
   );
 
@@ -132,16 +164,24 @@ Future<List<Media>> popularTvSeries(Ref ref) async {
 Future<List<Media>> topRatedMovies(Ref ref) async {
   final tmdb = ref.watch(tmdbRepositoryProvider);
   final prefs = await ref.watch(userPreferencesProvider.future);
+  final ctx = ref.watch(viewingContextProvider);
+  final filter = ViewingContextFilter.forContext(ctx, favoriteGenreIds: prefs.favoriteGenreIds);
   final providerIds = prefs.tmdbProviderIds;
+  final effectiveAge = filter.maxAgeRatingOverride != null
+      ? min(prefs.maxAgeRating, filter.maxAgeRatingOverride!)
+      : prefs.maxAgeRating;
 
   if (providerIds.isEmpty) return [];
 
   final results = await tmdb.discoverMovies(
+    genreIds: filter.includeGenreIds,
+    withoutGenreIds: filter.excludeGenreIds,
+    genreMode: GenreFilterMode.or,
     withProviders: providerIds,
     watchRegion: prefs.countryCode,
     sortBy: 'vote_average.desc',
     minRating: max(7.0, prefs.minimumRating),
-    maxAgeRating: prefs.maxAgeRating,
+    maxAgeRating: effectiveAge,
   );
 
   return MediaFilter.applyPreferences(results, prefs);
@@ -152,16 +192,24 @@ Future<List<Media>> topRatedMovies(Ref ref) async {
 Future<List<Media>> topRatedTvSeries(Ref ref) async {
   final tmdb = ref.watch(tmdbRepositoryProvider);
   final prefs = await ref.watch(userPreferencesProvider.future);
+  final ctx = ref.watch(viewingContextProvider);
+  final filter = ViewingContextFilter.forContext(ctx, favoriteGenreIds: prefs.favoriteGenreIds);
   final providerIds = prefs.tmdbProviderIds;
+  final effectiveAge = filter.maxAgeRatingOverride != null
+      ? min(prefs.maxAgeRating, filter.maxAgeRatingOverride!)
+      : prefs.maxAgeRating;
 
   if (providerIds.isEmpty) return [];
 
   final results = await tmdb.discoverTvSeries(
+    genreIds: filter.includeGenreIds,
+    withoutGenreIds: filter.excludeGenreIds,
+    genreMode: GenreFilterMode.or,
     withProviders: providerIds,
     watchRegion: prefs.countryCode,
     sortBy: 'vote_average.desc',
     minRating: max(7.0, prefs.minimumRating),
-    maxAgeRating: prefs.maxAgeRating,
+    maxAgeRating: effectiveAge,
   );
 
   return MediaFilter.applyPreferences(results, prefs);

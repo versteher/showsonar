@@ -754,4 +754,13 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get actionCopiedForSharing =>
       'In Zwischenablage kopiert — zum Teilen einfügen';
+
+  @override
+  String get viewingContextAll => 'Alle';
+  @override
+  String get viewingContextKids => 'Kinder';
+  @override
+  String get viewingContextDateNight => 'Date Night';
+  @override
+  String get viewingContextSolo => 'Solo';
 }
