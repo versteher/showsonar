@@ -8,6 +8,8 @@ import '../providers.dart';
 final notificationServiceProvider = Provider<NotificationService>((ref) {
   final service = NotificationService();
 
+  service.initialize();
+
   // When the user logs in/out, update the ID on the NotificationService so it saving the FCM token
   ref.listen(authStateProvider, (previous, next) {
     service.updateUserId(next.value?.uid);

@@ -13,6 +13,11 @@ _$UserProfileImpl _$$UserProfileImplFromJson(Map<String, dynamic> json) =>
       photoUrl: json['photoUrl'] as String?,
       followersCount: (json['followersCount'] as num?)?.toInt() ?? 0,
       followingCount: (json['followingCount'] as num?)?.toInt() ?? 0,
+      fcmTokens:
+          (json['fcmTokens'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$UserProfileImplToJson(_$UserProfileImpl instance) =>
@@ -22,4 +27,5 @@ Map<String, dynamic> _$$UserProfileImplToJson(_$UserProfileImpl instance) =>
       'photoUrl': instance.photoUrl,
       'followersCount': instance.followersCount,
       'followingCount': instance.followingCount,
+      'fcmTokens': instance.fcmTokens,
     };

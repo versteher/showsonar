@@ -11,6 +11,7 @@ class UserProfile with _$UserProfile {
     String? photoUrl,
     @Default(0) int followersCount,
     @Default(0) int followingCount,
+    @Default([]) List<String> fcmTokens,
   }) = _UserProfile;
 
   factory UserProfile.fromJson(Map<String, dynamic> json) =>

@@ -26,6 +26,7 @@ mixin _$UserProfile {
   String? get photoUrl => throw _privateConstructorUsedError;
   int get followersCount => throw _privateConstructorUsedError;
   int get followingCount => throw _privateConstructorUsedError;
+  List<String> get fcmTokens => throw _privateConstructorUsedError;
 
   /// Serializes this UserProfile to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -50,6 +51,7 @@ abstract class $UserProfileCopyWith<$Res> {
     String? photoUrl,
     int followersCount,
     int followingCount,
+    List<String> fcmTokens,
   });
 }
 
@@ -73,6 +75,7 @@ class _$UserProfileCopyWithImpl<$Res, $Val extends UserProfile>
     Object? photoUrl = freezed,
     Object? followersCount = null,
     Object? followingCount = null,
+    Object? fcmTokens = null,
   }) {
     return _then(
       _value.copyWith(
@@ -96,6 +99,10 @@ class _$UserProfileCopyWithImpl<$Res, $Val extends UserProfile>
                 ? _value.followingCount
                 : followingCount // ignore: cast_nullable_to_non_nullable
                       as int,
+            fcmTokens: null == fcmTokens
+                ? _value.fcmTokens
+                : fcmTokens // ignore: cast_nullable_to_non_nullable
+                      as List<String>,
           )
           as $Val,
     );
@@ -117,6 +124,7 @@ abstract class _$$UserProfileImplCopyWith<$Res>
     String? photoUrl,
     int followersCount,
     int followingCount,
+    List<String> fcmTokens,
   });
 }
 
@@ -139,6 +147,7 @@ class __$$UserProfileImplCopyWithImpl<$Res>
     Object? photoUrl = freezed,
     Object? followersCount = null,
     Object? followingCount = null,
+    Object? fcmTokens = null,
   }) {
     return _then(
       _$UserProfileImpl(
@@ -162,6 +171,10 @@ class __$$UserProfileImplCopyWithImpl<$Res>
             ? _value.followingCount
             : followingCount // ignore: cast_nullable_to_non_nullable
                   as int,
+        fcmTokens: null == fcmTokens
+            ? _value._fcmTokens
+            : fcmTokens // ignore: cast_nullable_to_non_nullable
+                  as List<String>,
       ),
     );
   }
@@ -176,7 +189,8 @@ class _$UserProfileImpl implements _UserProfile {
     this.photoUrl,
     this.followersCount = 0,
     this.followingCount = 0,
-  });
+    final List<String> fcmTokens = const [],
+  }) : _fcmTokens = fcmTokens;
 
   factory _$UserProfileImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserProfileImplFromJson(json);
@@ -193,10 +207,18 @@ class _$UserProfileImpl implements _UserProfile {
   @override
   @JsonKey()
   final int followingCount;
+  final List<String> _fcmTokens;
+  @override
+  @JsonKey()
+  List<String> get fcmTokens {
+    if (_fcmTokens is EqualUnmodifiableListView) return _fcmTokens;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_fcmTokens);
+  }
 
   @override
   String toString() {
-    return 'UserProfile(uid: $uid, displayName: $displayName, photoUrl: $photoUrl, followersCount: $followersCount, followingCount: $followingCount)';
+    return 'UserProfile(uid: $uid, displayName: $displayName, photoUrl: $photoUrl, followersCount: $followersCount, followingCount: $followingCount, fcmTokens: $fcmTokens)';
   }
 
   @override
@@ -212,7 +234,11 @@ class _$UserProfileImpl implements _UserProfile {
             (identical(other.followersCount, followersCount) ||
                 other.followersCount == followersCount) &&
             (identical(other.followingCount, followingCount) ||
-                other.followingCount == followingCount));
+                other.followingCount == followingCount) &&
+            const DeepCollectionEquality().equals(
+              other._fcmTokens,
+              _fcmTokens,
+            ));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -224,6 +250,7 @@ class _$UserProfileImpl implements _UserProfile {
     photoUrl,
     followersCount,
     followingCount,
+    const DeepCollectionEquality().hash(_fcmTokens),
   );
 
   /// Create a copy of UserProfile
@@ -247,6 +274,7 @@ abstract class _UserProfile implements UserProfile {
     final String? photoUrl,
     final int followersCount,
     final int followingCount,
+    final List<String> fcmTokens,
   }) = _$UserProfileImpl;
 
   factory _UserProfile.fromJson(Map<String, dynamic> json) =
@@ -262,6 +290,8 @@ abstract class _UserProfile implements UserProfile {
   int get followersCount;
   @override
   int get followingCount;
+  @override
+  List<String> get fcmTokens;
 
   /// Create a copy of UserProfile
   /// with the given fields replaced by the non-null parameter values.

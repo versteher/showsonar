@@ -16,6 +16,9 @@ class App extends ConsumerWidget {
     final router = ref.watch(routerProvider);
     final themeMode = ref.watch(themeModeProvider);
 
+    // Initialize notification service
+    ref.watch(notificationServiceProvider);
+
     return MaterialApp.router(
       title: F.title,
       theme: AppTheme.lightTheme,

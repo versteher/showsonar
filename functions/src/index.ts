@@ -130,3 +130,6 @@ export const generateWeeklyRecap = onRequest(async (request, response) => {
         response.status(500).send("Error generating weekly recaps.");
     }
 });
+
+export * from './episode_alerts';
+export * from './watchlist_reminders';

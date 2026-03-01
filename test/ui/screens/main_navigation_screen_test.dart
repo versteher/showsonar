@@ -22,12 +22,13 @@ void main() {
     when(() => mockAnalytics.logScreenView(any())).thenAnswer((_) async {});
   });
 
-  testWidgets('renders 4 tabs and switches pages', (tester) async {
-    // 4 screens: Home, Search, Library, Profile (AI chat is a modal, not a tab)
+  testWidgets('renders 5 tabs and switches pages', (tester) async {
+    // 5 screens: Home, Search, Library, Social, Profile
     final screens = [
       const Text('Home Screen Tab'),
       const Text('Search Screen Tab'),
       const Text('Library Screen Tab'),
+      const Text('Social Screen Tab'),
       const Text('Profile Screen Tab'),
     ];
 
