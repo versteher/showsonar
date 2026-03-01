@@ -10,6 +10,7 @@ import 'home_screen.dart';
 import 'my_list_tab_screen.dart';
 import 'search_screen.dart';
 import 'settings_screen.dart';
+import 'social_screen.dart';
 
 /// Main screen with bottom navigation (mobile) or split view (tablet/desktop).
 ///
@@ -42,7 +43,7 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
   }
 
   void _goToSettings() {
-    const idx = 3; // Profile tab
+    const idx = 4; // Profile tab
     setState(() => _currentIndex = idx);
     _analytics.logScreenView(AnalyticsService.screenNameForTab(idx));
   }
@@ -73,6 +74,7 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
           HomeScreen(onSettingsTap: _goToSettings, onSearchTap: _goToSearch),
           const SearchScreen(),
           const MyListTabScreen(),
+          const SocialScreen(),
           const SettingsScreen(),
         ];
 
@@ -159,7 +161,10 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
               borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
               onTap: () => _openAiChat(context),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -167,12 +172,19 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
                       shaderCallback: (bounds) => const LinearGradient(
                         colors: [Color(0xFF7C4DFF), Color(0xFFE040FB)],
                       ).createShader(bounds),
-                      child: const Icon(Icons.auto_awesome, color: Colors.white, size: 22),
+                      child: const Icon(
+                        Icons.auto_awesome,
+                        color: Colors.white,
+                        size: 22,
+                      ),
                     ),
                     const SizedBox(height: 2),
                     Text(
                       l10n.navAi,
-                      style: const TextStyle(color: Color(0xFF7C4DFF), fontSize: 10),
+                      style: const TextStyle(
+                        color: Color(0xFF7C4DFF),
+                        fontSize: 10,
+                      ),
                     ),
                   ],
                 ),
@@ -197,6 +209,11 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
           icon: const Icon(Icons.video_library_outlined),
           selectedIcon: const Icon(Icons.video_library_rounded),
           label: Text(l10n.navLibrary),
+        ),
+        NavigationRailDestination(
+          icon: const Icon(Icons.people_outline_rounded),
+          selectedIcon: const Icon(Icons.people_rounded),
+          label: Text(l10n.navFriends),
         ),
         NavigationRailDestination(
           icon: const Icon(Icons.person_outline_rounded),
@@ -269,9 +286,16 @@ class _BottomNav extends StatelessWidget {
                 onTap: onTabSelected,
               ),
               _NavItem(
+                icon: Icons.people_rounded,
+                label: l10n.navFriends,
+                index: 3,
+                currentIndex: currentIndex,
+                onTap: onTabSelected,
+              ),
+              _NavItem(
                 icon: Icons.person_rounded,
                 label: l10n.navProfile,
-                index: 3,
+                index: 4,
                 currentIndex: currentIndex,
                 onTap: onTabSelected,
               ),
@@ -342,7 +366,9 @@ class _NavItem extends StatelessWidget {
                   label,
                   style: TextStyle(
                     color: isSelected ? AppTheme.primary : AppTheme.textMuted,
-                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                    fontWeight: isSelected
+                        ? FontWeight.w600
+                        : FontWeight.normal,
                     fontSize: 10,
                   ),
                 ),

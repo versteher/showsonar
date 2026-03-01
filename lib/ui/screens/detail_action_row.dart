@@ -11,6 +11,7 @@ import '../../data/models/watch_history_entry.dart';
 import '../theme/app_theme.dart';
 import '../widgets/app_snack_bar.dart';
 import '../widgets/watchlist_button.dart';
+import '../widgets/send_recommendation_sheet.dart';
 import '../../utils/app_haptics.dart';
 
 class DetailActionRow extends ConsumerWidget {
@@ -72,6 +73,28 @@ class DetailActionRow extends ConsumerWidget {
                   );
                 }
               },
+            ),
+
+            const SizedBox(width: AppTheme.spacingSm),
+
+            Tooltip(
+              message: 'Send to a Friend',
+              child: OutlinedButton(
+                onPressed: () {
+                  AppHaptics.mediumImpact();
+                  showModalBottomSheet(
+                    context: context,
+                    backgroundColor: Colors.transparent,
+                    isScrollControlled: true,
+                    builder: (_) => SendRecommendationSheet(media: media),
+                  );
+                },
+                style: OutlinedButton.styleFrom(
+                  padding: EdgeInsets.zero,
+                  minimumSize: const Size(48, 48),
+                ),
+                child: const Icon(Icons.send_rounded),
+              ),
             ),
 
             const SizedBox(width: AppTheme.spacingSm),

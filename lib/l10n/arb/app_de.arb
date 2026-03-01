@@ -8,6 +8,7 @@
     "navSearch": "Suche",
     "navAi": "AI",
     "navLibrary": "Bibliothek",
+    "navFriends": "Freunde",
     "navProfile": "Profil",
     "navMyList": "Meine Liste",
     "navMore": "Mehr",
@@ -315,6 +316,8 @@
     "aiSuggestion6Label": "🏆 Oscar-würdig",
     "aiSuggestion6Query": "Was sind die besten preisgekrönten Filme der letzten Jahre die man gesehen haben muss?",
 
+    "aiChatInputHint": "Was möchtest du sehen?",
+    "aiTriviaTitle": "Wusstest du schon?",
     "aiWelcomeTitle": "Was möchtest du schauen?",
     "aiWelcomeSubtitle": "Frag mich nach Empfehlungen, Stimmungen\noder bestimmten Genres!",
 

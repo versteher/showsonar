@@ -140,6 +140,12 @@ abstract class AppLocalizations {
   /// **'Library'**
   String get navLibrary;
 
+  /// No description provided for @navFriends.
+  ///
+  /// In en, this message translates to:
+  /// **'Friends'**
+  String get navFriends;
+
   /// No description provided for @navProfile.
   ///
   /// In en, this message translates to:
@@ -1243,6 +1249,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'What are the best award-winning films of recent years that are a must-watch?'**
   String get aiSuggestion6Query;
+
+  /// No description provided for @aiChatInputHint.
+  ///
+  /// In en, this message translates to:
+  /// **'What do you want to watch?'**
+  String get aiChatInputHint;
+
+  /// No description provided for @aiTriviaTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Did You Know?'**
+  String get aiTriviaTitle;
 
   /// No description provided for @aiWelcomeTitle.
   ///

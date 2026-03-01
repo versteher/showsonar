@@ -8,6 +8,7 @@
     "navSearch": "Search",
     "navAi": "AI",
     "navLibrary": "Library",
+    "navFriends": "Friends",
     "navProfile": "Profile",
     "navMyList": "My List",
     "navMore": "More",
@@ -510,6 +511,8 @@
     "aiSuggestion6Label": "🏆 Award-worthy",
     "aiSuggestion6Query": "What are the best award-winning films of recent years that are a must-watch?",
 
+    "aiChatInputHint": "What do you want to watch?",
+    "aiTriviaTitle": "Did You Know?",
     "aiWelcomeTitle": "What would you like to watch?",
     "aiWelcomeSubtitle": "Ask me for recommendations, moods,\nor specific genres!",
 

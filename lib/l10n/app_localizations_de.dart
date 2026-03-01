@@ -32,6 +32,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get navLibrary => 'Bibliothek';
 
   @override
+  String get navFriends => 'Freunde';
+
+  @override
   String get navProfile => 'Profil';
 
   @override
@@ -709,6 +712,12 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get aiSuggestion6Query =>
       'Was sind die besten preisgekrönten Filme der letzten Jahre die man gesehen haben muss?';
+
+  @override
+  String get aiChatInputHint => 'Was möchtest du sehen?';
+
+  @override
+  String get aiTriviaTitle => 'Wusstest du schon?';
 
   @override
   String get aiWelcomeTitle => 'Was möchtest du schauen?';

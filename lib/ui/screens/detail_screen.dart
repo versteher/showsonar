@@ -11,6 +11,7 @@ import '../../data/models/genre.dart';
 import '../../data/models/media.dart';
 import '../../data/models/watch_history_entry.dart';
 import '../theme/app_theme.dart';
+import '../widgets/ai_trivia_section.dart';
 import '../widgets/ai_why_watch_card.dart';
 import '../widgets/app_snack_bar.dart';
 import '../widgets/cast_crew_section.dart';
@@ -259,6 +260,7 @@ class DetailScreen extends ConsumerWidget {
               _buildGenresSection(context, media),
               const SizedBox(height: AppTheme.spacingLg),
               AiWhyWatchCard(media: media),
+              AiTriviaSection(media: media),
               const SizedBox(height: AppTheme.spacingLg),
               TrailerButton(mediaId: media.id, mediaType: media.type),
               const SizedBox(height: 80),

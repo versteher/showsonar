@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import '../../config/providers.dart';
+import '../../data/models/media.dart';
 import '../../l10n/app_localizations.dart';
 import '../../utils/ai_title_parser.dart';
 import '../theme/app_theme.dart';
 import '../widgets/app_snack_bar.dart';
+import '../widgets/media_card.dart';
 import 'ai_chat_models.dart';
 
 /// Renders a single chat message bubble for both user and AI messages.
@@ -31,99 +36,117 @@ class AiChatMessageBubble extends StatelessWidget {
     final isUser = message.isUser;
 
     return Padding(
-          padding: const EdgeInsets.only(bottom: 12),
-          child: Row(
-            mainAxisAlignment:
-                isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (!isUser) ...[
-                Container(
-                  width: 32,
-                  height: 32,
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFF7C4DFF), Color(0xFFE040FB)],
-                    ),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Icon(
-                    Icons.auto_awesome,
-                    size: 16,
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(width: 8),
-              ],
-              Flexible(
-                child: Container(
-                  padding: const EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: isUser
-                        ? AppTheme.primary.withValues(alpha: 0.2)
-                        : AppTheme.surface,
-                    borderRadius: BorderRadius.only(
-                      topLeft: const Radius.circular(16),
-                      topRight: const Radius.circular(16),
-                      bottomLeft: Radius.circular(isUser ? 16 : 4),
-                      bottomRight: Radius.circular(isUser ? 4 : 16),
-                    ),
-                    border: Border.all(
-                      color: isUser
-                          ? AppTheme.primary.withValues(alpha: 0.3)
-                          : AppTheme.surfaceLight.withValues(alpha: 0.3),
-                    ),
-                  ),
-                  child: Column(
+      padding: const EdgeInsets.only(bottom: 12),
+      child:
+          Column(
+                crossAxisAlignment: isUser
+                    ? CrossAxisAlignment.end
+                    : CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: isUser
+                        ? MainAxisAlignment.end
+                        : MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (message.text.isEmpty && message.isStreaming)
-                        const _TypingIndicator()
-                      else
-                        SelectableText(
-                          message.text,
-                          style: const TextStyle(
-                            color: AppTheme.textPrimary,
-                            fontSize: 14,
-                            height: 1.5,
+                      if (!isUser) ...[
+                        Container(
+                          width: 32,
+                          height: 32,
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [Color(0xFF7C4DFF), Color(0xFFE040FB)],
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const Icon(
+                            Icons.auto_awesome,
+                            size: 16,
+                            color: Colors.white,
                           ),
                         ),
-                      if (message.isStreaming && message.text.isNotEmpty)
-                        const Padding(
-                          padding: EdgeInsets.only(top: 4),
-                          child: SizedBox(
-                            width: 12,
-                            height: 12,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 1.5,
-                              color: Color(0xFF7C4DFF),
+                        const SizedBox(width: 8),
+                      ],
+                      Flexible(
+                        child: Container(
+                          padding: const EdgeInsets.all(14),
+                          decoration: BoxDecoration(
+                            color: isUser
+                                ? AppTheme.primary.withValues(alpha: 0.2)
+                                : AppTheme.surface,
+                            borderRadius: BorderRadius.only(
+                              topLeft: const Radius.circular(16),
+                              topRight: const Radius.circular(16),
+                              bottomLeft: Radius.circular(isUser ? 16 : 4),
+                              bottomRight: Radius.circular(isUser ? 4 : 16),
+                            ),
+                            border: Border.all(
+                              color: isUser
+                                  ? AppTheme.primary.withValues(alpha: 0.3)
+                                  : AppTheme.surfaceLight.withValues(
+                                      alpha: 0.3,
+                                    ),
                             ),
                           ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (message.text.isEmpty && message.isStreaming)
+                                const _TypingIndicator()
+                              else
+                                SelectableText(
+                                  message.cleanText,
+                                  style: const TextStyle(
+                                    color: AppTheme.textPrimary,
+                                    fontSize: 14,
+                                    height: 1.5,
+                                  ),
+                                ),
+                              if (message.isStreaming &&
+                                  message.text.isNotEmpty)
+                                const Padding(
+                                  padding: EdgeInsets.only(top: 4),
+                                  child: SizedBox(
+                                    width: 12,
+                                    height: 12,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 1.5,
+                                      color: Color(0xFF7C4DFF),
+                                    ),
+                                  ),
+                                ),
+                              // Clickable title chips (Feature 2)
+                              if (!isUser &&
+                                  !message.isStreaming &&
+                                  message.cleanText.isNotEmpty)
+                                _TitleChips(
+                                  text: message.cleanText,
+                                  onTitleTap: onTitleTap,
+                                ),
+                              // Copy / share actions (Feature 10)
+                              if (!isUser &&
+                                  !message.isStreaming &&
+                                  message.cleanText.isNotEmpty)
+                                _MessageActions(text: message.cleanText),
+                            ],
+                          ),
                         ),
-                      // Clickable title chips (Feature 2)
-                      if (!isUser &&
-                          !message.isStreaming &&
-                          message.text.isNotEmpty)
-                        _TitleChips(
-                          text: message.text,
-                          onTitleTap: onTitleTap,
-                        ),
-                      // Copy / share actions (Feature 10)
-                      if (!isUser &&
-                          !message.isStreaming &&
-                          message.text.isNotEmpty)
-                        _MessageActions(text: message.text),
+                      ),
+                      if (isUser) const SizedBox(width: 8),
                     ],
                   ),
-                ),
-              ),
-              if (isUser) const SizedBox(width: 8),
-            ],
-          ),
-        )
-        .animate()
-        .fadeIn(duration: 300.ms)
-        .slideX(begin: isUser ? 0.1 : -0.1, end: 0, duration: 300.ms);
+                  if (!isUser &&
+                      message.recommendedIds.isNotEmpty &&
+                      !message.isStreaming) ...[
+                    const SizedBox(height: 12),
+                    _RecommendedMediaList(tmdbIds: message.recommendedIds),
+                  ],
+                ],
+              )
+              .animate()
+              .fadeIn(duration: 300.ms)
+              .slideX(begin: isUser ? 0.1 : -0.1, end: 0, duration: 300.ms),
+    );
   }
 }
 
@@ -178,10 +201,7 @@ class _TitleChips extends StatelessWidget {
             ),
             label: Text(
               title,
-              style: const TextStyle(
-                color: AppTheme.textPrimary,
-                fontSize: 12,
-              ),
+              style: const TextStyle(color: AppTheme.textPrimary, fontSize: 12),
             ),
             backgroundColor: const Color(0xFF7C4DFF).withValues(alpha: 0.15),
             shape: RoundedRectangleBorder(
@@ -328,6 +348,66 @@ class _BouncingDotState extends State<_BouncingDot>
           ),
         );
       },
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Render Media Cards from Recommendations
+// ---------------------------------------------------------------------------
+
+class _RecommendedMediaList extends ConsumerWidget {
+  final List<int> tmdbIds;
+
+  const _RecommendedMediaList({required this.tmdbIds});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 40), // Align with avatar
+      child: SizedBox(
+        height: 220,
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          itemCount: tmdbIds.length,
+          separatorBuilder: (_, _) => const SizedBox(width: AppTheme.spacingMd),
+          itemBuilder: (context, index) {
+            final id = tmdbIds[index];
+            final mediaAsync = ref.watch(
+              mediaDetailsProvider(id: id, type: MediaType.movie),
+            );
+
+            return mediaAsync.when(
+              data: (media) => MediaCard(
+                media: media,
+                width: 130,
+                onTap: () {
+                  final typePath = media.type == MediaType.movie
+                      ? 'movie'
+                      : 'tv';
+                  context.push('/$typePath/${media.id}');
+                },
+              ),
+              loading: () => Container(
+                width: 130,
+                decoration: BoxDecoration(
+                  color: AppTheme.surfaceLight,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Center(child: CircularProgressIndicator()),
+              ),
+              error: (_, _) => Container(
+                width: 130,
+                decoration: BoxDecoration(
+                  color: AppTheme.surfaceLight,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(Icons.error_outline),
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 }

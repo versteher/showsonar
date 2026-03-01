@@ -9,6 +9,7 @@ import '../../config/providers/curated_providers.dart';
 import '../../data/models/media.dart';
 import '../theme/app_theme.dart';
 import '../widgets/media_section.dart';
+import '../widgets/recommended_by_friends_section.dart';
 import '../widgets/viewing_context_chip_bar.dart';
 import '../widgets/continue_watching_section.dart';
 import '../widgets/hero_carousel.dart';
@@ -48,21 +49,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        heroTag: 'tonights_pick',
+      floatingActionButton: FloatingActionButton.extended(
+        heroTag: 'ask_ai_fab',
         onPressed: () {
           AppHaptics.mediumImpact();
-          showModalBottomSheet(
-            context: context,
-            backgroundColor: Colors.transparent,
-            isScrollControlled: true,
-            builder: (_) => const TonightsPickSheet(),
-          );
+          context.push('/ai-chat');
         },
-        backgroundColor: const Color(0xFFFFD700),
-        child: const Icon(
-          Icons.auto_fix_high_rounded,
-          color: Colors.black87,
+        backgroundColor: const Color(0xFF7C4DFF), // Gemini-esque purple
+        icon: const Icon(Icons.auto_awesome, color: Colors.white),
+        label: const Text(
+          'Ask AI',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
       body: Container(
@@ -188,6 +185,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ),
               ),
 
+              // Recommended by Friends
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: AppTheme.spacingLg),
+                  child: RecommendedByFriendsSection(
+                    onMediaTap: (media, prefix) =>
+                        _navigateToDetail(context, media, prefix),
+                  ),
+                ),
+              ),
+
               // Viewing Context Chips + Hide Watched Toggle
               SliverToBoxAdapter(
                 child: Padding(
@@ -222,8 +230,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       ref: ref,
                       context: context,
                       provider: seasonalPaginationProvider,
-                      onLoadMore: () => ref.read(seasonalPaginationProvider.notifier).loadMore(),
-                      onRetry: () => ref.read(seasonalPaginationProvider.notifier).refresh(),
+                      onLoadMore: () => ref
+                          .read(seasonalPaginationProvider.notifier)
+                          .loadMore(),
+                      onRetry: () => ref
+                          .read(seasonalPaginationProvider.notifier)
+                          .refresh(),
                       title: ref.watch(seasonalTitleProvider),
                       heroTagPrefix: 'seasonal',
                     ),
@@ -232,8 +244,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       ref: ref,
                       context: context,
                       provider: trendingPaginationProvider('all_day'),
-                      onLoadMore: () => ref.read(trendingPaginationProvider('all_day').notifier).loadMore(),
-                      onRetry: () => ref.read(trendingPaginationProvider('all_day').notifier).refresh(),
+                      onLoadMore: () => ref
+                          .read(trendingPaginationProvider('all_day').notifier)
+                          .loadMore(),
+                      onRetry: () => ref
+                          .read(trendingPaginationProvider('all_day').notifier)
+                          .refresh(),
                       title: AppLocalizations.of(context)!.sectionTrending,
                       skipFirst: true,
                       heroTagPrefix: 'trending',
