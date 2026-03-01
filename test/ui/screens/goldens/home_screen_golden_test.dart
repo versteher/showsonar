@@ -23,32 +23,54 @@ class FakeTmdbRepository extends Fake implements ITmdbRepository {
 
   @override
   Future<List<Media>> discoverMovies({
-    List<int>? genreIds, List<int>? withoutGenreIds,
+    List<int>? genreIds,
+    List<int>? withoutGenreIds,
     GenreFilterMode genreMode = GenreFilterMode.and,
-    double? minRating, int? year, List<int>? withProviders,
-    String? watchRegion, int? maxAgeRating,
-    String sortBy = 'popularity.desc', int page = 1, bool includeAdult = false,
+    double? minRating,
+    int? year,
+    List<int>? withProviders,
+    List<int>? withKeywords,
+    String? watchRegion,
+    int? maxAgeRating,
+    String sortBy = 'popularity.desc',
+    int page = 1,
+    bool includeAdult = false,
   }) async => media;
 
   @override
   Future<List<Media>> discoverTvSeries({
-    List<int>? genreIds, List<int>? withoutGenreIds,
+    List<int>? genreIds,
+    List<int>? withoutGenreIds,
     GenreFilterMode genreMode = GenreFilterMode.and,
-    double? minRating, int? year, List<int>? withProviders,
-    String? watchRegion, int? maxAgeRating,
-    String sortBy = 'popularity.desc', int page = 1, bool includeAdult = false,
+    double? minRating,
+    int? year,
+    List<int>? withProviders,
+    List<int>? withKeywords,
+    String? watchRegion,
+    int? maxAgeRating,
+    String sortBy = 'popularity.desc',
+    int page = 1,
+    bool includeAdult = false,
   }) async => media;
 
   @override
   Future<List<Media>> getUpcomingMovies({
-    List<int>? withProviders, String? watchRegion, int? maxAgeRating,
-    double? minRating, int page = 1, bool includeAdult = false,
+    List<int>? withProviders,
+    String? watchRegion,
+    int? maxAgeRating,
+    double? minRating,
+    int page = 1,
+    bool includeAdult = false,
   }) async => media;
 
   @override
   Future<List<Media>> getUpcomingTvSeries({
-    List<int>? withProviders, String? watchRegion, int? maxAgeRating,
-    double? minRating, int page = 1, bool includeAdult = false,
+    List<int>? withProviders,
+    String? watchRegion,
+    int? maxAgeRating,
+    double? minRating,
+    int page = 1,
+    bool includeAdult = false,
   }) async => media;
 
   @override
@@ -56,8 +78,10 @@ class FakeTmdbRepository extends Fake implements ITmdbRepository {
     int mediaId,
     MediaType type, {
     String region = 'DE',
-  }) async =>
-      WatchProviderResult.empty();
+  }) async => WatchProviderResult.empty();
+
+  @override
+  Future<List<Media>> getList(int listId) async => [];
 }
 
 class MockPreferencesRepository extends Mock

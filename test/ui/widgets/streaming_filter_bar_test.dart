@@ -275,5 +275,8 @@ class _FakePrefsRepo implements UserPreferencesRepository {
   Future<void> updateThemeMode(String themeMode) async {}
 
   @override
+  Future<void> updateShowExtendedRatings(bool show) async {}
+
+  @override
   Future<void> close() async {}
 }

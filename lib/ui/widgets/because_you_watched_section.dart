@@ -30,23 +30,39 @@ class BecauseYouWatchedSection extends ConsumerWidget {
       data: (groups) {
         if (groups.isEmpty) return const SizedBox.shrink();
 
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            for (final group in groups) ...[
-              const SizedBox(height: AppTheme.spacingLg),
-              MediaSection(
-                title: '✨ ${group.title}',
-                items: group.items,
-                onMediaTap: onMediaTap,
-                onMediaLongPress: onMediaLongPress,
-                watchedIds: watchedIds,
-                hideWatched: hideWatched,
-                heroTagPrefix:
-                    'byw_${group.sourceMediaId ?? group.title.hashCode}',
-              ),
+        return Container(
+          margin: const EdgeInsets.only(top: AppTheme.spacingMd),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                AppTheme.primary.withValues(alpha: 0.15),
+                AppTheme.primaryDark.withValues(alpha: 0.05),
+              ],
+            ),
+            border: Border.all(color: AppTheme.primary.withValues(alpha: 0.1)),
+          ),
+          padding: const EdgeInsets.symmetric(vertical: AppTheme.spacingLg),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              for (final group in groups) ...[
+                if (group != groups.first)
+                  const SizedBox(height: AppTheme.spacingLg),
+                MediaSection(
+                  title: '✨ ${group.title}',
+                  items: group.items,
+                  onMediaTap: onMediaTap,
+                  onMediaLongPress: onMediaLongPress,
+                  watchedIds: watchedIds,
+                  hideWatched: hideWatched,
+                  heroTagPrefix:
+                      'byw_${group.sourceMediaId ?? group.title.hashCode}',
+                ),
+              ],
             ],
-          ],
+          ),
         ).animate().fadeIn(duration: 400.ms);
       },
       loading: () => const SizedBox.shrink(),

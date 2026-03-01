@@ -6,7 +6,7 @@ part of 'mood_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$moodDiscoverHash() => r'4ee5134ef2933c08fe2e0643d5e914cb125b9f39';
+String _$moodDiscoverHash() => r'cdb35b01110d98cc5452a16952cee32af575db9b';
 
 /// Provider that fetches content matching the selected mood
 ///

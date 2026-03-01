@@ -23,6 +23,7 @@ _$UserPreferencesImpl _$$UserPreferencesImplFromJson(
   maxAgeRating: (json['maxAgeRating'] as num?)?.toInt() ?? 18,
   includeAdult: json['includeAdult'] as bool? ?? false,
   themeMode: json['themeMode'] as String? ?? 'system',
+  showExtendedRatings: json['showExtendedRatings'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$$UserPreferencesImplToJson(
@@ -36,4 +37,5 @@ Map<String, dynamic> _$$UserPreferencesImplToJson(
   'maxAgeRating': instance.maxAgeRating,
   'includeAdult': instance.includeAdult,
   'themeMode': instance.themeMode,
+  'showExtendedRatings': instance.showExtendedRatings,
 };

@@ -13,18 +13,29 @@ part 'mood_providers.g.dart';
 
 /// Available moods for quick discovery
 enum DiscoveryMood {
-  feelGood('😊', 'Feel-Good', [35, 10751, 16]),
-  thrilling('😰', 'Spannend', [53, 28, 80]),
-  mindBending('🤯', 'Mind-Blowing', [878, 9648]),
-  romantic('💕', 'Romantisch', [10749, 18]),
-  documentary('🎓', 'Doku', [99]),
-  darkGritty('🌑', 'Düster', [27, 10752, 18]);
+  feelGood(
+    '😊',
+    'Feel-Good',
+    [35, 10751, 16],
+    [9715, 6054],
+  ), // feel good, friendship
+  thrilling('😰', 'Spannend', [53, 28, 80], [10001, 1969]), // suspense, tension
+  mindBending(
+    '🤯',
+    'Mind-Blowing',
+    [878, 9648],
+    [4344, 11578],
+  ), // mind fuck, plot twist
+  romantic('💕', 'Romantisch', [10749, 18], [9840, 3205]), // romance, true love
+  documentary('🎓', 'Doku', [99], [250570, 240801]), // real life, true story
+  darkGritty('🌑', 'Düster', [27, 10752, 18], [11116, 219503]); // dark, gritty
 
   final String emoji;
   final String label;
   final List<int> genreIds;
+  final List<int> keywordIds;
 
-  const DiscoveryMood(this.emoji, this.label, this.genreIds);
+  const DiscoveryMood(this.emoji, this.label, this.genreIds, this.keywordIds);
 }
 
 /// Currently selected mood
@@ -45,6 +56,7 @@ Future<List<Media>> moodDiscover(Ref ref) async {
   final movies = await tmdb.discoverMovies(
     genreIds: mood.genreIds,
     withProviders: providerIds,
+    withKeywords: mood.keywordIds,
     watchRegion: prefs.countryCode,
     sortBy: 'vote_average.desc',
     minRating: max(6.5, prefs.minimumRating),
@@ -54,6 +66,7 @@ Future<List<Media>> moodDiscover(Ref ref) async {
   final tvShows = await tmdb.discoverTvSeries(
     genreIds: mood.genreIds,
     withProviders: providerIds,
+    withKeywords: mood.keywordIds,
     watchRegion: prefs.countryCode,
     sortBy: 'vote_average.desc',
     minRating: max(6.5, prefs.minimumRating),

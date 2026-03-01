@@ -173,5 +173,14 @@ class UserPreferencesRepository {
     await savePreferences(updated);
   }
 
+  /// Update show extended ratings setting
+  Future<void> updateShowExtendedRatings(bool show) async {
+    final current = await getPreferences();
+    if (current.showExtendedRatings == show) return;
+
+    final updated = current.copyWith(showExtendedRatings: show);
+    await savePreferences(updated);
+  }
+
   Future<void> close() async {}
 }

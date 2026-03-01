@@ -29,7 +29,9 @@ mixin _$UserPreferences {
   int get maxAgeRating =>
       throw _privateConstructorUsedError; // FSK Limit (e.g. 12)
   bool get includeAdult => throw _privateConstructorUsedError;
-  String get themeMode => throw _privateConstructorUsedError;
+  String get themeMode =>
+      throw _privateConstructorUsedError; // 'system', 'light', 'dark'
+  bool get showExtendedRatings => throw _privateConstructorUsedError;
 
   /// Serializes this UserPreferences to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -57,6 +59,7 @@ abstract class $UserPreferencesCopyWith<$Res> {
     int maxAgeRating,
     bool includeAdult,
     String themeMode,
+    bool showExtendedRatings,
   });
 }
 
@@ -83,6 +86,7 @@ class _$UserPreferencesCopyWithImpl<$Res, $Val extends UserPreferences>
     Object? maxAgeRating = null,
     Object? includeAdult = null,
     Object? themeMode = null,
+    Object? showExtendedRatings = null,
   }) {
     return _then(
       _value.copyWith(
@@ -118,6 +122,10 @@ class _$UserPreferencesCopyWithImpl<$Res, $Val extends UserPreferences>
                 ? _value.themeMode
                 : themeMode // ignore: cast_nullable_to_non_nullable
                       as String,
+            showExtendedRatings: null == showExtendedRatings
+                ? _value.showExtendedRatings
+                : showExtendedRatings // ignore: cast_nullable_to_non_nullable
+                      as bool,
           )
           as $Val,
     );
@@ -142,6 +150,7 @@ abstract class _$$UserPreferencesImplCopyWith<$Res>
     int maxAgeRating,
     bool includeAdult,
     String themeMode,
+    bool showExtendedRatings,
   });
 }
 
@@ -167,6 +176,7 @@ class __$$UserPreferencesImplCopyWithImpl<$Res>
     Object? maxAgeRating = null,
     Object? includeAdult = null,
     Object? themeMode = null,
+    Object? showExtendedRatings = null,
   }) {
     return _then(
       _$UserPreferencesImpl(
@@ -202,6 +212,10 @@ class __$$UserPreferencesImplCopyWithImpl<$Res>
             ? _value.themeMode
             : themeMode // ignore: cast_nullable_to_non_nullable
                   as String,
+        showExtendedRatings: null == showExtendedRatings
+            ? _value.showExtendedRatings
+            : showExtendedRatings // ignore: cast_nullable_to_non_nullable
+                  as bool,
       ),
     );
   }
@@ -219,6 +233,7 @@ class _$UserPreferencesImpl extends _UserPreferences {
     this.maxAgeRating = 18,
     this.includeAdult = false,
     this.themeMode = 'system',
+    this.showExtendedRatings = false,
   }) : _subscribedServiceIds = subscribedServiceIds,
        _favoriteGenreIds = favoriteGenreIds,
        super._();
@@ -262,10 +277,14 @@ class _$UserPreferencesImpl extends _UserPreferences {
   @override
   @JsonKey()
   final String themeMode;
+  // 'system', 'light', 'dark'
+  @override
+  @JsonKey()
+  final bool showExtendedRatings;
 
   @override
   String toString() {
-    return 'UserPreferences(countryCode: $countryCode, countryName: $countryName, subscribedServiceIds: $subscribedServiceIds, favoriteGenreIds: $favoriteGenreIds, minimumRating: $minimumRating, maxAgeRating: $maxAgeRating, includeAdult: $includeAdult, themeMode: $themeMode)';
+    return 'UserPreferences(countryCode: $countryCode, countryName: $countryName, subscribedServiceIds: $subscribedServiceIds, favoriteGenreIds: $favoriteGenreIds, minimumRating: $minimumRating, maxAgeRating: $maxAgeRating, includeAdult: $includeAdult, themeMode: $themeMode, showExtendedRatings: $showExtendedRatings)';
   }
 
   @override
@@ -292,7 +311,9 @@ class _$UserPreferencesImpl extends _UserPreferences {
             (identical(other.includeAdult, includeAdult) ||
                 other.includeAdult == includeAdult) &&
             (identical(other.themeMode, themeMode) ||
-                other.themeMode == themeMode));
+                other.themeMode == themeMode) &&
+            (identical(other.showExtendedRatings, showExtendedRatings) ||
+                other.showExtendedRatings == showExtendedRatings));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -307,6 +328,7 @@ class _$UserPreferencesImpl extends _UserPreferences {
     maxAgeRating,
     includeAdult,
     themeMode,
+    showExtendedRatings,
   );
 
   /// Create a copy of UserPreferences
@@ -336,6 +358,7 @@ abstract class _UserPreferences extends UserPreferences {
     final int maxAgeRating,
     final bool includeAdult,
     final String themeMode,
+    final bool showExtendedRatings,
   }) = _$UserPreferencesImpl;
   const _UserPreferences._() : super._();
 
@@ -357,7 +380,9 @@ abstract class _UserPreferences extends UserPreferences {
   @override
   bool get includeAdult;
   @override
-  String get themeMode;
+  String get themeMode; // 'system', 'light', 'dark'
+  @override
+  bool get showExtendedRatings;
 
   /// Create a copy of UserPreferences
   /// with the given fields replaced by the non-null parameter values.

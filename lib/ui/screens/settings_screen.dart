@@ -11,6 +11,7 @@ import '../widgets/profile_switcher_tile.dart';
 import '../widgets/settings_account_card.dart';
 import '../widgets/settings_reset_card.dart';
 import '../widgets/settings_theme_selector.dart';
+import '../../data/models/user_preferences.dart' as user_prefs;
 
 /// Settings screen for managing user preferences
 class SettingsScreen extends ConsumerWidget {
@@ -87,21 +88,30 @@ class SettingsScreen extends ConsumerWidget {
                       const SizedBox(height: AppTheme.spacingXl),
 
                       // Theme Section
-                      _buildSectionTitle(context, AppLocalizations.of(context)!.settingsTheme),
+                      _buildSectionTitle(
+                        context,
+                        AppLocalizations.of(context)!.settingsTheme,
+                      ),
                       const SizedBox(height: AppTheme.spacingMd),
                       SettingsThemeSelector(prefs: prefs),
 
                       const SizedBox(height: AppTheme.spacingXl),
 
                       // Profiles Section
-                      _buildSectionTitle(context, AppLocalizations.of(context)!.settingsProfiles),
+                      _buildSectionTitle(
+                        context,
+                        AppLocalizations.of(context)!.settingsProfiles,
+                      ),
                       const SizedBox(height: AppTheme.spacingMd),
                       const ProfileSwitcherTile(),
 
                       const SizedBox(height: AppTheme.spacingXl),
 
                       // Account Section
-                      _buildSectionTitle(context, AppLocalizations.of(context)!.settingsAccount),
+                      _buildSectionTitle(
+                        context,
+                        AppLocalizations.of(context)!.settingsAccount,
+                      ),
                       const SizedBox(height: AppTheme.spacingMd),
                       SettingsAccountCard(authState: authState),
 
@@ -119,9 +129,27 @@ class SettingsScreen extends ConsumerWidget {
                       const SizedBox(height: AppTheme.spacingXl),
 
                       // Taste Profile Section
-                      _buildSectionTitle(context, AppLocalizations.of(context)!.settingsTasteProfile),
+                      _buildSectionTitle(
+                        context,
+                        AppLocalizations.of(context)!.settingsTasteProfile,
+                      ),
                       const SizedBox(height: AppTheme.spacingMd),
                       _buildTasteProfileCard(context),
+
+                      const SizedBox(height: AppTheme.spacingXl),
+
+                      // Ratings Section
+                      _buildSectionTitle(
+                        context,
+                        'Erweiterte Bewertungen',
+                      ), // TODO: Localize if needed
+                      const SizedBox(height: AppTheme.spacingSm),
+                      Text(
+                        'Rotten Tomatoes und Metacritic anzeigen',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                      const SizedBox(height: AppTheme.spacingMd),
+                      _buildExtendedRatingsToggle(context, ref, prefs),
 
                       const SizedBox(height: AppTheme.spacingXl),
 
@@ -326,12 +354,18 @@ class SettingsScreen extends ConsumerWidget {
                 children: [
                   Text(
                     AppLocalizations.of(context)!.settingsTasteProfileTitle,
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
                   ),
                   const SizedBox(height: 2),
                   Text(
                     AppLocalizations.of(context)!.settingsTasteProfileSubtitle,
-                    style: const TextStyle(fontSize: 12, color: AppTheme.textMuted),
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: AppTheme.textMuted,
+                    ),
                   ),
                 ],
               ),
@@ -339,6 +373,30 @@ class SettingsScreen extends ConsumerWidget {
             const Icon(Icons.chevron_right_rounded, color: AppTheme.textMuted),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildExtendedRatingsToggle(
+    BuildContext context,
+    WidgetRef ref,
+    user_prefs.UserPreferences prefs,
+  ) {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppTheme.surface,
+        borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
+        border: Border.all(color: AppTheme.surfaceBorder),
+      ),
+      child: SwitchListTile(
+        title: const Text('Erweiterte Bewertungen anzeigen'),
+        value: prefs.showExtendedRatings,
+        activeColor: AppTheme.primary,
+        onChanged: (value) async {
+          final repo = ref.read(userPreferencesRepositoryProvider);
+          await repo.updateShowExtendedRatings(value);
+          ref.invalidate(userPreferencesProvider);
+        },
       ),
     );
   }

@@ -18,6 +18,7 @@ class UserPreferences with _$UserPreferences {
     @Default(18) int maxAgeRating, // FSK Limit (e.g. 12)
     @Default(false) bool includeAdult,
     @Default('system') String themeMode, // 'system', 'light', 'dark'
+    @Default(false) bool showExtendedRatings,
   }) = _UserPreferences;
 
   /// Default preferences for Germany

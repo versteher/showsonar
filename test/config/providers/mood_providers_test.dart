@@ -78,6 +78,7 @@ void main() {
           () => mocks.tmdbRepository.discoverMovies(
             genreIds: DiscoveryMood.feelGood.genreIds,
             withProviders: [8],
+            withKeywords: DiscoveryMood.feelGood.keywordIds,
             watchRegion: 'US',
             sortBy: 'vote_average.desc',
             minRating: 6.5,
@@ -89,6 +90,7 @@ void main() {
           () => mocks.tmdbRepository.discoverTvSeries(
             genreIds: DiscoveryMood.feelGood.genreIds,
             withProviders: [8],
+            withKeywords: DiscoveryMood.feelGood.keywordIds,
             watchRegion: 'US',
             sortBy: 'vote_average.desc',
             minRating: 6.5,

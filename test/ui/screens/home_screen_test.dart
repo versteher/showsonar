@@ -27,8 +27,8 @@ class FakeTmdbRepository extends Fake implements ITmdbRepository {
   FakeTmdbRepository({
     List<Media> Function()? discoverResult,
     List<Media> Function()? upcomingResult,
-  })  : _discoverResult = discoverResult,
-        _upcomingResult = upcomingResult;
+  }) : _discoverResult = discoverResult,
+       _upcomingResult = upcomingResult;
 
   List<Media> _defaultResult() => [];
 
@@ -40,13 +40,13 @@ class FakeTmdbRepository extends Fake implements ITmdbRepository {
     double? minRating,
     int? year,
     List<int>? withProviders,
+    List<int>? withKeywords,
     String? watchRegion,
     int? maxAgeRating,
     String sortBy = 'popularity.desc',
     int page = 1,
     bool includeAdult = false,
-  }) async =>
-      (_discoverResult ?? _defaultResult)();
+  }) async => (_discoverResult ?? _defaultResult)();
 
   @override
   Future<List<Media>> discoverTvSeries({
@@ -56,13 +56,13 @@ class FakeTmdbRepository extends Fake implements ITmdbRepository {
     double? minRating,
     int? year,
     List<int>? withProviders,
+    List<int>? withKeywords,
     String? watchRegion,
     int? maxAgeRating,
     String sortBy = 'popularity.desc',
     int page = 1,
     bool includeAdult = false,
-  }) async =>
-      (_discoverResult ?? _defaultResult)();
+  }) async => (_discoverResult ?? _defaultResult)();
 
   @override
   Future<List<Media>> getUpcomingMovies({
@@ -72,8 +72,7 @@ class FakeTmdbRepository extends Fake implements ITmdbRepository {
     double? minRating,
     int page = 1,
     bool includeAdult = false,
-  }) async =>
-      (_upcomingResult ?? _discoverResult ?? _defaultResult)();
+  }) async => (_upcomingResult ?? _discoverResult ?? _defaultResult)();
 
   @override
   Future<List<Media>> getUpcomingTvSeries({
@@ -83,16 +82,17 @@ class FakeTmdbRepository extends Fake implements ITmdbRepository {
     double? minRating,
     int page = 1,
     bool includeAdult = false,
-  }) async =>
-      (_upcomingResult ?? _discoverResult ?? _defaultResult)();
+  }) async => (_upcomingResult ?? _discoverResult ?? _defaultResult)();
 
   @override
   Future<WatchProviderResult> getWatchProviders(
     int mediaId,
     MediaType type, {
     String region = 'DE',
-  }) async =>
-      WatchProviderResult.empty();
+  }) async => WatchProviderResult.empty();
+
+  @override
+  Future<List<Media>> getList(int listId) async => [];
 }
 
 void main() {
@@ -130,9 +130,7 @@ void main() {
 
   group('HomeScreen Widget Tests', () {
     testWidgets('renders main sections when data is available', (tester) async {
-      final fakeTmdb = FakeTmdbRepository(
-        discoverResult: () => mockMedia,
-      );
+      final fakeTmdb = FakeTmdbRepository(discoverResult: () => mockMedia);
 
       await tester.pumpWidget(
         pumpAppScreen(

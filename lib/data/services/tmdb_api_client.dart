@@ -225,4 +225,8 @@ class TmdbApiClient {
   ) async {
     return await get('/tv/$tvId/season/$seasonNumber');
   }
+
+  Future<Map<String, dynamic>> getList(int listId) async {
+    return await get('/list/$listId');
+  }
 }

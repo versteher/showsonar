@@ -8,6 +8,8 @@ import 'package:stream_scout/l10n/app_localizations.dart';
 import '../../data/models/media.dart';
 import '../../config/providers.dart';
 import '../theme/app_theme.dart';
+import 'rt_scores_badge.dart';
+import 'rt_scores_badge.dart';
 
 /// A premium movie/series poster card with glassmorphism effect
 class MediaCard extends ConsumerWidget {
@@ -131,7 +133,18 @@ class MediaCard extends ConsumerWidget {
                                 ],
                               ),
                             ),
-                            child: _buildRatingBadge(),
+                            child: prefsAsync.when(
+                              data: (prefs) => prefs.showExtendedRatings
+                                  ? RtScoresBadge(
+                                      imdbId:
+                                          null, // TMDB Discover usually doesn't return IMDb ID, use title
+                                      title: media.title,
+                                      year: int.tryParse(media.year),
+                                    )
+                                  : _buildRatingBadge(),
+                              loading: () => _buildRatingBadge(),
+                              error: (_, _) => _buildRatingBadge(),
+                            ),
                           ),
                         ),
                       ),
@@ -157,37 +170,51 @@ class MediaCard extends ConsumerWidget {
                             return Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                ...visible.map((provider) => Padding(
-                                  padding: const EdgeInsets.only(right: 4),
-                                  child: Container(
-                                    width: 18,
-                                    height: 18,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withValues(alpha: 0.4),
-                                          blurRadius: 4,
-                                          offset: const Offset(0, 1),
+                                ...visible.map(
+                                  (provider) => Padding(
+                                    padding: const EdgeInsets.only(right: 4),
+                                    child: Container(
+                                      width: 18,
+                                      height: 18,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withValues(
+                                              alpha: 0.4,
+                                            ),
+                                            blurRadius: 4,
+                                            offset: const Offset(0, 1),
+                                          ),
+                                        ],
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(4),
+                                        child: Image.asset(
+                                          provider.logoPath,
+                                          fit: BoxFit.cover,
+                                          errorBuilder:
+                                              (context, error, stack) =>
+                                                  const Icon(
+                                                    Icons.play_circle,
+                                                    size: 14,
+                                                    color: Colors.white70,
+                                                  ),
                                         ),
-                                      ],
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(4),
-                                      child: Image.asset(
-                                        provider.logoPath,
-                                        fit: BoxFit.cover,
-                                        errorBuilder: (context, error, stack) =>
-                                            const Icon(Icons.play_circle, size: 14, color: Colors.white70),
                                       ),
                                     ),
                                   ),
-                                )),
+                                ),
                                 if (overflow > 0)
                                   Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 4,
+                                      vertical: 2,
+                                    ),
                                     decoration: BoxDecoration(
-                                      color: Colors.black.withValues(alpha: 0.6),
+                                      color: Colors.black.withValues(
+                                        alpha: 0.6,
+                                      ),
                                       borderRadius: BorderRadius.circular(4),
                                     ),
                                     child: Text(

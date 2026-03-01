@@ -8,6 +8,7 @@ extension _TmdbRepositoryDiscover on TmdbRepository {
     double? minRating,
     int? year,
     List<int>? withProviders,
+    List<int>? withKeywords,
     String? watchRegion,
     int? maxAgeRating,
     String sortBy = 'popularity.desc',
@@ -31,6 +32,9 @@ extension _TmdbRepositoryDiscover on TmdbRepository {
     }
     if (withoutGenreIds != null && withoutGenreIds.isNotEmpty) {
       queryParams['without_genres'] = withoutGenreIds.join(',');
+    }
+    if (withKeywords != null && withKeywords.isNotEmpty) {
+      queryParams['with_keywords'] = withKeywords.join('|');
     }
     if (minRating != null) queryParams['vote_average.gte'] = minRating;
     if (year != null) queryParams['primary_release_year'] = year;
@@ -62,6 +66,7 @@ extension _TmdbRepositoryDiscover on TmdbRepository {
     double? minRating,
     int? year,
     List<int>? withProviders,
+    List<int>? withKeywords,
     String? watchRegion,
     int? maxAgeRating,
     String sortBy = 'popularity.desc',
@@ -80,6 +85,9 @@ extension _TmdbRepositoryDiscover on TmdbRepository {
     if (genreIds != null && genreIds.isNotEmpty) {
       final sep = genreMode == GenreFilterMode.or ? '|' : ',';
       queryParams['with_genres'] = genreIds.join(sep);
+    }
+    if (withKeywords != null && withKeywords.isNotEmpty) {
+      queryParams['with_keywords'] = withKeywords.join('|');
     }
     if (minRating != null) queryParams['vote_average.gte'] = minRating;
     if (year != null) queryParams['first_air_date_year'] = year;
@@ -251,5 +259,30 @@ extension _TmdbRepositoryDiscover on TmdbRepository {
     } on TmdbException {
       return null;
     }
+  }
+
+  Future<List<Media>> _getList(int listId) async {
+    final cacheKey = 'list_$listId';
+
+    return _cachedFetch(cacheKey, () async {
+      final data = await _apiClient.getList(listId);
+      final results = data['items'] as List<dynamic>? ?? [];
+      return results
+          .where(
+            (item) =>
+                item['media_type'] == 'movie' || item['media_type'] == 'tv',
+          )
+          .map((item) {
+            final type = item['media_type'] == 'movie'
+                ? MediaType.movie
+                : MediaType.tv;
+            return Media.fromTmdbJson(
+              item,
+              type,
+              targetRegion: ApiConfig.defaultRegion,
+            );
+          })
+          .toList();
+    });
   }
 }

@@ -138,6 +138,7 @@ abstract class ITmdbRepository {
     double? minRating,
     int? year,
     List<int>? withProviders,
+    List<int>? withKeywords,
     String? watchRegion,
     int? maxAgeRating,
     String sortBy = 'popularity.desc',
@@ -166,6 +167,7 @@ abstract class ITmdbRepository {
     double? minRating,
     int? year,
     List<int>? withProviders,
+    List<int>? withKeywords,
     String? watchRegion,
     int? maxAgeRating,
     String sortBy = 'popularity.desc',
@@ -225,6 +227,8 @@ abstract class ITmdbRepository {
   Future<List<PersonCredit>> getPersonCredits(int personId);
 
   Future<TvSeason> getTvSeasonDetails(int tvId, int seasonNumber);
+
+  Future<List<Media>> getList(int listId);
 
   void clearCache();
 }
@@ -384,13 +388,12 @@ class TmdbRepository implements ITmdbRepository {
     int page = 1,
     bool includeAdult = false,
     int? maxAgeRating,
-  }) =>
-      _searchMulti(
-        query,
-        page: page,
-        includeAdult: includeAdult,
-        maxAgeRating: maxAgeRating,
-      );
+  }) => _searchMulti(
+    query,
+    page: page,
+    includeAdult: includeAdult,
+    maxAgeRating: maxAgeRating,
+  );
 
   @override
   Future<List<Media>> searchMovies(
@@ -398,13 +401,12 @@ class TmdbRepository implements ITmdbRepository {
     int page = 1,
     bool includeAdult = false,
     int? maxAgeRating,
-  }) =>
-      _searchMovies(
-        query,
-        page: page,
-        includeAdult: includeAdult,
-        maxAgeRating: maxAgeRating,
-      );
+  }) => _searchMovies(
+    query,
+    page: page,
+    includeAdult: includeAdult,
+    maxAgeRating: maxAgeRating,
+  );
 
   @override
   Future<List<Media>> searchTvSeries(
@@ -412,13 +414,12 @@ class TmdbRepository implements ITmdbRepository {
     int page = 1,
     bool includeAdult = false,
     int? maxAgeRating,
-  }) =>
-      _searchTvSeries(
-        query,
-        page: page,
-        includeAdult: includeAdult,
-        maxAgeRating: maxAgeRating,
-      );
+  }) => _searchTvSeries(
+    query,
+    page: page,
+    includeAdult: includeAdult,
+    maxAgeRating: maxAgeRating,
+  );
 
   // Details (tmdb_repository_details.dart)
 
@@ -457,6 +458,7 @@ class TmdbRepository implements ITmdbRepository {
     double? minRating,
     int? year,
     List<int>? withProviders,
+    List<int>? withKeywords,
     String? watchRegion,
     int? maxAgeRating,
     String sortBy = 'popularity.desc',
@@ -492,20 +494,19 @@ class TmdbRepository implements ITmdbRepository {
     String sortBy = 'popularity.desc',
     int page = 1,
     bool includeAdult = false,
-  }) =>
-      _discoverMoviesWithCount(
-        genreIds: genreIds,
-        withoutGenreIds: withoutGenreIds,
-        genreMode: genreMode,
-        minRating: minRating,
-        year: year,
-        withProviders: withProviders,
-        watchRegion: watchRegion,
-        maxAgeRating: maxAgeRating,
-        sortBy: sortBy,
-        page: page,
-        includeAdult: includeAdult,
-      );
+  }) => _discoverMoviesWithCount(
+    genreIds: genreIds,
+    withoutGenreIds: withoutGenreIds,
+    genreMode: genreMode,
+    minRating: minRating,
+    year: year,
+    withProviders: withProviders,
+    watchRegion: watchRegion,
+    maxAgeRating: maxAgeRating,
+    sortBy: sortBy,
+    page: page,
+    includeAdult: includeAdult,
+  );
 
   @override
   Future<List<Media>> discoverTvSeries({
@@ -515,6 +516,7 @@ class TmdbRepository implements ITmdbRepository {
     double? minRating,
     int? year,
     List<int>? withProviders,
+    List<int>? withKeywords,
     String? watchRegion,
     int? maxAgeRating,
     String sortBy = 'popularity.desc',
@@ -550,20 +552,19 @@ class TmdbRepository implements ITmdbRepository {
     String sortBy = 'popularity.desc',
     int page = 1,
     bool includeAdult = false,
-  }) =>
-      _discoverTvSeriesWithCount(
-        genreIds: genreIds,
-        withoutGenreIds: withoutGenreIds,
-        genreMode: genreMode,
-        minRating: minRating,
-        year: year,
-        withProviders: withProviders,
-        watchRegion: watchRegion,
-        maxAgeRating: maxAgeRating,
-        sortBy: sortBy,
-        page: page,
-        includeAdult: includeAdult,
-      );
+  }) => _discoverTvSeriesWithCount(
+    genreIds: genreIds,
+    withoutGenreIds: withoutGenreIds,
+    genreMode: genreMode,
+    minRating: minRating,
+    year: year,
+    withProviders: withProviders,
+    watchRegion: watchRegion,
+    maxAgeRating: maxAgeRating,
+    sortBy: sortBy,
+    page: page,
+    includeAdult: includeAdult,
+  );
 
   @override
   Future<List<Media>> discoverByProvider({
@@ -572,22 +573,20 @@ class TmdbRepository implements ITmdbRepository {
     double? minRating,
     int page = 1,
     bool includeAdult = false,
-  }) =>
-      _discoverByProvider(
-        providerIds: providerIds,
-        region: region,
-        minRating: minRating,
-        page: page,
-        includeAdult: includeAdult,
-      );
+  }) => _discoverByProvider(
+    providerIds: providerIds,
+    region: region,
+    minRating: minRating,
+    page: page,
+    includeAdult: includeAdult,
+  );
 
   @override
   Future<WatchProviderResult> getWatchProviders(
     int mediaId,
     MediaType type, {
     String region = 'DE',
-  }) =>
-      _getWatchProviders(mediaId, type, region: region);
+  }) => _getWatchProviders(mediaId, type, region: region);
 
   @override
   Future<List<Media>> getUpcomingMovies({
@@ -597,15 +596,14 @@ class TmdbRepository implements ITmdbRepository {
     double? minRating,
     int page = 1,
     bool includeAdult = false,
-  }) =>
-      _getUpcomingMovies(
-        withProviders: withProviders,
-        watchRegion: watchRegion,
-        maxAgeRating: maxAgeRating,
-        minRating: minRating,
-        page: page,
-        includeAdult: includeAdult,
-      );
+  }) => _getUpcomingMovies(
+    withProviders: withProviders,
+    watchRegion: watchRegion,
+    maxAgeRating: maxAgeRating,
+    minRating: minRating,
+    page: page,
+    includeAdult: includeAdult,
+  );
 
   @override
   Future<List<Media>> getUpcomingTvSeries({
@@ -615,17 +613,19 @@ class TmdbRepository implements ITmdbRepository {
     double? minRating,
     int page = 1,
     bool includeAdult = false,
-  }) =>
-      _getUpcomingTvSeries(
-        withProviders: withProviders,
-        watchRegion: watchRegion,
-        maxAgeRating: maxAgeRating,
-        minRating: minRating,
-        page: page,
-        includeAdult: includeAdult,
-      );
+  }) => _getUpcomingTvSeries(
+    withProviders: withProviders,
+    watchRegion: watchRegion,
+    maxAgeRating: maxAgeRating,
+    minRating: minRating,
+    page: page,
+    includeAdult: includeAdult,
+  );
 
   @override
   Future<String?> getTrailerUrl(int mediaId, MediaType type) =>
       _getTrailerUrl(mediaId, type);
+
+  @override
+  Future<List<Media>> getList(int listId) => _getList(listId);
 }

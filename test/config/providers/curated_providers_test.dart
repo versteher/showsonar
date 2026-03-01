@@ -63,46 +63,24 @@ void main() {
   });
 
   group('Curated Providers', () {
-    test('criticallyAcclaimed loads top quality movies and shows', () async {
+    test('criticallyAcclaimed loads list id 28', () async {
       container.read(selectedCollectionProvider.notifier).state =
           CuratedCollection.criticallyAcclaimed;
 
       when(
-        () => mocks.tmdbRepository.discoverMovies(
-          withProviders: [8],
-          watchRegion: 'US',
-          sortBy: 'vote_average.desc',
-          minRating: 8.0,
-          maxAgeRating: 18,
-        ),
+        () => mocks.tmdbRepository.getList(28),
       ).thenAnswer((_) async => [testMovieHighRating]);
 
-      when(
-        () => mocks.tmdbRepository.discoverTvSeries(
-          withProviders: [8],
-          watchRegion: 'US',
-          sortBy: 'vote_average.desc',
-          minRating: 8.0,
-          maxAgeRating: 18,
-        ),
-      ).thenAnswer((_) async => [testSeriesBingeable]);
-
       final results = await container.read(curatedCollectionProvider.future);
-      expect(results, containsAll([testMovieHighRating, testSeriesBingeable]));
+      expect(results, containsAll([testMovieHighRating]));
     });
 
-    test('perfectForTonight filters for short runtimes', () async {
+    test('perfectForTonight loads list id 112870', () async {
       container.read(selectedCollectionProvider.notifier).state =
           CuratedCollection.perfectForTonight;
 
       when(
-        () => mocks.tmdbRepository.discoverMovies(
-          withProviders: [8],
-          watchRegion: 'US',
-          sortBy: 'vote_average.desc',
-          minRating: 7.0,
-          maxAgeRating: 18,
-        ),
+        () => mocks.tmdbRepository.getList(112870),
       ).thenAnswer((_) async => [testMovieHighRating]);
 
       final results = await container.read(curatedCollectionProvider.future);
@@ -110,18 +88,12 @@ void main() {
       expect((results).first.title, 'Good Movie');
     });
 
-    test('bingeWorthy filters tv series by season count', () async {
+    test('bingeWorthy loads list id 114569', () async {
       container.read(selectedCollectionProvider.notifier).state =
           CuratedCollection.bingeWorthy;
 
       when(
-        () => mocks.tmdbRepository.discoverTvSeries(
-          withProviders: [8],
-          watchRegion: 'US',
-          sortBy: 'vote_average.desc',
-          minRating: 7.5,
-          maxAgeRating: 18,
-        ),
+        () => mocks.tmdbRepository.getList(114569),
       ).thenAnswer((_) async => [testSeriesBingeable]);
 
       final results = await container.read(curatedCollectionProvider.future);
@@ -129,35 +101,16 @@ void main() {
       expect((results).first.title, 'Short Series');
     });
 
-    test('modernClassics loads recent high-quality titles', () async {
+    test('modernClassics loads list id 15', () async {
       container.read(selectedCollectionProvider.notifier).state =
           CuratedCollection.modernClassics;
 
       when(
-        () => mocks.tmdbRepository.discoverMovies(
-          withProviders: [8],
-          watchRegion: 'US',
-          sortBy: 'vote_average.desc',
-          minRating: 8.0,
-          maxAgeRating: 18,
-        ),
-      ).thenAnswer((_) async => [testMovieHighRating]); // voteCount = 5000
-
-      when(
-        () => mocks.tmdbRepository.discoverTvSeries(
-          withProviders: [8],
-          watchRegion: 'US',
-          sortBy: 'vote_average.desc',
-          minRating: 8.0,
-          maxAgeRating: 18,
-        ),
-      ).thenAnswer((_) async => []);
+        () => mocks.tmdbRepository.getList(15),
+      ).thenAnswer((_) async => [testMovieHighRating]);
 
       final results = await container.read(curatedCollectionProvider.future);
-      expect(
-        (results).length,
-        1,
-      ); // Because it has 5000 votes, which is exactly >= 5000 limit
+      expect((results).length, 1);
     });
   });
 }
