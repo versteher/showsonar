@@ -35,12 +35,20 @@ class MockLocalPreferencesRepository implements LocalPreferencesRepository {
   bool get hasSeenOnboarding => false;
   @override
   Future<void> setHasSeenOnboarding(bool value) async {}
+
+  @override
+  int get viewingContextIndex => 0;
+
+  @override
+  Future<void> setViewingContextIndex(int index) async {}
+
   @override
   ThemeMode get themeMode => _themeMode;
   @override
   Future<void> setThemeMode(ThemeMode mode) async {
     _themeMode = mode;
   }
+
   @override
   Future<void> clear() async {}
 }

@@ -6,13 +6,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LocalPreferencesRepository {
   static const _hasSeenOnboardingKey = 'has_seen_onboarding';
   static const _themeModeKey = 'theme_mode';
+  static const _viewingContextKey = 'viewing_context';
 
   final SharedPreferences _prefs;
 
   const LocalPreferencesRepository(this._prefs);
 
-  bool get hasSeenOnboarding =>
-      _prefs.getBool(_hasSeenOnboardingKey) ?? false;
+  bool get hasSeenOnboarding => _prefs.getBool(_hasSeenOnboardingKey) ?? false;
 
   Future<void> setHasSeenOnboarding(bool value) =>
       _prefs.setBool(_hasSeenOnboardingKey, value);
@@ -27,6 +27,11 @@ class LocalPreferencesRepository {
 
   Future<void> setThemeMode(ThemeMode mode) =>
       _prefs.setString(_themeModeKey, mode.name);
+
+  int get viewingContextIndex => _prefs.getInt(_viewingContextKey) ?? 0;
+
+  Future<void> setViewingContextIndex(int index) =>
+      _prefs.setInt(_viewingContextKey, index);
 
   Future<void> clear() => _prefs.clear();
 }

@@ -42,6 +42,10 @@ void main() {
     when(
       () => mocks.userPreferencesRepository.getPreferences(),
     ).thenAnswer((_) async => mockPrefs);
+
+    when(
+      () => mocks.watchHistoryRepository.getAllEntries(),
+    ).thenAnswer((_) async => []);
   });
 
   tearDown(() {

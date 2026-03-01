@@ -31,6 +31,7 @@ class ViewingContextFilter {
   static ViewingContextFilter forContext(
     ViewingContext context, {
     List<int> favoriteGenreIds = const [],
+    List<int> watchHistoryTopGenres = const [],
   }) {
     switch (context) {
       case ViewingContext.all:
@@ -54,10 +55,13 @@ class ViewingContextFilter {
         );
 
       case ViewingContext.solo:
-        if (favoriteGenreIds.isEmpty) return empty;
-        return ViewingContextFilter(
-          includeGenreIds: favoriteGenreIds,
-        );
+        if (watchHistoryTopGenres.isNotEmpty) {
+          return ViewingContextFilter(includeGenreIds: watchHistoryTopGenres);
+        }
+        if (favoriteGenreIds.isNotEmpty) {
+          return ViewingContextFilter(includeGenreIds: favoriteGenreIds);
+        }
+        return empty;
     }
   }
 }

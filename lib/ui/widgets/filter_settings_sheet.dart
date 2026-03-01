@@ -5,6 +5,7 @@ import '../../config/providers.dart';
 
 import '../../utils/age_rating_mapper.dart';
 import '../theme/app_theme.dart';
+import 'streaming_filter_bar.dart';
 
 /// Modal bottom sheet for filter settings (Age Rating, Minimum Rating)
 class FilterSettingsSheet extends ConsumerWidget {
@@ -61,6 +62,12 @@ class FilterSettingsSheet extends ConsumerWidget {
               prefsAsync.when(
                 data: (prefs) => Column(
                   children: [
+                    // Streaming Filters Section
+                    _buildSectionTitle(context, 'Streaming-Dienste'),
+                    const SizedBox(height: AppTheme.spacingSm),
+                    const StreamingFilterBar(),
+                    const SizedBox(height: AppTheme.spacingXl),
+
                     // Age Rating Section
                     _buildSectionTitle(context, 'Altersfreigabe / Age Limit'),
                     const SizedBox(height: AppTheme.spacingMd),

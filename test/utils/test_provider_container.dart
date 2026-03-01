@@ -63,6 +63,8 @@ class MockDependencies {
 
     when(() => remoteConfigService.enableSocial).thenReturn(false);
     when(() => remoteConfigService.enableWidgets).thenReturn(false);
+
+    when(() => localPreferencesRepository.viewingContextIndex).thenReturn(0);
   }
 
   /// Creates a ProviderContainer with all base dependencies overridden with these mocks.

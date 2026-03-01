@@ -16,9 +16,11 @@ Future<List<Media>> trending(Ref ref) async {
   final tmdb = ref.watch(tmdbRepositoryProvider);
   final prefs = await ref.watch(userPreferencesProvider.future);
   final ctx = ref.watch(viewingContextProvider);
+  final stats = await ref.watch(watchHistoryStatsProvider.future);
   final filter = ViewingContextFilter.forContext(
     ctx,
     favoriteGenreIds: prefs.favoriteGenreIds,
+    watchHistoryTopGenres: stats.topGenres,
   );
   final providerIds = prefs.tmdbProviderIds;
   final effectiveAge = filter.maxAgeRatingOverride != null
@@ -108,8 +110,13 @@ Future<List<Media>> trending(Ref ref) async {
 Future<List<Media>> popularMovies(Ref ref) async {
   final tmdb = ref.watch(tmdbRepositoryProvider);
   final prefs = await ref.watch(userPreferencesProvider.future);
+  final stats = await ref.watch(watchHistoryStatsProvider.future);
   final ctx = ref.watch(viewingContextProvider);
-  final filter = ViewingContextFilter.forContext(ctx, favoriteGenreIds: prefs.favoriteGenreIds);
+  final filter = ViewingContextFilter.forContext(
+    ctx,
+    favoriteGenreIds: prefs.favoriteGenreIds,
+    watchHistoryTopGenres: stats.topGenres,
+  );
   final providerIds = prefs.tmdbProviderIds;
   final effectiveAge = filter.maxAgeRatingOverride != null
       ? min(prefs.maxAgeRating, filter.maxAgeRatingOverride!)
@@ -136,8 +143,13 @@ Future<List<Media>> popularMovies(Ref ref) async {
 Future<List<Media>> popularTvSeries(Ref ref) async {
   final tmdb = ref.watch(tmdbRepositoryProvider);
   final prefs = await ref.watch(userPreferencesProvider.future);
+  final stats = await ref.watch(watchHistoryStatsProvider.future);
   final ctx = ref.watch(viewingContextProvider);
-  final filter = ViewingContextFilter.forContext(ctx, favoriteGenreIds: prefs.favoriteGenreIds);
+  final filter = ViewingContextFilter.forContext(
+    ctx,
+    favoriteGenreIds: prefs.favoriteGenreIds,
+    watchHistoryTopGenres: stats.topGenres,
+  );
   final providerIds = prefs.tmdbProviderIds;
   final effectiveAge = filter.maxAgeRatingOverride != null
       ? min(prefs.maxAgeRating, filter.maxAgeRatingOverride!)
@@ -164,8 +176,13 @@ Future<List<Media>> popularTvSeries(Ref ref) async {
 Future<List<Media>> topRatedMovies(Ref ref) async {
   final tmdb = ref.watch(tmdbRepositoryProvider);
   final prefs = await ref.watch(userPreferencesProvider.future);
+  final stats = await ref.watch(watchHistoryStatsProvider.future);
   final ctx = ref.watch(viewingContextProvider);
-  final filter = ViewingContextFilter.forContext(ctx, favoriteGenreIds: prefs.favoriteGenreIds);
+  final filter = ViewingContextFilter.forContext(
+    ctx,
+    favoriteGenreIds: prefs.favoriteGenreIds,
+    watchHistoryTopGenres: stats.topGenres,
+  );
   final providerIds = prefs.tmdbProviderIds;
   final effectiveAge = filter.maxAgeRatingOverride != null
       ? min(prefs.maxAgeRating, filter.maxAgeRatingOverride!)
@@ -192,8 +209,13 @@ Future<List<Media>> topRatedMovies(Ref ref) async {
 Future<List<Media>> topRatedTvSeries(Ref ref) async {
   final tmdb = ref.watch(tmdbRepositoryProvider);
   final prefs = await ref.watch(userPreferencesProvider.future);
+  final stats = await ref.watch(watchHistoryStatsProvider.future);
   final ctx = ref.watch(viewingContextProvider);
-  final filter = ViewingContextFilter.forContext(ctx, favoriteGenreIds: prefs.favoriteGenreIds);
+  final filter = ViewingContextFilter.forContext(
+    ctx,
+    favoriteGenreIds: prefs.favoriteGenreIds,
+    watchHistoryTopGenres: stats.topGenres,
+  );
   final providerIds = prefs.tmdbProviderIds;
   final effectiveAge = filter.maxAgeRatingOverride != null
       ? min(prefs.maxAgeRating, filter.maxAgeRatingOverride!)
@@ -270,7 +292,11 @@ Future<List<Media>> upcoming(Ref ref) async {
 
 /// Provider for trailer URL
 @riverpod
-Future<String?> trailerUrl(Ref ref, {required int id, required MediaType type}) async {
+Future<String?> trailerUrl(
+  Ref ref, {
+  required int id,
+  required MediaType type,
+}) async {
   final tmdb = ref.watch(tmdbRepositoryProvider);
   return tmdb.getTrailerUrl(id, type);
 }

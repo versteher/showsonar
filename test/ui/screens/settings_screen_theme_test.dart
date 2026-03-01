@@ -28,6 +28,12 @@ class MockUserPreferencesRepository extends UserPreferencesRepository {
 }
 
 class MockLocalPreferencesRepository implements LocalPreferencesRepository {
+  @override
+  int get viewingContextIndex => 0;
+
+  @override
+  Future<void> setViewingContextIndex(int index) async {}
+
   ThemeMode _themeMode = ThemeMode.system;
 
   @override
@@ -40,6 +46,7 @@ class MockLocalPreferencesRepository implements LocalPreferencesRepository {
   Future<void> setThemeMode(ThemeMode mode) async {
     _themeMode = mode;
   }
+
   @override
   Future<void> clear() async {}
 }

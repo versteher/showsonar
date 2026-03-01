@@ -20,9 +20,21 @@ class ViewingContextChipBar extends ConsumerWidget {
 
     final chips = [
       _ChipData(ViewingContext.all, l10n.viewingContextAll, Icons.apps_rounded),
-      _ChipData(ViewingContext.kids, l10n.viewingContextKids, Icons.child_care_rounded),
-      _ChipData(ViewingContext.dateNight, l10n.viewingContextDateNight, Icons.favorite_rounded),
-      _ChipData(ViewingContext.solo, l10n.viewingContextSolo, Icons.person_rounded),
+      _ChipData(
+        ViewingContext.kids,
+        l10n.viewingContextKids,
+        Icons.child_care_rounded,
+      ),
+      _ChipData(
+        ViewingContext.dateNight,
+        l10n.viewingContextDateNight,
+        Icons.favorite_rounded,
+      ),
+      _ChipData(
+        ViewingContext.solo,
+        l10n.viewingContextSolo,
+        Icons.person_rounded,
+      ),
     ];
 
     return SizedBox(
@@ -41,7 +53,9 @@ class ViewingContextChipBar extends ConsumerWidget {
             isActive: isActive,
             onTap: () {
               AppHaptics.lightImpact();
-              ref.read(viewingContextProvider.notifier).state = chip.context;
+              ref
+                  .read(viewingContextProvider.notifier)
+                  .updateContext(chip.context);
             },
           );
         },
