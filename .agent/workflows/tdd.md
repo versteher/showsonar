@@ -90,30 +90,62 @@ when(() => mockDio.get('/path', queryParameters: any(named: 'queryParameters')))
   ));
 ```
 
-### Repositories (Hive-backed)
-- Use `Hive.init()` with a temp directory in `setUp`
+### Repositories (Firestore-backed)
+- Use `fake_cloud_firestore` for Firestore mocks — never real Firestore in unit tests
 - Test full CRUD cycle: add → get → update → remove → verify gone
-- Test `_safeBox` throws `StateError` when not initialized
 - Test `getAllEntries` returns sorted results
-- Test idempotent operations (e.g., add same service twice)
-- Clean up in `tearDown`: close boxes, delete temp dir
+- Test idempotent operations (e.g., add same item twice)
+- Test offline behavior: Firestore handles caching automatically
 
 ```dart
-// Pattern: Hive in tests
-late Directory tempDir;
+// Pattern: Firestore in tests
+import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 
-setUp(() async {
-  tempDir = await Directory.systemTemp.createTemp('hive_test_');
-  Hive.init(tempDir.path);
-  repo = WatchHistoryRepository();
-  await repo.init();
+late FakeFirebaseFirestore fakeFirestore;
+late MyRepository repo;
+
+setUp(() {
+  fakeFirestore = FakeFirebaseFirestore();
+  repo = MyRepository(firestore: fakeFirestore, userId: 'test-user');
 });
 
-tearDown(() async {
-  await repo.close();
-  await Hive.close();
-  tempDir.deleteSync(recursive: true);
+// No tearDown needed — FakeFirebaseFirestore is in-memory
+```
+
+### Repositories (SharedPreferences-backed)
+- Use `SharedPreferences.setMockInitialValues({})` in tests
+- Test get/set round-trips for each preference key
+- Test defaults when key is missing
+
+```dart
+// Pattern: SharedPreferences in tests
+setUp(() {
+  SharedPreferences.setMockInitialValues({});
 });
+
+test('returns default theme when not set', () async {
+  final prefs = await SharedPreferences.getInstance();
+  final repo = LocalPreferencesRepository(prefs);
+  expect(repo.themeMode, ThemeMode.dark);
+});
+```
+
+### Complex method signatures — Fake pattern
+When repository methods have many named parameters, use `Fake` instead of mocktail matchers:
+
+```dart
+class FakeMyRepository extends Fake implements IMyRepository {
+  final List<MyModel> Function()? _result;
+  FakeMyRepository({List<MyModel> Function()? result}) : _result = result;
+
+  @override
+  Future<List<MyModel>> discover({
+    List<int>? genreIds,
+    List<int>? withoutGenreIds,
+    double? minRating,
+    int page = 1,
+  }) async => (_result ?? () => [])();
+}
 ```
 
 ### Providers (Riverpod)
