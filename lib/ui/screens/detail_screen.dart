@@ -52,10 +52,17 @@ class DetailScreen extends ConsumerWidget {
       length: 4,
       child: Scaffold(
         body: Container(
-          decoration: const BoxDecoration(gradient: AppTheme.backgroundGradient),
+          decoration: const BoxDecoration(
+            gradient: AppTheme.backgroundGradient,
+          ),
           child: detailsAsync.when(
-            data: (media) =>
-                _buildContent(context, ref, media, similarAsync, watchEntryAsync),
+            data: (media) => _buildContent(
+              context,
+              ref,
+              media,
+              similarAsync,
+              watchEntryAsync,
+            ),
             loading: () => const DetailLoadingState(),
             error: (_, _) =>
                 DetailErrorState(mediaId: mediaId, mediaType: mediaType),
@@ -102,6 +109,51 @@ class DetailScreen extends ConsumerWidget {
                   Hero(
                     tag:
                         '${heroTagPrefix != null ? '${heroTagPrefix}_' : ''}poster_${media.type.name}_${media.id}',
+                    flightShuttleBuilder:
+                        (
+                          flightContext,
+                          animation,
+                          flightDirection,
+                          fromHeroContext,
+                          toHeroContext,
+                        ) {
+                          return AnimatedBuilder(
+                            animation: animation,
+                            builder: (context, child) {
+                              final isPush =
+                                  flightDirection == HeroFlightDirection.push;
+                              final poster = isPush
+                                  ? fromHeroContext.widget
+                                  : toHeroContext.widget;
+                              final backdrop = isPush
+                                  ? toHeroContext.widget
+                                  : fromHeroContext.widget;
+
+                              // Curve the animation for a smoother feel
+                              final curvedValue = Curves.easeInOut.transform(
+                                animation.value,
+                              );
+
+                              return Stack(
+                                fit: StackFit.expand,
+                                children: [
+                                  Opacity(
+                                    opacity: isPush
+                                        ? 1.0 - curvedValue
+                                        : curvedValue,
+                                    child: poster,
+                                  ),
+                                  Opacity(
+                                    opacity: isPush
+                                        ? curvedValue
+                                        : 1.0 - curvedValue,
+                                    child: backdrop,
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
                     child: Semantics(
                       label: l10n.semanticBackdropOf(media.title),
                       image: true,
@@ -148,7 +200,10 @@ class DetailScreen extends ConsumerWidget {
                   media: media,
                   watchEntry: watchEntry,
                   onShowRating: () => _showRatingAndMarkWatched(
-                    context, ref, media, watchEntry,
+                    context,
+                    ref,
+                    media,
+                    watchEntry,
                   ),
                   onConfirmRemove: () =>
                       _confirmRemoveFromHistory(context, ref, media),
@@ -159,7 +214,10 @@ class DetailScreen extends ConsumerWidget {
                     media: media,
                     entry: watchEntry,
                     onRatingTapped: () => _showRatingAndMarkWatched(
-                      context, ref, media, watchEntry,
+                      context,
+                      ref,
+                      media,
+                      watchEntry,
                     ),
                   ),
                 ],
@@ -244,8 +302,9 @@ class DetailScreen extends ConsumerWidget {
                             : l10n.detailSimilarShows,
                         items: items,
                         onMediaTap: (similar, prefix) {
-                          final typePath =
-                              similar.type == MediaType.movie ? 'movie' : 'tv';
+                          final typePath = similar.type == MediaType.movie
+                              ? 'movie'
+                              : 'tv';
                           context.pushReplacement(
                             '/$typePath/${similar.id}',
                             extra: {'heroTagPrefix': prefix},
@@ -280,9 +339,7 @@ class DetailScreen extends ConsumerWidget {
         const SizedBox(height: AppTheme.spacingSm),
         Text(
           media.overview,
-          style: Theme.of(
-            context,
-          ).textTheme.bodyMedium?.copyWith(height: 1.6),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.6),
         ),
       ],
     ).animate().fadeIn(delay: 300.ms, duration: 400.ms);
@@ -360,9 +417,7 @@ class DetailScreen extends ConsumerWidget {
         }
       }
 
-      ref.invalidate(
-        watchHistoryEntryProvider(id: media.id, type: media.type),
-      );
+      ref.invalidate(watchHistoryEntryProvider(id: media.id, type: media.type));
     }
   }
 
@@ -398,9 +453,7 @@ class DetailScreen extends ConsumerWidget {
         backgroundColor: AppTheme.surface,
         title: Text(AppLocalizations.of(context)!.detailRemoveHistoryTitle),
         content: Text(
-          AppLocalizations.of(
-            context,
-          )!.detailRemoveHistoryContent(media.title),
+          AppLocalizations.of(context)!.detailRemoveHistoryContent(media.title),
         ),
         actions: [
           TextButton(
@@ -420,9 +473,7 @@ class DetailScreen extends ConsumerWidget {
       final repo = ref.read(watchHistoryRepositoryProvider);
       await repo.init();
       await repo.removeFromHistory(media.id, media.type);
-      ref.invalidate(
-        watchHistoryEntryProvider(id: media.id, type: media.type),
-      );
+      ref.invalidate(watchHistoryEntryProvider(id: media.id, type: media.type));
       ref.invalidate(watchHistoryEntriesProvider);
       if (context.mounted) {
         AppSnackBar.showNeutral(
@@ -452,10 +503,7 @@ class _StickyTabBarDelegate extends SliverPersistentHeaderDelegate {
     double shrinkOffset,
     bool overlapsContent,
   ) {
-    return Material(
-      color: AppTheme.background,
-      child: tabBar,
-    );
+    return Material(color: AppTheme.background, child: tabBar);
   }
 
   @override

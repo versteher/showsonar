@@ -12,6 +12,7 @@ import '../widgets/settings_account_card.dart';
 import '../widgets/settings_reset_card.dart';
 import '../widgets/settings_theme_selector.dart';
 import '../../data/models/user_preferences.dart' as user_prefs;
+import '../../utils/app_haptics.dart';
 
 /// Settings screen for managing user preferences
 class SettingsScreen extends ConsumerWidget {
@@ -393,6 +394,7 @@ class SettingsScreen extends ConsumerWidget {
         value: prefs.showExtendedRatings,
         activeColor: AppTheme.primary,
         onChanged: (value) async {
+          AppHaptics.lightImpact();
           final repo = ref.read(userPreferencesRepositoryProvider);
           await repo.updateShowExtendedRatings(value);
           ref.invalidate(userPreferencesProvider);

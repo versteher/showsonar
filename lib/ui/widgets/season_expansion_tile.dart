@@ -5,6 +5,7 @@ import 'package:stream_scout/data/models/tv_episode.dart';
 import 'package:stream_scout/data/models/tv_season.dart';
 import 'package:stream_scout/data/repositories/episode_tracking_repository.dart';
 import 'package:stream_scout/ui/theme/app_theme.dart';
+import 'package:stream_scout/utils/app_haptics.dart';
 
 // Re-export the helper so callers don't need to import the providers file.
 export 'package:stream_scout/config/providers.dart'
@@ -200,7 +201,12 @@ class _EpisodeRow extends StatelessWidget {
       label:
           '${episode.name}, episode ${episode.episodeNumber}, season ${episode.seasonNumber}. ${isWatched ? 'Watched' : 'Not watched'}.',
       child: InkWell(
-        onTap: isFuture ? null : () => onToggle(!isWatched),
+        onTap: isFuture
+            ? null
+            : () {
+                AppHaptics.selectionClick();
+                onToggle(!isWatched);
+              },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           decoration: BoxDecoration(

@@ -11,6 +11,7 @@ import '../../data/models/watch_history_entry.dart';
 import '../theme/app_theme.dart';
 import '../widgets/app_snack_bar.dart';
 import '../widgets/watchlist_button.dart';
+import '../../utils/app_haptics.dart';
 
 class DetailActionRow extends ConsumerWidget {
   const DetailActionRow({
@@ -43,6 +44,7 @@ class DetailActionRow extends ConsumerWidget {
               isOnWatchlist: isOnWatchlist,
               mediaTitle: media.title,
               onToggle: () async {
+                AppHaptics.mediumImpact();
                 final repo = ref.read(watchlistRepositoryProvider);
                 await repo.init();
                 if (isOnWatchlist) {
@@ -77,10 +79,14 @@ class DetailActionRow extends ConsumerWidget {
             Expanded(
               flex: 2,
               child: ElevatedButton.icon(
-                onPressed: onShowRating,
+                onPressed: () {
+                  AppHaptics.mediumImpact();
+                  onShowRating();
+                },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      isWatched ? AppTheme.success : AppTheme.primary,
+                  backgroundColor: isWatched
+                      ? AppTheme.success
+                      : AppTheme.primary,
                 ),
                 icon: Icon(
                   isWatched
@@ -103,7 +109,10 @@ class DetailActionRow extends ConsumerWidget {
                   context,
                 )!.semanticDeleteFromHistory(media.title),
                 child: OutlinedButton(
-                  onPressed: onConfirmRemove,
+                  onPressed: () {
+                    AppHaptics.heavyImpact();
+                    onConfirmRemove();
+                  },
                   style: OutlinedButton.styleFrom(
                     foregroundColor: AppTheme.error,
                     side: const BorderSide(color: AppTheme.error),

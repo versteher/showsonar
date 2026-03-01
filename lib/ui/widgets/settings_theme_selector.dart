@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stream_scout/config/providers.dart';
 import 'package:stream_scout/data/models/user_preferences.dart';
 import 'package:stream_scout/ui/theme/app_theme.dart';
+import 'package:stream_scout/utils/app_haptics.dart';
 
 /// Segmented button card for selecting the app theme mode.
 class SettingsThemeSelector extends ConsumerWidget {
@@ -40,6 +41,7 @@ class SettingsThemeSelector extends ConsumerWidget {
         ],
         selected: {prefs.themeMode},
         onSelectionChanged: (Set<String> newSelection) async {
+          AppHaptics.lightImpact();
           final modeStr = newSelection.first;
           final newMode = ThemeMode.values.firstWhere(
             (e) => e.name == modeStr,

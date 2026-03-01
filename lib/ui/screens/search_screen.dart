@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:lottie/lottie.dart';
@@ -279,38 +280,48 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   return GestureDetector(
                     onTap: () {
                       AppHaptics.lightImpact();
-                      ref.read(selectedMoodProvider.notifier).state =
-                          isSelected ? null : mood;
+                      ref.read(selectedMoodProvider.notifier).state = isSelected
+                          ? null
+                          : mood;
                     },
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 10,
-                      ),
-                      decoration: BoxDecoration(
-                        gradient: isSelected ? AppTheme.primaryGradient : null,
-                        color: isSelected ? null : AppTheme.surface,
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                          color: isSelected
-                              ? Colors.transparent
-                              : AppTheme.surfaceBorder,
-                        ),
-                      ),
-                      child: Text(
-                        '${mood.emoji} ${mood.label}',
-                        style: TextStyle(
-                          fontWeight: isSelected
-                              ? FontWeight.bold
-                              : FontWeight.normal,
-                          color: isSelected
-                              ? Colors.white
-                              : AppTheme.textPrimary,
-                          fontSize: 13,
-                        ),
-                      ),
-                    ),
+                    child:
+                        AnimatedContainer(
+                              duration: const Duration(milliseconds: 200),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 10,
+                              ),
+                              decoration: BoxDecoration(
+                                gradient: isSelected
+                                    ? AppTheme.primaryGradient
+                                    : null,
+                                color: isSelected ? null : AppTheme.surface,
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: isSelected
+                                      ? Colors.transparent
+                                      : AppTheme.surfaceBorder,
+                                ),
+                              ),
+                              child: Text(
+                                '${mood.emoji} ${mood.label}',
+                                style: TextStyle(
+                                  fontWeight: isSelected
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                                  color: isSelected
+                                      ? Colors.white
+                                      : AppTheme.textPrimary,
+                                  fontSize: 13,
+                                ),
+                              ),
+                            )
+                            .animate()
+                            .fadeIn(
+                              duration: 400.ms,
+                              delay: (mood.index * 50).ms,
+                            )
+                            .slideY(begin: 0.2, end: 0),
                   );
                 }).toList(),
               ),
@@ -397,20 +408,17 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               mainAxisSpacing: AppTheme.spacingMd,
               crossAxisSpacing: AppTheme.spacingMd,
             ),
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                final media = items[index];
-                return LayoutBuilder(
-                  builder: (context, constraints) => MediaCard(
-                    media: media,
-                    width: constraints.maxWidth,
-                    heroTagPrefix: 'discover',
-                    onTap: () => _navigateToDetail(media),
-                  ),
-                );
-              },
-              childCount: items.length,
-            ),
+            delegate: SliverChildBuilderDelegate((context, index) {
+              final media = items[index];
+              return LayoutBuilder(
+                builder: (context, constraints) => MediaCard(
+                  media: media,
+                  width: constraints.maxWidth,
+                  heroTagPrefix: 'discover',
+                  onTap: () => _navigateToDetail(media),
+                ),
+              );
+            }, childCount: items.length),
           ),
         );
       },
