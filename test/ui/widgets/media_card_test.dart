@@ -134,12 +134,14 @@ void main() {
       expect(find.text('Gesehen'), findsNothing);
     });
 
-    testWidgets('shows media type badge', (tester) async {
+    testWidgets('does not show media type badge (removed in declutter)', (tester) async {
       await tester.pumpWidget(buildTestWidget());
       await tester.pump(const Duration(milliseconds: 500));
 
-      // MediaType.movie.displayName is 'Film'
-      expect(find.text('Film'), findsOneWidget);
+      // Type badge was removed to reduce card clutter — the section title
+      // already communicates context (Movies, TV, etc.)
+      expect(find.text('Film'), findsNothing);
+      expect(find.text('Movie'), findsNothing);
     });
 
     testWidgets('shows fallback icon when posterPath is null', (tester) async {

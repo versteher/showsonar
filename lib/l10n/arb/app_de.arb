@@ -7,6 +7,8 @@
     "navHome": "Home",
     "navSearch": "Suche",
     "navAi": "AI",
+    "navLibrary": "Bibliothek",
+    "navProfile": "Profil",
     "navMyList": "Meine Liste",
     "navMore": "Mehr",
     
@@ -286,5 +288,48 @@
             "title": { "type": "String" }
         }
     },
-    "detailEmptyState": "Wähle einen Film oder eine Serie aus"
+    "detailEmptyState": "Wähle einen Film oder eine Serie aus",
+
+    "detailTabAbout": "Über",
+    "detailTabCast": "Besetzung",
+    "detailTabStreaming": "Wo schauen",
+    "detailTabSimilar": "Ähnliche",
+
+    "settingsTheme": "Erscheinungsbild",
+    "settingsProfiles": "👥 Profile",
+    "settingsAccount": "Konto",
+    "settingsTasteProfile": "👤 Geschmacksprofil",
+    "settingsTasteProfileTitle": "Profil teilen & vergleichen",
+    "settingsTasteProfileSubtitle": "Exportiere dein Sehprofil oder importiere das eines Freundes",
+
+    "aiSuggestion1Label": "🎬 Was ist gerade gut?",
+    "aiSuggestion1Query": "Was sind die besten Filme und Serien die gerade im Trend sind?",
+    "aiSuggestion2Label": "😂 Was Lustiges",
+    "aiSuggestion2Query": "Empfiehl mir eine richtig lustige Komödie die man gesehen haben muss",
+    "aiSuggestion3Label": "🔥 Thriller wie Dark",
+    "aiSuggestion3Query": "Ich suche einen spannenden Thriller oder Mystery-Serie ähnlich wie Dark",
+    "aiSuggestion4Label": "🤔 Zum Nachdenken",
+    "aiSuggestion4Query": "Empfiehl mir einen Film oder eine Serie die zum Nachdenken anregt, tiefgründig und emotional",
+    "aiSuggestion5Label": "👨‍👩‍👧 Familienabend",
+    "aiSuggestion5Query": "Was kann man als Familie zusammen schauen? Nicht zu kindisch aber jugendfrei",
+    "aiSuggestion6Label": "🏆 Oscar-würdig",
+    "aiSuggestion6Query": "Was sind die besten preisgekrönten Filme der letzten Jahre die man gesehen haben muss?",
+
+    "aiWelcomeTitle": "Was möchtest du schauen?",
+    "aiWelcomeSubtitle": "Frag mich nach Empfehlungen, Stimmungen\noder bestimmten Genres!",
+
+    "aiError": "❌ Ein Fehler ist aufgetreten. Bitte versuche es erneut.",
+    "aiSearchNoResult": "Kein Ergebnis für \"{title}\"",
+    "aiSearchFailed": "Suche fehlgeschlagen",
+
+    "discoverRandomPick": "🎲 Zufallsfilm — Lass uns entscheiden!",
+
+    "aiChatSubtitle": "Dein persönlicher Film-Berater",
+    "aiPoweredBy": "✨ Powered by Google Gemini",
+    "aiThinking": "ShowSonar AI denkt nach...",
+    "aiInputHint": "Frag mich was...",
+    "actionCopy": "Kopieren",
+    "actionCopied": "Text kopiert",
+    "actionShare": "Teilen",
+    "actionCopiedForSharing": "In Zwischenablage kopiert — zum Teilen einfügen"
 }

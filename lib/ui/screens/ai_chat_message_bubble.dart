@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import '../../l10n/app_localizations.dart';
 import '../../utils/ai_title_parser.dart';
 import '../theme/app_theme.dart';
 import '../widgets/app_snack_bar.dart';
@@ -208,6 +209,7 @@ class _MessageActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Padding(
       padding: const EdgeInsets.only(top: 6),
       child: Row(
@@ -216,22 +218,22 @@ class _MessageActions extends StatelessWidget {
           _ActionButton(
             key: const Key('copy_button'),
             icon: Icons.copy_rounded,
-            tooltip: 'Kopieren',
+            tooltip: l10n.actionCopy,
             onTap: () {
               Clipboard.setData(ClipboardData(text: text));
-              AppSnackBar.showInfo(context, 'Text kopiert');
+              AppSnackBar.showInfo(context, l10n.actionCopied);
             },
           ),
           const SizedBox(width: 4),
           _ActionButton(
             key: const Key('share_button'),
             icon: Icons.share_rounded,
-            tooltip: 'Teilen',
+            tooltip: l10n.actionShare,
             onTap: () {
               Clipboard.setData(ClipboardData(text: text));
               AppSnackBar.showInfo(
                 context,
-                'In Zwischenablage kopiert — zum Teilen einfügen',
+                l10n.actionCopiedForSharing,
                 icon: Icons.share_rounded,
               );
             },

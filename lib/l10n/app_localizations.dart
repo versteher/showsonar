@@ -140,6 +140,18 @@ abstract class AppLocalizations {
   /// **'My List'**
   String get navMyList;
 
+  /// No description provided for @navLibrary.
+  ///
+  /// In en, this message translates to:
+  /// **'Library'**
+  String get navLibrary;
+
+  /// No description provided for @navProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get navProfile;
+
   /// No description provided for @navMore.
   ///
   /// In en, this message translates to:
@@ -1099,6 +1111,76 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select a movie or series to view details'**
   String get detailEmptyState;
+
+  /// No description provided for @detailTabAbout.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get detailTabAbout;
+
+  /// No description provided for @detailTabCast.
+  ///
+  /// In en, this message translates to:
+  /// **'Cast'**
+  String get detailTabCast;
+
+  /// No description provided for @detailTabStreaming.
+  ///
+  /// In en, this message translates to:
+  /// **'Where to Watch'**
+  String get detailTabStreaming;
+
+  /// No description provided for @detailTabSimilar.
+  ///
+  /// In en, this message translates to:
+  /// **'Similar'**
+  String get detailTabSimilar;
+
+  /// Settings section titles (previously hardcoded)
+  String get settingsTheme;
+  String get settingsProfiles;
+  String get settingsAccount;
+  String get settingsTasteProfile;
+  String get settingsTasteProfileTitle;
+  String get settingsTasteProfileSubtitle;
+
+  /// AI Chat suggestion chips
+  String get aiSuggestion1Label;
+  String get aiSuggestion1Query;
+  String get aiSuggestion2Label;
+  String get aiSuggestion2Query;
+  String get aiSuggestion3Label;
+  String get aiSuggestion3Query;
+  String get aiSuggestion4Label;
+  String get aiSuggestion4Query;
+  String get aiSuggestion5Label;
+  String get aiSuggestion5Query;
+  String get aiSuggestion6Label;
+  String get aiSuggestion6Query;
+
+  /// AI Chat welcome screen
+  String get aiWelcomeTitle;
+  String get aiWelcomeSubtitle;
+
+  /// Discovery panel
+  String get discoverRandomPick;
+
+  /// AI Chat error/status messages
+  String get aiError;
+  String aiSearchNoResult(String title);
+  String get aiSearchFailed;
+
+  /// AI Chat header & input
+  String get aiChatSubtitle;
+  String get aiPoweredBy;
+  String get aiThinking;
+  String get aiInputHint;
+
+  /// Message action labels
+  String get actionCopy;
+  String get actionCopied;
+  String get actionShare;
+  String get actionCopiedForSharing;
 }
 
 class _AppLocalizationsDelegate

@@ -88,11 +88,10 @@ class TestAssetBundle extends CachingAssetBundle {
 }
 
 void main() {
-  testWidgets('OnboardingScreen displays 5 pages and allows navigation', (
+  testWidgets('OnboardingScreen has 3 pages and allows navigation', (
     WidgetTester tester,
   ) async {
     await mockNetworkImagesFor(() async {
-      // Build the app with ProviderScope
       await tester.pumpWidget(
         ProviderScope(
           child: MaterialApp(
@@ -104,44 +103,35 @@ void main() {
         ),
       );
 
-      // Page 1: Location Page
+      // Page 1: Location + Streaming (combined)
       expect(find.text('Welcome to ShowSonar'), findsOneWidget);
-      expect(find.text('Next'), findsOneWidget);
-      expect(find.text('Back'), findsNothing);
-
-      // Tap Next
-      await tester.tap(find.text('Next'));
-      await tester.pumpAndSettle();
-
-      // Page 2: Streaming Providers
       expect(find.text('Your Services'), findsOneWidget);
       expect(find.text('Next'), findsOneWidget);
+      expect(find.text('Skip'), findsOneWidget);
+      expect(find.text('Back'), findsNothing);
+
+      // Tap Next → Page 2: Genres
+      await tester.tap(find.text('Next'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Favorite Genres'), findsOneWidget);
+      expect(find.text('Next'), findsOneWidget);
+      expect(find.text('Skip'), findsOneWidget);
       expect(find.text('Back'), findsOneWidget);
 
-      // Need to select at least one provider to continue
-      // It should have selected defaults
-
+      // Tap Next → Page 3: Done
       await tester.tap(find.text('Next'));
       await tester.pumpAndSettle();
 
-      // Page 3: Genres
-      expect(find.text('Favorite Genres'), findsOneWidget);
-      await tester.tap(find.text('Next'));
-      await tester.pumpAndSettle();
-
-      // Page 4: Theme
-      expect(find.text('Choose a Theme'), findsOneWidget);
-      await tester.tap(find.text('Next'));
-      await tester.pumpAndSettle();
-
-      // Page 5: Taste Profile Import & Get Started
-      expect(find.text('You\'re All Set!'), findsOneWidget);
+      expect(find.text("You're All Set!"), findsOneWidget);
       expect(find.text('Get Started'), findsOneWidget);
+      // No Skip on final page
+      expect(find.text('Skip'), findsNothing);
 
-      // Can navigate back
+      // Can navigate back to Genres
       await tester.tap(find.text('Back'));
       await tester.pumpAndSettle();
-      expect(find.text('Choose a Theme'), findsOneWidget);
+      expect(find.text('Favorite Genres'), findsOneWidget);
     });
   });
 }

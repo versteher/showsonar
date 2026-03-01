@@ -14,6 +14,7 @@ import '../../data/models/media.dart';
 import '../theme/app_theme.dart';
 import '../widgets/media_card.dart';
 import '../widgets/filter_settings_sheet.dart';
+import '../widgets/tonights_pick_sheet.dart';
 
 /// Search screen with debounced search and results grid
 class SearchScreen extends ConsumerStatefulWidget {
@@ -231,7 +232,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   Widget _buildContent(AsyncValue<List<Media>> results, String query) {
     if (query.isEmpty || query.length < 2) {
-      return _buildEmptyState();
+      return _buildDiscoverState();
     }
 
     return results.when(
@@ -246,29 +247,194 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     );
   }
 
-  Widget _buildEmptyState() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Lottie.asset(
-            'assets/animations/empty_search.json',
-            width: 200,
-            height: 200,
+  Widget _buildDiscoverState() {
+    final l10n = AppLocalizations.of(context)!;
+    final selectedMood = ref.watch(selectedMoodProvider);
+
+    return CustomScrollView(
+      slivers: [
+        SliverPadding(
+          padding: const EdgeInsets.all(AppTheme.spacingMd),
+          sliver: SliverList(
+            delegate: SliverChildListDelegate([
+              Text(
+                l10n.sectionDiscover,
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                l10n.moodTitle,
+                style: Theme.of(
+                  context,
+                ).textTheme.bodySmall?.copyWith(color: AppTheme.textMuted),
+              ),
+              const SizedBox(height: AppTheme.spacingMd),
+
+              // Mood chips
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: DiscoveryMood.values.map((mood) {
+                  final isSelected = selectedMood == mood;
+                  return GestureDetector(
+                    onTap: () {
+                      AppHaptics.lightImpact();
+                      ref.read(selectedMoodProvider.notifier).state =
+                          isSelected ? null : mood;
+                    },
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 200),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 10,
+                      ),
+                      decoration: BoxDecoration(
+                        gradient: isSelected ? AppTheme.primaryGradient : null,
+                        color: isSelected ? null : AppTheme.surface,
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                          color: isSelected
+                              ? Colors.transparent
+                              : AppTheme.surfaceBorder,
+                        ),
+                      ),
+                      child: Text(
+                        '${mood.emoji} ${mood.label}',
+                        style: TextStyle(
+                          fontWeight: isSelected
+                              ? FontWeight.bold
+                              : FontWeight.normal,
+                          color: isSelected
+                              ? Colors.white
+                              : AppTheme.textPrimary,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+
+              const SizedBox(height: AppTheme.spacingLg),
+
+              // Random Pick CTA
+              GestureDetector(
+                onTap: () {
+                  AppHaptics.mediumImpact();
+                  showModalBottomSheet(
+                    context: context,
+                    backgroundColor: Colors.transparent,
+                    isScrollControlled: true,
+                    builder: (_) => const TonightsPickSheet(),
+                  );
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(AppTheme.spacingMd),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFD700).withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
+                    border: Border.all(
+                      color: const Color(0xFFFFD700).withValues(alpha: 0.4),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.casino_rounded,
+                        color: Color(0xFFFFD700),
+                        size: 22,
+                      ),
+                      const SizedBox(width: 12),
+                      Text(
+                        l10n.discoverRandomPick,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ]),
           ),
-          const SizedBox(height: AppTheme.spacingMd),
-          Text(
-            'Keep typing to find movies & series',
-            style: Theme.of(
-              context,
-            ).textTheme.bodyLarge?.copyWith(color: AppTheme.textMuted),
+        ),
+
+        // Mood results grid
+        if (selectedMood != null) _buildMoodResultsSliver(selectedMood),
+
+        const SliverToBoxAdapter(child: SizedBox(height: 80)),
+      ],
+    );
+  }
+
+  Widget _buildMoodResultsSliver(DiscoveryMood mood) {
+    final resultsAsync = ref.watch(moodDiscoverProvider);
+    final l10n = AppLocalizations.of(context)!;
+
+    return resultsAsync.when(
+      data: (items) {
+        if (items.isEmpty) {
+          return SliverToBoxAdapter(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(AppTheme.spacingLg),
+                child: Text(
+                  l10n.moodNoResults(mood.label),
+                  style: const TextStyle(color: AppTheme.textMuted),
+                ),
+              ),
+            ),
+          );
+        }
+        return SliverPadding(
+          padding: const EdgeInsets.symmetric(horizontal: AppTheme.spacingMd),
+          sliver: SliverGrid(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: _getCrossAxisCount(context),
+              childAspectRatio: AppTheme.posterAspectRatio * 0.82,
+              mainAxisSpacing: AppTheme.spacingMd,
+              crossAxisSpacing: AppTheme.spacingMd,
+            ),
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                final media = items[index];
+                return LayoutBuilder(
+                  builder: (context, constraints) => MediaCard(
+                    media: media,
+                    width: constraints.maxWidth,
+                    heroTagPrefix: 'discover',
+                    onTap: () => _navigateToDetail(media),
+                  ),
+                );
+              },
+              childCount: items.length,
+            ),
           ),
-        ],
+        );
+      },
+      loading: () => const SliverToBoxAdapter(
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.all(32),
+            child: CircularProgressIndicator(),
+          ),
+        ),
+      ),
+      error: (e, _) => SliverToBoxAdapter(
+        child: Center(
+          child: Text(
+            l10n.errorGeneric('$e'),
+            style: const TextStyle(color: AppTheme.error),
+          ),
+        ),
       ),
     );
   }
 
   Widget _buildNoResultsState() {
+    final l10n = AppLocalizations.of(context)!;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -280,15 +446,15 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           ),
           const SizedBox(height: AppTheme.spacingMd),
           Text(
-            'No results found for "${_searchController.text}"',
+            l10n.searchNoResultsTitle(_searchController.text),
             style: Theme.of(
               context,
             ).textTheme.bodyLarge?.copyWith(color: AppTheme.textMuted),
           ),
           const SizedBox(height: AppTheme.spacingSm),
-          const Text(
-            'Try checking for typos or using different keywords',
-            style: TextStyle(color: AppTheme.textMuted, fontSize: 13),
+          Text(
+            l10n.searchNoResultsSubtitle,
+            style: const TextStyle(color: AppTheme.textMuted, fontSize: 13),
           ),
         ],
       ),

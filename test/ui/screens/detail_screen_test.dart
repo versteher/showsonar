@@ -187,10 +187,11 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      // Should show 'Gesehen' badge or similar (from watch history)
-      expect(find.text('Gesehen'), findsOneWidget);
+      // Watched badge was moved from backdrop to action row — no duplicate badge
+      expect(find.text('Gesehen'), findsNothing);
       expect(find.text('Great movie!'), findsOneWidget);
-      expect(find.text('8.0 ⭐'), findsOneWidget);
+      // Rating shown in personal rating card as plain number (no ⭐ emoji)
+      expect(find.text('8.0'), findsAtLeastNWidgets(1));
 
       // Button should change to "Change Rating"
       expect(find.text('Change Rating'), findsOneWidget);

@@ -54,13 +54,13 @@ void main() {
       );
       expect(find.text('Not Signed In'), findsOneWidget);
 
-      // Check for Taste Profil
+      // Check for Taste Profile card
       await tester.scrollUntilVisible(
-        find.text('Profil teilen & vergleichen'),
+        find.text('Share & compare profile'),
         500,
         scrollable: listFinder,
       );
-      expect(find.text('Profil teilen & vergleichen'), findsOneWidget);
+      expect(find.text('Share & compare profile'), findsOneWidget);
     });
   });
 }

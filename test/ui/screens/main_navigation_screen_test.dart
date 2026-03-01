@@ -22,13 +22,13 @@ void main() {
     when(() => mockAnalytics.logScreenView(any())).thenAnswer((_) async {});
   });
 
-  testWidgets('renders tabs and switches pages', (tester) async {
+  testWidgets('renders 4 tabs and switches pages', (tester) async {
+    // 4 screens: Home, Search, Library, Profile (AI chat is a modal, not a tab)
     final screens = [
       const Text('Home Screen Tab'),
       const Text('Search Screen Tab'),
-      const Text('AI Chat Screen Tab'),
-      const Text('My List Screen Tab'),
-      const Text('Settings Screen Tab'),
+      const Text('Library Screen Tab'),
+      const Text('Profile Screen Tab'),
     ];
 
     await tester.pumpWidget(
@@ -49,15 +49,16 @@ void main() {
 
     expect(find.text('Home Screen Tab'), findsOneWidget);
 
-    final settingsIcon = find.byWidgetPredicate(
+    // Tap the Profile tab (person icon — index 3)
+    final profileIcon = find.byWidgetPredicate(
       (widget) =>
           widget is Icon &&
-          (widget.icon == Icons.settings_rounded ||
-              widget.icon == Icons.settings_outlined),
+          (widget.icon == Icons.person_rounded ||
+              widget.icon == Icons.person_outline_rounded),
     );
-    await tester.tap(settingsIcon.last);
+    await tester.tap(profileIcon.last);
     await tester.pumpAndSettle();
 
-    expect(find.text('Settings Screen Tab'), findsOneWidget);
+    expect(find.text('Profile Screen Tab'), findsOneWidget);
   });
 }

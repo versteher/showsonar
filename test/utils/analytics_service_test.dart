@@ -18,29 +18,22 @@ void main() {
         );
       });
 
-      test('index 2 → ai_chat', () {
+      test('index 2 → my_list (AI chat is now a modal, not a tab)', () {
         expect(
           AnalyticsService.screenNameForTab(2),
-          AnalyticsService.screenAiChat,
-        );
-      });
-
-      test('index 3 → my_list', () {
-        expect(
-          AnalyticsService.screenNameForTab(3),
           AnalyticsService.screenMyList,
         );
       });
 
-      test('index 4 → settings', () {
+      test('index 3 → settings', () {
         expect(
-          AnalyticsService.screenNameForTab(4),
+          AnalyticsService.screenNameForTab(3),
           AnalyticsService.screenSettings,
         );
       });
 
-      test('all tab indices have non-empty screen names', () {
-        for (var i = 0; i < 5; i++) {
+      test('all tab indices (0–3) have non-empty screen names', () {
+        for (var i = 0; i < 4; i++) {
           expect(
             AnalyticsService.screenNameForTab(i),
             isNotEmpty,

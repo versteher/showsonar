@@ -41,9 +41,9 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      expect(find.text('Was möchtest du schauen?'), findsOneWidget);
+      expect(find.text('What would you like to watch?'), findsOneWidget);
       expect(
-        find.text('🎬 Was ist gerade gut?'),
+        find.text("🎬 What's trending?"),
         findsOneWidget,
       ); // Suggestion chip
     });
@@ -66,7 +66,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Tap suggestion to send message
-      await tester.tap(find.text('🎬 Was ist gerade gut?'));
+      await tester.tap(find.text("🎬 What's trending?"));
 
       // Wait for stream to process
       for (int i = 0; i < 5; i++) {
@@ -76,7 +76,7 @@ void main() {
       // Check user message is shown
       expect(
         find.text(
-          'Was sind die besten Filme und Serien die gerade im Trend sind?',
+          'What are the best trending movies and series right now?',
         ),
         findsOneWidget,
       );

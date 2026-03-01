@@ -29,6 +29,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navAi => 'AI';
 
   @override
+  String get navLibrary => 'Library';
+
+  @override
+  String get navProfile => 'Profile';
+
+  @override
   String get navMyList => 'My List';
 
   @override
@@ -627,4 +633,120 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get detailEmptyState => 'Select a movie or series to view details';
+
+  @override
+  String get detailTabAbout => 'About';
+
+  @override
+  String get detailTabCast => 'Cast';
+
+  @override
+  String get detailTabStreaming => 'Where to Watch';
+
+  @override
+  String get detailTabSimilar => 'Similar';
+
+  @override
+  String get settingsTheme => 'Theme';
+
+  @override
+  String get settingsProfiles => '👥 Profiles';
+
+  @override
+  String get settingsAccount => 'Account';
+
+  @override
+  String get settingsTasteProfile => '👤 Taste Profile';
+
+  @override
+  String get settingsTasteProfileTitle => 'Share & compare profile';
+
+  @override
+  String get settingsTasteProfileSubtitle =>
+      "Export your watch profile or import a friend's";
+
+  @override
+  String get aiSuggestion1Label => "🎬 What's trending?";
+
+  @override
+  String get aiSuggestion1Query =>
+      'What are the best trending movies and series right now?';
+
+  @override
+  String get aiSuggestion2Label => '😂 Something funny';
+
+  @override
+  String get aiSuggestion2Query =>
+      "Recommend a hilarious comedy that's a must-watch";
+
+  @override
+  String get aiSuggestion3Label => '🔥 Thriller like Dark';
+
+  @override
+  String get aiSuggestion3Query =>
+      "I'm looking for a gripping thriller or mystery series similar to Dark";
+
+  @override
+  String get aiSuggestion4Label => '🤔 Something thought-provoking';
+
+  @override
+  String get aiSuggestion4Query =>
+      'Recommend a film or series that makes you think, profound and emotional';
+
+  @override
+  String get aiSuggestion5Label => '👨‍👩‍👧 Family night';
+
+  @override
+  String get aiSuggestion5Query =>
+      "What can a family watch together? Not too childish but family-friendly";
+
+  @override
+  String get aiSuggestion6Label => '🏆 Award-worthy';
+
+  @override
+  String get aiSuggestion6Query =>
+      "What are the best award-winning films of recent years that are a must-watch?";
+
+  @override
+  String get discoverRandomPick => '🎲 Random Pick — Let us decide!';
+
+  @override
+  String get aiWelcomeTitle => 'What would you like to watch?';
+
+  @override
+  String get aiWelcomeSubtitle =>
+      'Ask me for recommendations, moods,\nor specific genres!';
+
+  @override
+  String get aiError => '❌ An error occurred. Please try again.';
+
+  @override
+  String aiSearchNoResult(String title) => 'No result for "$title"';
+
+  @override
+  String get aiSearchFailed => 'Search failed';
+
+  @override
+  String get aiChatSubtitle => 'Your personal movie advisor';
+
+  @override
+  String get aiPoweredBy => '✨ Powered by Google Gemini';
+
+  @override
+  String get aiThinking => 'ShowSonar AI is thinking...';
+
+  @override
+  String get aiInputHint => 'Ask me anything...';
+
+  @override
+  String get actionCopy => 'Copy';
+
+  @override
+  String get actionCopied => 'Text copied';
+
+  @override
+  String get actionShare => 'Share';
+
+  @override
+  String get actionCopiedForSharing => 'Copied to clipboard — paste to share';
 }

@@ -22,18 +22,17 @@ class AnalyticsService {
       ? FirebaseAnalyticsObserver(analytics: _analytics)
       : null;
 
-  /// Screen names for the 5 bottom-nav tabs.
+  /// Screen names for the 4 bottom-nav tabs (AI chat opens as modal, not a tab).
   static const String screenHome = 'home';
   static const String screenSearch = 'search';
   static const String screenAiChat = 'ai_chat';
   static const String screenMyList = 'my_list';
   static const String screenSettings = 'settings';
 
-  /// Maps a bottom-nav [tabIndex] to a human-readable screen name.
+  /// Maps a bottom-nav [tabIndex] (0–3) to a human-readable screen name.
   static String screenNameForTab(int index) => const [
     screenHome,
     screenSearch,
-    screenAiChat,
     screenMyList,
     screenSettings,
   ][index];

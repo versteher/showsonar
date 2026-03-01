@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../l10n/app_localizations.dart';
 import '../theme/app_theme.dart';
 
 /// Top app bar for the AI chat screen.
@@ -17,6 +18,7 @@ class AiChatAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return SafeArea(
       bottom: false,
       child: Container(
@@ -64,10 +66,17 @@ class AiChatAppBar extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Dein persönlicher Film-Berater',
+                    l10n.aiChatSubtitle,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: AppTheme.textMuted,
                       fontSize: 11,
+                    ),
+                  ),
+                  Text(
+                    l10n.aiPoweredBy,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: AppTheme.textMuted.withValues(alpha: 0.6),
+                      fontSize: 10,
                     ),
                   ),
                 ],

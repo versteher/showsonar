@@ -7,6 +7,8 @@
     "navHome": "Home",
     "navSearch": "Search",
     "navAi": "AI",
+    "navLibrary": "Library",
+    "navProfile": "Profile",
     "navMyList": "My List",
     "navMore": "More",
     
@@ -481,5 +483,53 @@
             "title": { "type": "String" }
         }
     },
-    "detailEmptyState": "Select a movie or series to view details"
+    "detailEmptyState": "Select a movie or series to view details",
+
+    "detailTabAbout": "About",
+    "detailTabCast": "Cast",
+    "detailTabStreaming": "Where to Watch",
+    "detailTabSimilar": "Similar",
+
+    "settingsTheme": "Theme",
+    "settingsProfiles": "👥 Profiles",
+    "settingsAccount": "Account",
+    "settingsTasteProfile": "👤 Taste Profile",
+    "settingsTasteProfileTitle": "Share & compare profile",
+    "settingsTasteProfileSubtitle": "Export your watch profile or import a friend's",
+
+    "aiSuggestion1Label": "🎬 What's trending?",
+    "aiSuggestion1Query": "What are the best trending movies and series right now?",
+    "aiSuggestion2Label": "😂 Something funny",
+    "aiSuggestion2Query": "Recommend a hilarious comedy that's a must-watch",
+    "aiSuggestion3Label": "🔥 Thriller like Dark",
+    "aiSuggestion3Query": "I'm looking for a gripping thriller or mystery series similar to Dark",
+    "aiSuggestion4Label": "🤔 Something thought-provoking",
+    "aiSuggestion4Query": "Recommend a film or series that makes you think, profound and emotional",
+    "aiSuggestion5Label": "👨‍👩‍👧 Family night",
+    "aiSuggestion5Query": "What can a family watch together? Not too childish but family-friendly",
+    "aiSuggestion6Label": "🏆 Award-worthy",
+    "aiSuggestion6Query": "What are the best award-winning films of recent years that are a must-watch?",
+
+    "aiWelcomeTitle": "What would you like to watch?",
+    "aiWelcomeSubtitle": "Ask me for recommendations, moods,\nor specific genres!",
+
+    "aiError": "❌ An error occurred. Please try again.",
+    "aiSearchNoResult": "No result for \"{title}\"",
+    "@aiSearchNoResult": {
+        "placeholders": {
+            "title": { "type": "String" }
+        }
+    },
+    "aiSearchFailed": "Search failed",
+
+    "discoverRandomPick": "🎲 Random Pick — Let us decide!",
+
+    "aiChatSubtitle": "Your personal movie advisor",
+    "aiPoweredBy": "✨ Powered by Google Gemini",
+    "aiThinking": "ShowSonar AI is thinking...",
+    "aiInputHint": "Ask me anything...",
+    "actionCopy": "Copy",
+    "actionCopied": "Text copied",
+    "actionShare": "Share",
+    "actionCopiedForSharing": "Copied to clipboard — paste to share"
 }

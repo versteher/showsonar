@@ -131,52 +131,12 @@ class MediaCard extends ConsumerWidget {
                                 ],
                               ),
                             ),
-                            child: Row(
-                              children: [
-                                Flexible(child: _buildRatingBadge()),
-                                const Spacer(),
-                                Flexible(child: _buildTypeBadge(context)),
-                              ],
-                            ),
+                            child: _buildRatingBadge(),
                           ),
                         ),
                       ),
 
-                    // Social proof badges — decorative, card label covers info
-                    if (_socialProofLabel != null)
-                      Positioned(
-                        top: showRating ? 36 : 0,
-                        left: 0,
-                        right: 0,
-                        child: ExcludeSemantics(
-                          child: Center(
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 6,
-                                vertical: 2,
-                              ),
-                              decoration: BoxDecoration(
-                                color: _socialProofColor.withValues(
-                                  alpha: 0.85,
-                                ),
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: Text(
-                                _socialProofLabel!,
-                                style: const TextStyle(
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white,
-                                  letterSpacing: 0.3,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-
-                    // Selected providers overlay — show user's subscribed
-                    // service logos directly from prefs (no extra API call).
+                    // Selected providers overlay — max 2 logos + overflow count
                     Positioned(
                       bottom: 8,
                       left: 8,
@@ -190,40 +150,56 @@ class MediaCard extends ConsumerWidget {
 
                             if (logos.isEmpty) return const SizedBox.shrink();
 
-                            return Wrap(
-                              spacing: 4,
-                              runSpacing: 4,
-                              children: logos.map((provider) {
-                                return Container(
-                                  width: 18,
-                                  height: 18,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withValues(
-                                          alpha: 0.4,
+                            const maxVisible = 2;
+                            final visible = logos.take(maxVisible).toList();
+                            final overflow = logos.length - maxVisible;
+
+                            return Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                ...visible.map((provider) => Padding(
+                                  padding: const EdgeInsets.only(right: 4),
+                                  child: Container(
+                                    width: 18,
+                                    height: 18,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withValues(alpha: 0.4),
+                                          blurRadius: 4,
+                                          offset: const Offset(0, 1),
                                         ),
-                                        blurRadius: 4,
-                                        offset: const Offset(0, 1),
+                                      ],
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(4),
+                                      child: Image.asset(
+                                        provider.logoPath,
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (context, error, stack) =>
+                                            const Icon(Icons.play_circle, size: 14, color: Colors.white70),
                                       ),
-                                    ],
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(4),
-                                    child: Image.asset(
-                                      provider.logoPath,
-                                      fit: BoxFit.cover,
-                                      errorBuilder: (context, error, stack) =>
-                                          const Icon(
-                                            Icons.play_circle,
-                                            size: 14,
-                                            color: Colors.white70,
-                                          ),
                                     ),
                                   ),
-                                );
-                              }).toList(),
+                                )),
+                                if (overflow > 0)
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                                    decoration: BoxDecoration(
+                                      color: Colors.black.withValues(alpha: 0.6),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: Text(
+                                      '+$overflow',
+                                      style: const TextStyle(
+                                        fontSize: 9,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white70,
+                                      ),
+                                    ),
+                                  ),
+                              ],
                             );
                           },
                           loading: () => const SizedBox.shrink(),
@@ -365,93 +341,35 @@ class MediaCard extends ConsumerWidget {
     return null;
   }
 
-  /// Social proof label for this media item
-  String? get _socialProofLabel {
-    // Audience Favorite: high rating + massive vote count
-    if (media.voteAverage >= 7.5 && media.voteCount >= 10000) {
-      return '❤️ Audience Favorite';
-    }
-    // Trending: very high popularity
-    final pop = media.popularity ?? 0;
-    if (pop >= 200 && media.voteAverage >= 6.5) {
-      return '📈 Trending ↑';
-    }
-    return null;
-  }
-
-  /// Color for social proof badges
-  Color get _socialProofColor {
-    if (media.voteAverage >= 7.5 && media.voteCount >= 10000) {
-      return const Color(0xFFE91E63); // Pink for Audience Favorite
-    }
-    return const Color(0xFF2196F3); // Blue for Trending
-  }
-
-  /// Whether this media item is "Certified" quality (high rating + many votes)
-  bool get _isCertified => media.voteAverage >= 8.0 && media.voteCount >= 5000;
-
   Widget _buildRatingBadge() {
-    final certified = _isCertified;
-    final color = certified
-        ? const Color(0xFFFFD700) // Gold for certified
-        : AppTheme.getRatingColor(media.voteAverage);
-
+    final color = AppTheme.getRatingColor(media.voteAverage);
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: AppTheme.spacingXs,
         vertical: AppTheme.spacingXs,
       ),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: certified ? 0.25 : 0.2),
+        color: color.withValues(alpha: 0.2),
         borderRadius: BorderRadius.circular(AppTheme.radiusSmall),
-        border: Border.all(
-          color: color.withValues(alpha: certified ? 0.8 : 0.5),
-          width: certified ? 1.5 : 1.0,
-        ),
+        border: Border.all(color: color.withValues(alpha: 0.5)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            certified ? Icons.verified_rounded : Icons.star_rounded,
-            size: 14,
-            color: color,
-          ),
+          Icon(Icons.star_rounded, size: 12, color: color),
           const SizedBox(width: 2),
           Flexible(
             child: Text(
               media.voteAverage.toStringAsFixed(1),
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                fontSize: 12,
+                fontSize: 11,
                 fontWeight: FontWeight.bold,
                 color: color,
               ),
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildTypeBadge(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppTheme.spacingXs,
-        vertical: AppTheme.spacingXs,
-      ),
-      decoration: BoxDecoration(
-        color: AppTheme.primary.withValues(alpha: 0.2),
-        borderRadius: BorderRadius.circular(AppTheme.radiusSmall),
-      ),
-      child: Text(
-        media.type.localizedName(AppLocalizations.of(context)!),
-        overflow: TextOverflow.ellipsis,
-        style: const TextStyle(
-          fontSize: 10,
-          fontWeight: FontWeight.w600,
-          color: AppTheme.primaryLight,
-        ),
       ),
     );
   }

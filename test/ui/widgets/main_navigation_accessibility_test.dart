@@ -27,7 +27,7 @@ void main() {
           child: MainNavigationScreen(
             analyticsService: mockAnalytics,
             testScreens: List.generate(
-              5,
+              4,
               (_) => const Scaffold(body: SizedBox.shrink()),
             ),
           ),
@@ -42,8 +42,8 @@ void main() {
       await tester.pumpWidget(buildTestWidget());
       await tester.pump();
 
-      // The nav labels in EN
-      const navLabels = ['Home', 'Search', 'AI', 'My List', 'More'];
+      // The nav labels in EN — 4 tabs; AI chat is a modal button (no text label)
+      const navLabels = ['Home', 'Search', 'Library', 'Profile'];
       for (final label in navLabels) {
         // Each label appears in a Text widget — there should be a semantics
         // node for the Semantics wrapper covering it.
@@ -83,8 +83,8 @@ void main() {
       await tester.pumpWidget(buildTestWidget(locale: 'en'));
       await tester.pump();
 
-      // Search, AI, My List, More should NOT have "selected" in label
-      for (final label in ['Search', 'AI', 'My List', 'More']) {
+      // Search, Library, Profile should NOT have "selected" in label
+      for (final label in ['Search', 'Library', 'Profile']) {
         final selectedFinder = find.bySemanticsLabel(
           RegExp('$label.*selected', caseSensitive: false),
         );

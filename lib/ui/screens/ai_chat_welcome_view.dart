@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import '../../l10n/app_localizations.dart';
 import '../theme/app_theme.dart';
 import 'ai_chat_models.dart';
 
@@ -53,7 +54,7 @@ class AiChatWelcomeView extends StatelessWidget {
           const SizedBox(height: 24),
 
           Text(
-            'Was möchtest du schauen?',
+            AppLocalizations.of(context)!.aiWelcomeTitle,
             style: Theme.of(
               context,
             ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
@@ -62,7 +63,7 @@ class AiChatWelcomeView extends StatelessWidget {
           const SizedBox(height: 8),
 
           Text(
-            'Frag mich nach Empfehlungen, Stimmungen\noder bestimmten Genres!',
+            AppLocalizations.of(context)!.aiWelcomeSubtitle,
             textAlign: TextAlign.center,
             style: Theme.of(
               context,
@@ -105,24 +106,19 @@ class _SuggestionChipTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        decoration: BoxDecoration(
-          color: AppTheme.surface,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: const Color(0xFF7C4DFF).withValues(alpha: 0.3),
-          ),
-        ),
-        child: Text(
-          suggestion.label,
-          style: const TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w500,
-            color: AppTheme.textPrimary,
-          ),
+    return ActionChip(
+      onPressed: onTap,
+      backgroundColor: AppTheme.surface,
+      side: BorderSide(
+        color: const Color(0xFF7C4DFF).withValues(alpha: 0.3),
+      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      label: Text(
+        suggestion.label,
+        style: const TextStyle(
+          fontSize: 13,
+          fontWeight: FontWeight.w500,
+          color: AppTheme.textPrimary,
         ),
       ),
     ).animate().fadeIn(delay: (400 + index * 80).ms).slideY(begin: 0.2, end: 0);

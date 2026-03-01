@@ -10,13 +10,10 @@ import '../../data/models/media.dart';
 import '../theme/app_theme.dart';
 import '../widgets/media_section.dart';
 import '../widgets/streaming_filter_bar.dart';
-import '../widgets/weekly_recap_card.dart';
 import '../widgets/continue_watching_section.dart';
-import '../widgets/mood_discovery_section.dart';
 import '../widgets/hero_carousel.dart';
 import '../widgets/upcoming_card.dart';
 import '../widgets/hide_watched_toggle.dart';
-import '../widgets/genre_discover_section.dart';
 import '../widgets/filter_settings_sheet.dart';
 import '../widgets/error_retry_widget.dart';
 
@@ -37,96 +34,36 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
-  final ScrollController _scrollController = ScrollController();
-  bool _showScrollToTop = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(_onScroll);
-  }
-
-  @override
-  void dispose() {
-    _scrollController.removeListener(_onScroll);
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  void _onScroll() {
-    final show = _scrollController.offset > 600;
-    if (show != _showScrollToTop) {
-      setState(() => _showScrollToTop = show);
-    }
-  }
-
-  void _scrollToTop() {
-    AppHaptics.mediumImpact();
-    _scrollController.animateTo(
-      0,
-      duration: const Duration(milliseconds: 600),
-      curve: Curves.easeOutCubic,
-    );
-  }
-
   /// Pull-to-refresh: invalidate providers and await actual data (#9 fix)
   Future<void> _onRefresh() async {
     AppHaptics.mediumImpact();
     ref.invalidate(trendingProvider);
     ref.invalidate(upcomingProvider);
-    ref.invalidate(popularMoviesProvider);
-    ref.invalidate(popularTvSeriesProvider);
-    ref.invalidate(topRatedMoviesProvider);
     ref.invalidate(becauseYouWatchedProvider);
-    ref.invalidate(hiddenGemsProvider);
     ref.invalidate(curatedCollectionProvider);
     ref.invalidate(seasonalProvider);
-    // Await actual data instead of arbitrary delay
-    await Future.wait([
-      ref.read(trendingProvider.future),
-      ref.read(popularMoviesProvider.future),
-      ref.read(popularTvSeriesProvider.future),
-    ]);
+    await ref.read(trendingProvider.future);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Tonight's Pick FAB
-          FloatingActionButton(
-            heroTag: 'tonights_pick',
-            onPressed: () {
-              AppHaptics.mediumImpact();
-              showModalBottomSheet(
-                context: context,
-                backgroundColor: Colors.transparent,
-                isScrollControlled: true,
-                builder: (_) => const TonightsPickSheet(),
-              );
-            },
-            backgroundColor: const Color(0xFFFFD700),
-            child: const Icon(
-              Icons.auto_fix_high_rounded,
-              color: Colors.black87,
-            ),
-          ),
-          // Scroll-to-top FAB (only visible when scrolled)
-          if (_showScrollToTop) ...[
-            const SizedBox(height: 12),
-            FloatingActionButton.small(
-              heroTag: 'scroll_top',
-              onPressed: _scrollToTop,
-              backgroundColor: AppTheme.primary,
-              child: const Icon(
-                Icons.keyboard_arrow_up_rounded,
-                color: Colors.white,
-              ),
-            ),
-          ],
-        ],
+      floatingActionButton: FloatingActionButton(
+        heroTag: 'tonights_pick',
+        onPressed: () {
+          AppHaptics.mediumImpact();
+          showModalBottomSheet(
+            context: context,
+            backgroundColor: Colors.transparent,
+            isScrollControlled: true,
+            builder: (_) => const TonightsPickSheet(),
+          );
+        },
+        backgroundColor: const Color(0xFFFFD700),
+        child: const Icon(
+          Icons.auto_fix_high_rounded,
+          color: Colors.black87,
+        ),
       ),
       body: Container(
         decoration: const BoxDecoration(gradient: AppTheme.backgroundGradient),
@@ -136,7 +73,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           backgroundColor: AppTheme.surface,
           displacement: 60,
           child: CustomScrollView(
-            controller: _scrollController,
             physics: const AlwaysScrollableScrollPhysics(),
             slivers: [
               // App Bar
@@ -252,14 +188,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ),
               ),
 
-              // Weekly Recap
-              const SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.only(top: AppTheme.spacingMd),
-                  child: WeeklyRecapCard(),
-                ),
-              ),
-
               // Streaming Services Filter + Hide Watched Toggle
               SliverToBoxAdapter(
                 child: Padding(
@@ -271,14 +199,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       HideWatchedToggle(),
                     ],
                   ),
-                ),
-              ),
-
-              // Mood Discovery
-              const SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.only(top: AppTheme.spacingLg),
-                  child: MoodDiscoverySection(),
                 ),
               ),
 
@@ -320,46 +240,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     ),
                     // 🆕 Bald Verfügbar (Coming Soon)
                     _buildUpcomingSection(ref, context),
-                    // 🎬 Popular Movies
-                    _buildSection(
-                      ref: ref,
-                      context: context,
-                      provider: popularMoviesPaginationProvider,
-                      onLoadMore: () => ref.read(popularMoviesPaginationProvider.notifier).loadMore(),
-                      onRetry: () => ref.read(popularMoviesPaginationProvider.notifier).refresh(),
-                      title: AppLocalizations.of(context)!.sectionPopularMovies,
-                      heroTagPrefix: 'popular_movies',
-                    ),
-                    // 📺 Popular TV
-                    _buildSection(
-                      ref: ref,
-                      context: context,
-                      provider: popularTvPaginationProvider,
-                      onLoadMore: () => ref.read(popularTvPaginationProvider.notifier).loadMore(),
-                      onRetry: () => ref.read(popularTvPaginationProvider.notifier).refresh(),
-                      title: AppLocalizations.of(context)!.sectionPopularTv,
-                      heroTagPrefix: 'popular_tv',
-                    ),
-                    // ⭐ Top Rated
-                    _buildSection(
-                      ref: ref,
-                      context: context,
-                      provider: topRatedMoviesPaginationProvider,
-                      onLoadMore: () => ref.read(topRatedMoviesPaginationProvider.notifier).loadMore(),
-                      onRetry: () => ref.read(topRatedMoviesPaginationProvider.notifier).refresh(),
-                      title: AppLocalizations.of(context)!.sectionTopRated,
-                      heroTagPrefix: 'top_rated_movies',
-                    ),
-                    // 💎 Hidden Gems
-                    _buildSection(
-                      ref: ref,
-                      context: context,
-                      provider: hiddenGemsPaginationProvider,
-                      onLoadMore: () => ref.read(hiddenGemsPaginationProvider.notifier).loadMore(),
-                      onRetry: () => ref.read(hiddenGemsPaginationProvider.notifier).refresh(),
-                      title: '💎 Hidden Gems',
-                      heroTagPrefix: 'hidden_gems',
-                    ),
                   ]),
                 ),
               ),
@@ -373,17 +253,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         _navigateToDetail(context, media, prefix),
                     onMediaLongPress: (media) =>
                         showLongPressMenu(context, ref, media),
-                  ),
-                ),
-              ),
-
-              // 🎯 Entdecken – single genre section with tabs
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: AppTheme.spacingXl),
-                  child: GenreDiscoverSection(
-                    onMediaTap: (media, prefix) =>
-                        _navigateToDetail(context, media, prefix),
                   ),
                 ),
               ),
@@ -429,7 +298,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           MediaSection(title: title, items: const [], isLoading: true),
       error: (error, stackTrace) => ErrorRetryWidget(
         compact: true,
-        message: '$title konnte nicht geladen werden',
+        message: AppLocalizations.of(context)!.errorLoadingTitle(title),
         onRetry: onRetry,
       ),
     );

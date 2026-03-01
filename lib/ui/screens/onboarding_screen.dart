@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:stream_scout/config/providers.dart';
+import 'package:stream_scout/data/constants/countries.dart';
 import 'package:stream_scout/data/models/streaming_provider.dart';
 import 'package:stream_scout/ui/screens/onboarding_steps.dart';
-import 'package:stream_scout/ui/screens/onboarding_taste_step.dart';
 
+/// 3-step onboarding flow:
+///   Step 0 — Country + Streaming providers (combined, scrollable)
+///   Step 1 — Genre preferences
+///   Step 2 — Done / "You're all set!"
+///
+/// A "Skip" button on steps 0 and 1 lets users finish immediately.
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
 
@@ -14,18 +20,30 @@ class OnboardingScreen extends ConsumerStatefulWidget {
 }
 
 class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
+  static const int _totalPages = 3;
+
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
+  late String _selectedCountryCode;
+  late String _selectedCountryName;
   late final List<String> _selectedProviders;
   final List<int> _selectedGenres = [];
-  String _selectedCountryCode = 'DE';
-  String _selectedCountryName = 'Deutschland';
-  ThemeMode _selectedTheme = ThemeMode.dark;
 
   @override
   void initState() {
     super.initState();
+    // Auto-detect country from device locale; fall back to 'US'
+    final localeCountry =
+        WidgetsBinding.instance.platformDispatcher.locale.countryCode ?? 'US';
+    final match = netflixCountries.firstWhere(
+      (c) => c['code'] == localeCountry,
+      orElse: () =>
+          netflixCountries.firstWhere((c) => c['code'] == 'US',
+          orElse: () => netflixCountries.first),
+    );
+    _selectedCountryCode = match['code']!;
+    _selectedCountryName = match['name']!;
     _selectedProviders = List.from(
       StreamingProvider.getDefaultServiceIds(_selectedCountryCode),
     );
@@ -38,7 +56,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   }
 
   void _nextPage() {
-    if (_currentPage < 4) {
+    if (_currentPage < _totalPages - 1) {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
@@ -61,7 +79,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     final userPrefsRepo = ref.read(userPreferencesRepositoryProvider);
     final localPrefsRepo = ref.read(localPreferencesRepositoryProvider);
 
-    // Save preferences
     var prefs = await userPrefsRepo.getPreferences();
     prefs = prefs.copyWith(
       countryCode: _selectedCountryCode,
@@ -70,11 +87,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       favoriteGenreIds: _selectedGenres,
     );
     await userPrefsRepo.savePreferences(prefs);
-
-    await localPrefsRepo.setThemeMode(_selectedTheme);
     await localPrefsRepo.setHasSeenOnboarding(true);
-
-    ref.read(themeModeProvider.notifier).state = _selectedTheme;
 
     if (mounted) {
       context.go('/');
@@ -92,12 +105,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 controller: _pageController,
                 physics: const NeverScrollableScrollPhysics(),
                 onPageChanged: (index) {
-                  setState(() {
-                    _currentPage = index;
-                  });
+                  setState(() => _currentPage = index);
                 },
                 children: [
-                  OnboardingLocationStep(
+                  OnboardingLocationAndStreamingStep(
                     selectedCountryCode: _selectedCountryCode,
                     selectedCountryName: _selectedCountryName,
                     onCountrySelected: (code, name) {
@@ -110,9 +121,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                         );
                       });
                     },
-                  ),
-                  OnboardingStreamingStep(
-                    selectedCountryCode: _selectedCountryCode,
                     selectedProviders: _selectedProviders,
                     onToggleProvider: (id, selected) {
                       setState(() {
@@ -136,15 +144,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       });
                     },
                   ),
-                  OnboardingThemeStep(
-                    selectedTheme: _selectedTheme,
-                    onThemeChanged: (mode) {
-                      setState(() {
-                        _selectedTheme = mode;
-                      });
-                    },
-                  ),
-                  const OnboardingTasteStep(),
+                  const OnboardingDoneStep(),
                 ],
               ),
             ),
@@ -156,18 +156,23 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   }
 
   Widget _buildBottomControls() {
+    final isLastPage = _currentPage == _totalPages - 1;
+
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          // Back or empty placeholder
           if (_currentPage > 0)
             TextButton(onPressed: _previousPage, child: const Text('Back'))
           else
             const SizedBox(width: 64),
+
+          // Page dots
           Row(
             children: List.generate(
-              5,
+              _totalPages,
               (index) => Container(
                 margin: const EdgeInsets.symmetric(horizontal: 4),
                 width: 8,
@@ -181,19 +186,22 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               ),
             ),
           ),
-          ElevatedButton(
-            onPressed: () {
-              if (_currentPage == 1 && _selectedProviders.isEmpty) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Please select at least one provider.'),
-                  ),
-                );
-                return;
-              }
-              _nextPage();
-            },
-            child: Text(_currentPage == 4 ? 'Get Started' : 'Next'),
+
+          // Skip (non-final steps) + Next / Get Started
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (!isLastPage)
+                TextButton(
+                  onPressed: _finishOnboarding,
+                  child: const Text('Skip'),
+                ),
+              const SizedBox(width: 4),
+              ElevatedButton(
+                onPressed: _nextPage,
+                child: Text(isLastPage ? 'Get Started' : 'Next'),
+              ),
+            ],
           ),
         ],
       ),

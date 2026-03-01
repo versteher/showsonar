@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../config/providers.dart';
 import '../../data/models/media.dart';
+import '../../l10n/app_localizations.dart';
 import '../theme/app_theme.dart';
 import '../widgets/app_snack_bar.dart';
 import 'ai_chat_app_bar.dart';
@@ -23,36 +24,20 @@ class AiChatScreen extends ConsumerStatefulWidget {
 class _AiChatScreenState extends ConsumerState<AiChatScreen> {
   final TextEditingController _controller = TextEditingController();
   final ScrollController _scrollController = ScrollController();
-  final List<ChatMessage> _messages = [];
   bool _isLoading = false;
   StreamSubscription<String>? _currentStream;
 
-  static const List<SuggestionChip> _suggestions = [
-    SuggestionChip(
-      '🎬 Was ist gerade gut?',
-      'Was sind die besten Filme und Serien die gerade im Trend sind?',
-    ),
-    SuggestionChip(
-      '😂 Was Lustiges',
-      'Empfiehl mir eine richtig lustige Komödie die man gesehen haben muss',
-    ),
-    SuggestionChip(
-      '🔥 Thriller wie Dark',
-      'Ich suche einen spannenden Thriller oder Mystery-Serie ähnlich wie Dark',
-    ),
-    SuggestionChip(
-      '🤔 Zum Nachdenken',
-      'Empfiehl mir einen Film oder eine Serie die zum Nachdenken anregt, tiefgründig und emotional',
-    ),
-    SuggestionChip(
-      '👨‍👩‍👧 Familienabend',
-      'Was kann man als Familie zusammen schauen? Nicht zu kindisch aber jugendfrei',
-    ),
-    SuggestionChip(
-      '🏆 Oscar-würdig',
-      'Was sind die besten preisgekrönten Filme der letzten Jahre die man gesehen haben muss?',
-    ),
-  ];
+  List<SuggestionChip> _buildSuggestions(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return [
+      SuggestionChip(l10n.aiSuggestion1Label, l10n.aiSuggestion1Query),
+      SuggestionChip(l10n.aiSuggestion2Label, l10n.aiSuggestion2Query),
+      SuggestionChip(l10n.aiSuggestion3Label, l10n.aiSuggestion3Query),
+      SuggestionChip(l10n.aiSuggestion4Label, l10n.aiSuggestion4Query),
+      SuggestionChip(l10n.aiSuggestion5Label, l10n.aiSuggestion5Query),
+      SuggestionChip(l10n.aiSuggestion6Label, l10n.aiSuggestion6Query),
+    ];
+  }
 
   @override
   void dispose() {
@@ -82,15 +67,15 @@ class _AiChatScreenState extends ConsumerState<AiChatScreen> {
     final userMessage = text.trim();
     _controller.clear();
 
-    setState(() {
-      _messages.add(ChatMessage(text: userMessage, isUser: true));
-      _messages.add(ChatMessage(text: '', isUser: false, isStreaming: true));
-      _isLoading = true;
-    });
+    final notifier = ref.read(chatHistoryProvider.notifier);
+    notifier.add(ChatMessage(text: userMessage, isUser: true));
+    notifier.add(const ChatMessage(text: '', isUser: false, isStreaming: true));
+    setState(() => _isLoading = true);
     _scrollToBottom();
 
     final gemini = ref.read(geminiServiceProvider);
-    final aiMessageIndex = _messages.length - 1;
+    // Capture index immediately after adding both messages
+    final aiMessageIndex = ref.read(chatHistoryProvider).length - 1;
     final buffer = StringBuffer();
 
     _currentStream = gemini
@@ -99,40 +84,42 @@ class _AiChatScreenState extends ConsumerState<AiChatScreen> {
           (chunk) {
             buffer.write(chunk);
             if (mounted) {
-              setState(() {
-                _messages[aiMessageIndex] = ChatMessage(
+              notifier.updateAt(
+                aiMessageIndex,
+                ChatMessage(
                   text: buffer.toString(),
                   isUser: false,
                   isStreaming: true,
-                );
-              });
+                ),
+              );
               _scrollToBottom();
             }
           },
           onDone: () {
             if (mounted) {
-              setState(() {
-                _messages[aiMessageIndex] = ChatMessage(
+              notifier.updateAt(
+                aiMessageIndex,
+                ChatMessage(
                   text: buffer.toString(),
                   isUser: false,
                   isStreaming: false,
-                );
-                _isLoading = false;
-              });
+                ),
+              );
+              setState(() => _isLoading = false);
               _scrollToBottom();
             }
           },
           onError: (error) {
             if (mounted) {
-              setState(() {
-                _messages[aiMessageIndex] = ChatMessage(
-                  text:
-                      '❌ Ein Fehler ist aufgetreten. Bitte versuche es erneut.',
+              notifier.updateAt(
+                aiMessageIndex,
+                ChatMessage(
+                  text: AppLocalizations.of(context)!.aiError,
                   isUser: false,
                   isStreaming: false,
-                );
-                _isLoading = false;
-              });
+                ),
+              );
+              setState(() => _isLoading = false);
             }
           },
         );
@@ -140,10 +127,8 @@ class _AiChatScreenState extends ConsumerState<AiChatScreen> {
 
   void _resetChat() {
     ref.read(geminiServiceProvider).resetChat();
-    setState(() {
-      _messages.clear();
-      _isLoading = false;
-    });
+    ref.read(chatHistoryProvider.notifier).clear();
+    setState(() => _isLoading = false);
     _currentStream?.cancel();
   }
 
@@ -159,19 +144,24 @@ class _AiChatScreenState extends ConsumerState<AiChatScreen> {
       } else if (mounted) {
         AppSnackBar.showNeutral(
           context,
-          'Kein Ergebnis für "$title"',
+          AppLocalizations.of(context)!.aiSearchNoResult(title),
           icon: Icons.search_off_rounded,
         );
       }
     } catch (_) {
       if (mounted) {
-        AppSnackBar.showError(context, 'Suche fehlgeschlagen');
+        AppSnackBar.showError(
+          context,
+          AppLocalizations.of(context)!.aiSearchFailed,
+        );
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final messages = ref.watch(chatHistoryProvider);
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(gradient: AppTheme.backgroundGradient),
@@ -179,18 +169,18 @@ class _AiChatScreenState extends ConsumerState<AiChatScreen> {
           children: [
             // App bar
             AiChatAppBar(
-              hasMessages: _messages.isNotEmpty,
+              hasMessages: messages.isNotEmpty,
               onReset: _resetChat,
             ),
 
             // Chat body
             Expanded(
-              child: _messages.isEmpty
+              child: messages.isEmpty
                   ? AiChatWelcomeView(
-                      suggestions: _suggestions,
+                      suggestions: _buildSuggestions(context),
                       onSuggestionTap: _sendMessage,
                     )
-                  : _buildMessageList(),
+                  : _buildMessageList(messages),
             ),
 
             // Input area
@@ -205,16 +195,16 @@ class _AiChatScreenState extends ConsumerState<AiChatScreen> {
     );
   }
 
-  Widget _buildMessageList() {
+  Widget _buildMessageList(List<ChatMessage> messages) {
     return ListView.builder(
       controller: _scrollController,
       padding: const EdgeInsets.symmetric(
         horizontal: AppTheme.spacingMd,
         vertical: AppTheme.spacingSm,
       ),
-      itemCount: _messages.length,
+      itemCount: messages.length,
       itemBuilder: (context, index) {
-        final message = _messages[index];
+        final message = messages[index];
         return AiChatMessageBubble(
           message: message,
           onTitleTap: _searchAndNavigate,

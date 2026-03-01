@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../l10n/app_localizations.dart';
 import '../theme/app_theme.dart';
 
 /// Bottom input area for the AI chat screen.
@@ -58,8 +59,8 @@ class AiChatInputBar extends StatelessWidget {
                   ),
                   decoration: InputDecoration(
                     hintText: isLoading
-                        ? 'ShowSonar AI denkt nach...'
-                        : 'Frag mich was...',
+                        ? AppLocalizations.of(context)!.aiThinking
+                        : AppLocalizations.of(context)!.aiInputHint,
                     hintStyle: const TextStyle(
                       color: AppTheme.textMuted,
                       fontSize: 14,

@@ -87,21 +87,21 @@ class SettingsScreen extends ConsumerWidget {
                       const SizedBox(height: AppTheme.spacingXl),
 
                       // Theme Section
-                      _buildSectionTitle(context, 'Theme'),
+                      _buildSectionTitle(context, AppLocalizations.of(context)!.settingsTheme),
                       const SizedBox(height: AppTheme.spacingMd),
                       SettingsThemeSelector(prefs: prefs),
 
                       const SizedBox(height: AppTheme.spacingXl),
 
                       // Profiles Section
-                      _buildSectionTitle(context, '👥 Profiles'),
+                      _buildSectionTitle(context, AppLocalizations.of(context)!.settingsProfiles),
                       const SizedBox(height: AppTheme.spacingMd),
                       const ProfileSwitcherTile(),
 
                       const SizedBox(height: AppTheme.spacingXl),
 
                       // Account Section
-                      _buildSectionTitle(context, 'Account'),
+                      _buildSectionTitle(context, AppLocalizations.of(context)!.settingsAccount),
                       const SizedBox(height: AppTheme.spacingMd),
                       SettingsAccountCard(authState: authState),
 
@@ -119,7 +119,7 @@ class SettingsScreen extends ConsumerWidget {
                       const SizedBox(height: AppTheme.spacingXl),
 
                       // Taste Profile Section
-                      _buildSectionTitle(context, '👤 Taste Profil'),
+                      _buildSectionTitle(context, AppLocalizations.of(context)!.settingsTasteProfile),
                       const SizedBox(height: AppTheme.spacingMd),
                       _buildTasteProfileCard(context),
 
@@ -320,18 +320,18 @@ class SettingsScreen extends ConsumerWidget {
               ),
             ),
             const SizedBox(width: AppTheme.spacingMd),
-            const Expanded(
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Profil teilen & vergleichen',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    AppLocalizations.of(context)!.settingsTasteProfileTitle,
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
-                  SizedBox(height: 2),
+                  const SizedBox(height: 2),
                   Text(
-                    'Exportiere dein Sehprofil oder importiere das eines Freundes',
-                    style: TextStyle(fontSize: 12, color: AppTheme.textMuted),
+                    AppLocalizations.of(context)!.settingsTasteProfileSubtitle,
+                    style: const TextStyle(fontSize: 12, color: AppTheme.textMuted),
                   ),
                 ],
               ),

@@ -93,6 +93,196 @@ class OnboardingLocationStep extends StatelessWidget {
   }
 }
 
+/// Combined step 1: country selection + streaming services on a single scrollable page.
+class OnboardingLocationAndStreamingStep extends StatelessWidget {
+  const OnboardingLocationAndStreamingStep({
+    super.key,
+    required this.selectedCountryCode,
+    required this.selectedCountryName,
+    required this.onCountrySelected,
+    required this.selectedProviders,
+    required this.onToggleProvider,
+  });
+
+  final String selectedCountryCode;
+  final String selectedCountryName;
+  final void Function(String code, String name) onCountrySelected;
+  final List<String> selectedProviders;
+  final void Function(String id, bool selected) onToggleProvider;
+
+  @override
+  Widget build(BuildContext context) {
+    final availableProviders = StreamingProvider.getProvidersForCountry(
+      selectedCountryCode,
+    );
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const OnboardingStepHeader(
+            title: 'Welcome to ShowSonar',
+            subtitle:
+                'Where are you watching from? Pick your streaming services.',
+          ),
+          // Country selector
+          Card(
+            child: ListTile(
+              title: const Text('Country / Region'),
+              subtitle: Text(selectedCountryName),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              onTap: () async {
+                final selected =
+                    await showModalBottomSheet<Map<String, String>>(
+                      context: context,
+                      isScrollControlled: true,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(20),
+                        ),
+                      ),
+                      builder: (context) => _CountryPickerSheet(
+                        selectedCountryCode: selectedCountryCode,
+                      ),
+                    );
+                if (selected != null) {
+                  onCountrySelected(selected['code']!, selected['name']!);
+                }
+              },
+            ),
+          ),
+          const SizedBox(height: 20),
+          Text(
+            'Your Services',
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            'Select the streaming services you use.',
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          const SizedBox(height: 16),
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+              childAspectRatio: 0.8,
+            ),
+            itemCount: availableProviders.length,
+            itemBuilder: (context, index) {
+              final provider = availableProviders[index];
+              final isSelected = selectedProviders.contains(provider.id);
+
+              return GestureDetector(
+                onTap: () => onToggleProvider(provider.id, !isSelected),
+                child: Column(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: isSelected
+                              ? Theme.of(context).colorScheme.primary
+                              : Colors.transparent,
+                          width: 3,
+                        ),
+                      ),
+                      child: ClipOval(
+                        child: Image.asset(
+                          provider.logoPath,
+                          width: 64,
+                          height: 64,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              width: 64,
+                              height: 64,
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.surfaceContainerHighest,
+                              alignment: Alignment.center,
+                              child: Text(
+                                provider.name.isNotEmpty
+                                    ? provider.name
+                                          .substring(0, 1)
+                                          .toUpperCase()
+                                    : '?',
+                                style: Theme.of(context).textTheme.titleLarge
+                                    ?.copyWith(fontWeight: FontWeight.bold),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      provider.name,
+                      style: Theme.of(context).textTheme.labelSmall,
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+          const SizedBox(height: 24),
+        ],
+      ),
+    );
+  }
+}
+
+/// Step 3: completion screen shown after the user finishes setup.
+class OnboardingDoneStep extends StatelessWidget {
+  const OnboardingDoneStep({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 96,
+            height: 96,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Theme.of(context).colorScheme.primaryContainer,
+            ),
+            child: Icon(
+              Icons.check_rounded,
+              size: 56,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
+          const SizedBox(height: 32),
+          Text(
+            "You're All Set!",
+            style: Theme.of(context).textTheme.headlineMedium,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 12),
+          Text(
+            'Start discovering your next favourite\nmovie or series.',
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _CountryPickerSheet extends StatelessWidget {
   const _CountryPickerSheet({required this.selectedCountryCode});
 
